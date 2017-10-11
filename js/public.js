@@ -17,6 +17,18 @@ new function() {
 	}, false);
 };
 
+/* 提示，弹窗 */
+// tips('数据错误','tips_center',1500);
+// tips('数据错误','tips_left',1500);
+function tips(msg, className, time) {
+	var tipsDiv = $('<div class="tips ' + className + '"></div>');
+	$('body').append(tipsDiv);
+	tipsDiv.html(msg).addClass('tips_show');
+	setTimeout(function() {
+		tipsDiv.removeClass('tips_show').remove();
+	}, time);
+}
+
 /* 获取验证码 */
 function getCodefun(obj, time, sendCodeFun) {
 	var me = {};
@@ -25,7 +37,7 @@ function getCodefun(obj, time, sendCodeFun) {
 	me.time = function(obj) {
 		addClass(obj, 'disable');
 		if (me.wait == 0) {
-			obj.innerHTML = "获取验证码";
+			obj.innerHTML = "获取";
 			me.wait = time;
 			removeClass(obj, 'disable');
 		} else {
@@ -41,6 +53,27 @@ function getCodefun(obj, time, sendCodeFun) {
 		sendCodeFun();
 	}
 	return me;
+}
+/* 操作Class */
+function hasClass(obj, cls) {
+	return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+}
+function addClass(obj, cls) {
+	if (!this.hasClass(obj, cls))
+		obj.className += " " + cls;
+}
+function removeClass(obj, cls) {
+	if (hasClass(obj, cls)) {
+		var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+		obj.className = obj.className.replace(reg, ' ');
+	}
+}
+function toggleClass(obj, cls) {
+	if (hasClass(obj, cls)) {
+		removeClass(obj, cls);
+	} else {
+		addClass(obj, cls);
+	}
 }
 
 // register user info.
@@ -218,25 +251,3 @@ var Cookie = {
 }
 // Cookie.set('kk','45');
 // console.log(Cookie.get());
-
-/* 操作Class */
-function hasClass(obj, cls) {
-	return obj.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
-}
-function addClass(obj, cls) {
-	if (!this.hasClass(obj, cls))
-		obj.className += " " + cls;
-}
-function removeClass(obj, cls) {
-	if (hasClass(obj, cls)) {
-		var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-		obj.className = obj.className.replace(reg, ' ');
-	}
-}
-function toggleClass(obj, cls) {
-	if (hasClass(obj, cls)) {
-		removeClass(obj, cls);
-	} else {
-		addClass(obj, cls);
-	}
-}
