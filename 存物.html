@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>商户列表</title>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="css/public.css" rel="stylesheet" type="text/css">
     <link href="plugin/mui/css/mui.min.css" rel="stylesheet" type="text/css">
     <script src="js/public.js"></script>
     <style>
+        .mui-scroll-wrapper{top: 0.7rem;}
         .shop-li{margin-bottom:0.18rem;}
         .shop-item{display: flex;display: -webkit-flex;background-color: #fff;padding:0.18rem 0.2rem;line-height: 1;}
         .shop-item .s-img{width: 1.02rem;}
@@ -26,7 +27,18 @@
 </head>
 <body>
     <section class="sec-top">
-        
+        <div class="search-bar" id="search-bar">
+            <div class="search-form">
+                <div class="search-box">
+                    <i class="search-icon"></i>
+                    <input type="search" id="search-input" class="search-input" placeholder="输入门店、位置进行搜索" onsearch="search()">
+                </div>
+                <label class="search-label">
+                    <i class="search-icon"></i><span>输入门店、位置进行搜索</span>
+                </label>
+            </div>
+            <a href="javascript:;" id="" class="search-cancel">取消</a>
+        </div>
     </section>
     <section class="sec-cont">
         <!--下拉刷新容器-->
@@ -35,7 +47,7 @@
                 <!--数据列表-->
                 <ul class="mui-table-view mui-table-view-chevron">
                     <li class="shop-li">
-                        <a href="" class="">
+                        <a href="选择柜体.html" class="">
                             <div class="shop-item">
                                 <div class="s-img"><img src="images/list0.png" alt=""></div>
                                 <div class="s-info">
@@ -99,11 +111,36 @@
             </li>
         </ul> 
     </section>
-    <script type="text/javascript" src="plugin/zepto/zepto.js"></script>
     <script src="plugin/mui/js/mui.min.js"></script>
     <script src="plugin/mui/js/mui.pullToRefresh.js"></script>
     <script src="plugin/mui/js/mui.pullToRefresh.material.js"></script>
     <script>
+        //搜索框
+        function search(){
+            var searchInput = document.getElementById('search-input');
+            console.log(searchInput.value);
+            //alert(searchInput.value);
+        }
+        mui('.search-bar').on('tap', '.search-label', function() {
+            var searchBar = document.getElementById('search-bar'),
+            searchInput = document.getElementById('search-input');
+            addClass(searchBar,'focus-in');
+            searchInput.focus()
+        }).on('tap', '.search-cancel', function() {
+            var searchBar = document.getElementById('search-bar'),
+            searchInput = document.getElementById('search-input');
+            removeClass(searchBar,'focus-in');
+            searchInput.blur()
+        }).on('blur', '.search-input', function() {
+            var searchBar = document.getElementById('search-bar'),
+            searchInput = document.getElementById('search-input');
+            removeClass(searchBar,'focus-in');
+            searchInput.blur()
+        });
+
+        mui('body').on('tap','a',function(){document.location.href=this.href;});
+
+        //上拉 下拉
         mui.init({
             pullRefresh: {
                 container: '#pullrefresh',
@@ -117,7 +154,7 @@
             }
         });
         /**
-         * 下拉刷新具体业务实现
+         * 下拉刷新
          */
         function pulldownRefresh() {
             setTimeout(function() {
@@ -145,7 +182,7 @@
         }
         var count = 0;
         /**
-         * 上拉加载具体业务实现
+         * 上拉加载
          */
         function pullupRefresh() {
             setTimeout(function() {

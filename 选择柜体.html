@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>任意柜-共享储物柜</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <link href="plugin/mui/css/mui.min.css" rel="stylesheet" type="text/css">
+    <link href="plugin/swiper/swiper.3.1.7.min.css" rel="stylesheet" type="text/css">
+    <script src="js/public.js"></script>
+    <style>
+        .select-box{padding-bottom: 0.76rem;}
+        .select-box .ad-img{}
+        .select-box .ad-img .img{display: block;width: 100%;}
+        .select-box .s-addr{font-size: 0.23rem;color: #333;display: flex;display: -webkit-flex;align-items:center;background-color: #fff;margin-top:0.18rem;padding:0.26rem;}
+        .select-box .s-addr>img{width: 0.2rem;display: block;}
+        .select-box .s-addr>span{margin-left:0.06rem;flex: 1;-webkit-flex: 1;line-height: 1.2;}
+
+        .select-box .box-type{font-size: 0.18rem;color: #666;display: flex;-webkit-display:flex;background-color: #fff;position: relative;}
+        .select-box .box-type:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+        .select-box .box-type>li{flex: 1;-webkit-flex: 1;text-align: center;padding: 0.22rem 0;position: relative;}
+        .select-box .box-type>li:before {content: " ";position: absolute;right: 0;top: 0;width: 1px;height: 100%;border-right: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(0.5);transform: scaleX(0.5);}
+        .select-box .box-type>li:last-child:before {display: none;}
+        .select-box .box-type>li .num{font-size: 0.4rem;}
+        .select-box .box-type>li .txt{color: #999;}
+        .select-box .box-type>li .txt-grey{color: #666;}
+        .select-box .box-type>li.active .num{color: #6fc1f5;}
+        .select-box .box-type>li.active .txt{color: #6fc1f5;}
+        .select-box .box-type>li.active .txt-grey{color: #6fc1f5;}
+        .select-box .box-type>li.active:after{content: "";position: absolute;left:-1px;bottom: 0;width: 100%;height: 2px;background-color: #6fc1f5;}
+
+        .select-box .box-list{margin: 0.09rem;color: #999;font-size: 0.16rem;overflow: auto;line-height: 1;}
+        .select-box .box-list>li{float: left;width: 25%;text-align: center;}
+        .select-box .box-list>li .b-cont{background-color: #fff;border-radius: 3px;padding: 0.12rem 0;box-sizing: border-box;-webkit-box-sizing: border-box;margin: 0.09rem;border:0.02rem solid #fff;height: 1rem;}
+        .select-box .box-list>li.active .b-cont{border-color:#6fc1f5;}
+        .select-box .box-list>li .b-cont .b-num{width: 0.5rem;height: 0.5rem;line-height: 0.5rem;border-radius: 50%;background-color:#f2f2f2;margin: 0 auto 0.08rem;font-size: 0.27rem;color: #666;position: relative;}
+        .select-box .box-list>li .b-cont .b-txt{}
+        .select-box .box-list>li .full-icon{display: none;width: 0.29rem;height: 0.2rem;background: url(images/full.png) no-repeat center center;background-size: 100%;top: 0;right: -0.2rem;position: absolute;}
+        .select-box .box-list>li.full .b-cont{background-color:#999;color: #fff;border-color:#999;}
+        .select-box .box-list>li.full .full-icon{display: block;}
+    </style>
+</head>
+<body>
+    <section class="sec-top">
+        <div class="header">
+            <a class="back-btn" href="javascript:history.go(-1);"></a>
+            <div class="h-title"><span>选择柜体</span></div>
+            <a class="user-btn" href="javascript:;"></a>
+        </div>
+    </section>
+    <section class="sec-cont">
+        <div class="select-box">
+            <div class="ad-img swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img class="img" src="images/top.png" alt=""></div>
+                    <div class="swiper-slide"><img class="img" src="images/top.png" alt=""></div>
+                    <div class="swiper-slide"><img class="img" src="images/top.png" alt=""></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <p class="s-addr"><img src="images/position1.png" alt=""><span>深圳海岸城购物中心A入口深圳海岸城购物中心A入口深圳海岸城购物中心A入口</span></p>
+            <ul class="box-type">
+                <li attr-type="0" class="active">
+                    <p class="num">12</p>
+                    <p class="txt">可用<span class="txt-grey">全部</span></p>
+                </li>
+                <li attr-type="1">
+                    <p class="num">5</p>
+                    <p class="txt">可用<span class="txt-grey">小柜</span></p>
+                </li>
+                <li attr-type="2">
+                    <p class="num">6</p>
+                    <p class="txt">可用<span class="txt-grey">中柜</span></p>
+                </li>
+                <li attr-type="3">
+                    <p class="num">1</p>
+                    <p class="txt">可用<span class="txt-grey">大柜</span></p>
+                </li>
+            </ul>
+            <ul class="box-list">
+                <!--小柜-->
+                <li class="b-small" attr-type="1">
+                    <div class="b-cont">
+                        <div class="b-num">1</div>
+                        <p class="b-txt">小柜&nbsp;&nbsp;|&nbsp;&nbsp;1.5元起</p>
+                    </div>
+                </li>
+                <li class="b-small active" attr-type="1">
+                    <div class="b-cont">
+                        <div class="b-num">2</div>
+                        <p class="b-txt">小柜&nbsp;&nbsp;|&nbsp;&nbsp;1.5元起</p>
+                    </div>
+                </li>
+                <li class="b-small full" attr-type="1">
+                    <div class="b-cont">
+                        <div class="b-num">3<i class="full-icon"></i></div>
+                        <p class="b-txt">小柜&nbsp;&nbsp;|&nbsp;&nbsp;1.5元起</p>
+                    </div>
+                </li>
+                <li class="b-small" attr-type="1">
+                    <div class="b-cont">
+                        <div class="b-num">4</div>
+                        <p class="b-txt">小柜&nbsp;&nbsp;|&nbsp;&nbsp;1.5元起</p>
+                    </div>
+                </li>
+                <li class="b-small" attr-type="1">
+                    <div class="b-cont">
+                        <div class="b-num">5</div>
+                        <p class="b-txt">小柜&nbsp;&nbsp;|&nbsp;&nbsp;1.5元起</p>
+                    </div>
+                </li>
+                <!--中柜-->
+                <li class="b-mid" attr-type="2">
+                    <div class="b-cont">
+                        <div class="b-num">1</div>
+                        <p class="b-txt">中柜&nbsp;&nbsp;|&nbsp;&nbsp;1.5元起</p>
+                    </div>
+                </li>
+                <li class="b-mid" attr-type="2">
+                    <div class="b-cont">
+                        <div class="b-num">2</div>
+                        <p class="b-txt">中柜&nbsp;&nbsp;|&nbsp;&nbsp;1.5元起</p>
+                    </div>
+                </li>
+                <li class="b-mid" attr-type="2">
+                    <div class="b-cont">
+                        <div class="b-num">3</div>
+                        <p class="b-txt">中柜&nbsp;&nbsp;|&nbsp;&nbsp;1.5元起</p>
+                    </div>
+                </li>
+                <li class="b-mid" attr-type="2">
+                    <div class="b-cont">
+                        <div class="b-num">4</div>
+                        <p class="b-txt">中柜&nbsp;&nbsp;|&nbsp;&nbsp;1.5元起</p>
+                    </div>
+                </li>
+                <li class="b-mid" attr-type="2">
+                    <div class="b-cont">
+                        <div class="b-num">5</div>
+                        <p class="b-txt">中柜&nbsp;&nbsp;|&nbsp;&nbsp;1.5元起</p>
+                    </div>
+                </li>
+                <!--大柜-->
+                <li class="b-large" attr-type="3">
+                    <div class="b-cont">
+                        <div class="b-num">1</div>
+                        <p class="b-txt">大柜&nbsp;&nbsp;|&nbsp;&nbsp;2元起</p>
+                    </div>
+                </li>
+                <li class="b-large" attr-type="3">
+                    <div class="b-cont">
+                        <div class="b-num">2</div>
+                        <p class="b-txt">大柜&nbsp;&nbsp;|&nbsp;&nbsp;2元起</p>
+                    </div>
+                </li>
+                <li class="b-large" attr-type="3">
+                    <div class="b-cont">
+                        <div class="b-num">3</div>
+                        <p class="b-txt">大柜&nbsp;&nbsp;|&nbsp;&nbsp;2元起</p>
+                    </div>
+                </li>
+                <li class="b-large" attr-type="3">
+                    <div class="b-cont">
+                        <div class="b-num">4</div>
+                        <p class="b-txt">大柜&nbsp;&nbsp;|&nbsp;&nbsp;2元起</p>
+                    </div>
+                </li>
+                <li class="b-large" attr-type="3">
+                    <div class="b-cont">
+                        <div class="b-num">5</div>
+                        <p class="b-txt">大柜&nbsp;&nbsp;|&nbsp;&nbsp;2元起</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="sec-bottom">
+       <a class="next-btn" href="javascript:;">下一步</a>
+    </section>
+    <script src="plugin/zepto/zepto.js"></script>
+    <script src="plugin/swiper/swiper.3.1.7.min.js"></script>
+    <script>
+        var adImg = new Swiper('.ad-img', {
+            pagination : '.swiper-pagination',
+        });
+        $('.box-type>li').on('click',function(){
+            $(this).addClass('active').siblings().removeClass('active');
+            var type = $(this).attr('attr-type');
+            if(type=='0'){//全部
+                $('.box-list>li').css('display','block');
+            }else{//
+                $('.box-list>li').css('display','none');
+                $('.box-list>li[attr-type="'+type+'"]').css('display','block');
+            }
+        });
+        $('.box-list>li').on('click',function(){
+            if(!$(this).hasClass('full')){
+                $(this).addClass('active').siblings().removeClass('active');
+            }
+        });
+    </script>
+</html>
