@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>任意柜-共享储物柜</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <link href="plugin/mui/css/mui.min.css" rel="stylesheet" type="text/css">
+    <script src="js/public.js"></script>
+    <style>
+        .feedBack{margin: 0.18rem;}
+        .feedBack .f-textarea{width: 100%;padding: 0.2rem;height: 3.3rem;font-size: 0.22rem;border-radius: 3px;box-sizing: border-box;-webkit-box-sizing: border-box;}
+        .feedBack .f-btn{width: 100%;text-align: center;height: 0.72rem;line-height: 0.72rem;background-color: #6fc1f5;color: #fff;font-size: 0.27rem;margin-top:0.3rem;display: block;border-radius: 3px;}
+    </style>
+</head>
+<body>
+    <section class="sec-top">
+
+    </section>
+    <section class="sec-cont">
+        <div class="feedBack">
+            <textarea class="f-textarea" placeholder="请详细描述您的问题或建议，我们将及时跟进解决"></textarea>
+            <a href="javascript:;" class="f-btn">提交</a>
+        </div>
+    </section>
+    <section class="sec-bottom">
+       
+    </section>
+    <script src="plugin/zepto/zepto.js"></script>
+    <script>
+        $('.f-btn').on('click',function(){
+            var textarea = $('.f-textarea');
+            if(textarea.val()){
+                console.log('submit');
+            }else{
+                msg = '请输入问题或建议';
+                tips(msg,'tips_center',1500);
+            }
+        });
+    </script>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>任意柜-共享储物柜</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <link href="plugin/mui/css/mui.min.css" rel="stylesheet" type="text/css">
+    <link href="plugin/layer_mobile/need/layer.css" rel="stylesheet" type="text/css">
+    <script src="js/public.js"></script>
+    <style>
+        .submit-pannel{display: flex;display: -webkit-flex;font-size: 0.24rem;line-height:0.7rem;height:0.7rem;position: relative;background-color: #fff;font-size: 0.27rem;}
+        .submit-pannel:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+        .submit-pannel .s-amount{flex: 1;-webkit-flex: 1;text-align: right;padding:0 0.4rem;color: #333;}
+        .submit-pannel .s-symbol{color: #ea3e3e;font-size: 0.18rem;}
+        .submit-pannel .s-num{color: #ea3e3e;}
+        .submit-pannel .s-btn{width:1.96rem;background-color: #6fc1f5;color: #fff;text-align: center;}
+        
+        .order{}
+        .order .o-top{background:url(images/blue-bg.png) no-repeat top center;background-size: 100%;width: 100%;height: 1.74rem;text-align: center;color: #fff;font-size: 0.24rem;padding-top: 0.36rem;}
+        .order .o-top .o-box{width: 0.9rem;height: 0.9rem;line-height: 0.9rem;border-radius: 100%;background-color: #94c4f5;font-size: 0.18rem;margin: 0 auto 0.16rem;}
+        .order .o-top .o-num{font-size: 0.48rem;}
+        .order .o-top .o-addr{}
+
+        .form-row{padding:0 0.18rem;background-color: #fff;position: relative;font-size: 0.22rem;clear: both;}
+        .form-row:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+        .form-row .l-txt{padding: 0.22rem 0;min-width: 1.14rem;}
+        .form-row>span,.form-row>a,.form-row>input{display: inline-block;vertical-align: middle;}
+        .form-row .l-right{float: right;padding: 0.22rem 0.26rem;}
+        .form-row .f-input{font-size: 0.22rem;}
+        .form-row .code-btn{padding: 0.1rem 0.18rem;border-radius: 3px;background-color:#6fc1f5;color: #fff;margin-top:0.12rem; }
+        .form-row.right-row{}
+        .form-row.right-row:after{content: '';position: absolute;right: 0.22rem;top: 0.3rem;width: 0.16rem;height:0.16rem;border-width: 1px 1px 0 0;border-color: #aaa;border-style: solid;transform: rotate(45deg);}
+
+        .rule{color: #666;font-size: 0.2rem;text-align: center;margin: 0.22rem auto;}
+        .rule span,.rule a,.rule i{display: inline-block;vertical-align: middle;}
+        .rule .check-box{}
+        .rule .check-box .c-icon{width:0.18rem;height: 0.18rem;background-repeat: no-repeat;background-size: 100%;background-position: center;border:1px solid #6fc1f5;margin: 0 0.04rem;border-radius: 4px;}
+        .rule .check-box.active .c-icon{background-image: url(images/checked.png);}
+        .rule .r-txt{color: #6fc1f5;text-decoration: underline;}
+
+        .layer-c{color: #666;font-size: 0.22rem;padding: .2rem 0 0;}
+        .layer-c .layer-c-title{color: #333;font-size: 0.3rem;line-height: 0.68rem;text-align: center;}
+        .layer-c .layer-c-txt{height: 3.6rem;overflow-y: auto;padding: 0.08rem 0.5rem;text-indent: 0.4rem;line-height: 1.5;}
+        .layer-c .layer-c-btn{color: #6fc1f5;font-size: 0.27rem;line-height: 0.68rem;text-align: center;display: inline-block;width: 100%;position: relative;}
+        .layer-c .layer-c-btn:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+
+        .overTime{padding: 0.18rem;margin-top: .18rem;background-color: #fff;}
+        .overTime .o-tips{color: #999;font-size: .2rem;}
+        .overTime .o-price{color: #030303;font-size: .54rem;text-align: center;margin-top: .18rem;}
+    </style>
+</head>
+<body>
+    <section class="sec-top">
+        <div class="header">
+            <a class="back-btn" href="javascript:history.go(-1);"></a>
+            <div class="h-title"><span>续租订单</span></div>
+            <a class="user-btn" href="javascript:;"></a>
+        </div>
+    </section>
+    <section class="sec-cont">
+        <div class="order">
+            <div class="o-top">
+                <div class="o-box"><span class="o-num">3</span><span>号</span></div>
+                <p class="o-addr">深圳海岸城购物中心A入口</p>
+            </div>
+            <div class="form-row right-row">
+                <span class="l-txt">选择租用时常</span>
+                <a class="l-right" href="javascript:;">1小时</a>
+            </div>
+            <div class="overTime">
+                <p class="o-tips">您已超时1小时32分钟，最低续租2小时</p>
+                <p class="o-price">￥3.00</p>
+            </div>
+            <div class="rule"><a href="javascript:;" class="check-box"><i class="c-icon"></i><span>我已阅读并同意</span></a><a href="javascript:;" class="r-txt">《用户使用协议》</a></div>
+        </div>
+    </section>
+    <section class="sec-bottom">
+        <a class="next-btn" href="javascript:;">确定支付</a>
+    </section>
+    <script src="plugin/zepto/zepto.js"></script>
+    <script src="plugin/layer_mobile/layer.js"></script>
+    <script>
+        //倒计时
+        $('.code-btn').on('click',function(){
+            var phone = $('#phone'),
+            patten = eval(phone.attr('patt'));
+            if(phone.val()){
+                if(!patten.test(phone.val())){
+                    msg = '手机号码格式不正确';
+                    tips(msg,'tips_center',1500);
+                }else{
+                    getCodefun(this,10,function(){
+                        console.log(1);
+                    });
+                }
+            }else{
+                msg = '请输入手机号码';
+                tips(msg,'tips_center',1500);
+            }
+        });
+        //选中协议
+        $('.rule .check-box').on('click',function(){
+            $(this).toggleClass('active');
+        });
+        //用户协议
+        var pageii;
+        $('.rule .r-txt').on('click',function(){
+            var cont = '<div class="layer-c">'
+                    +       '<p class="layer-c-title">用户协议</p>'
+                    +       '<div class="layer-c-txt">'
+                    +           '<p>为了您的财产安全，请确认您本人在储物柜旁，是否确认开锁？为了您的财产安全，请确认您本人在储物柜旁，是否确认开锁？为了为了您的财产安全，请确认您本人在储物柜旁，是否确认开锁？为了您的财产安全，请确认您本人在储物柜旁，是否确认开锁？为了为了您的财产安全，请确认您本人在储物柜旁，是否确认开锁？为了您的财产安全，请确认您本人在储物柜旁，是否确认开锁？为了为了您的财产安全，请确认您本人在储物柜旁，是否确认开锁？为了您的财产安全，请确认您本人在储物柜旁，是否确认开锁？为了</p>'
+                    +       '</div>'
+                    +       '<a class="layer-c-btn" href="javascript:;" onclick="closeLayer()">知道了</a>'
+                    +  '</div>';
+            pageii = layer.open({
+                type: 1,
+                content: cont,
+                anim: 'up',
+                style: 'position:fixed; left:10%; top:15%; width:80%; border: none; -webkit-animation-duration: .5s; animation-duration: .5s;border-radius:3px;'
+            });
+        });
+        //选中协议
+        function closeLayer(){
+            layer.close(pageii);
+        }
+        
+    </script>
+</html>

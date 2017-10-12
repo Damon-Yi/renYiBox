@@ -7,10 +7,11 @@
     <link href="css/public.css" rel="stylesheet" type="text/css">
     <link href="plugin/mui/css/mui.min.css" rel="stylesheet" type="text/css">
     <link href="plugin/layer_mobile/need/layer.css" rel="stylesheet" type="text/css">
+    <link href="plugin/swiper/swiper.3.1.7.min.css" rel="stylesheet" type="text/css">
     <script src="js/public.js"></script>
     <style>
         .submit-pannel{display: flex;display: -webkit-flex;font-size: 0.24rem;line-height:0.7rem;height:0.7rem;position: relative;background-color: #fff;font-size: 0.27rem;}
-        .submit-pannel:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+        .submit-pannel:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
         .submit-pannel .s-amount{flex: 1;-webkit-flex: 1;text-align: right;padding:0 0.4rem;color: #333;}
         .submit-pannel .s-symbol{color: #ea3e3e;font-size: 0.18rem;}
         .submit-pannel .s-num{color: #ea3e3e;}
@@ -23,7 +24,7 @@
         .order .o-top .o-addr{}
 
         .form-row{padding:0 0.18rem;background-color: #fff;position: relative;font-size: 0.22rem;clear: both;}
-        .form-row:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+        .form-row:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
         .form-row .l-txt{padding: 0.22rem 0;min-width: 1.14rem;}
         .form-row>span,.form-row>a,.form-row>input{display: inline-block;vertical-align: middle;}
         .form-row .l-right{float: right;padding: 0.22rem 0.26rem;}
@@ -43,7 +44,28 @@
         .layer-c .layer-c-title{color: #333;font-size: 0.3rem;line-height: 0.68rem;text-align: center;}
         .layer-c .layer-c-txt{height: 3.6rem;overflow-y: auto;padding: 0.08rem 0.5rem;text-indent: 0.4rem;line-height: 1.5;}
         .layer-c .layer-c-btn{color: #6fc1f5;font-size: 0.27rem;line-height: 0.68rem;text-align: center;display: inline-block;width: 100%;position: relative;}
-        .layer-c .layer-c-btn:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+        .layer-c .layer-c-btn:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+
+        .popup{position: absolute;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(0,0,0,.5);z-index: 100;font-size: 0.24rem;display: none;}
+
+        .popup .p-select-time{width: 5.4rem;border-radius: 3px;padding-top: 0.34rem;color: #999;font-size: .22rem;position:absolute;top: 2.2rem;left: 50%;margin-left:-2.7rem;text-align: center;transition: all .4s ease;-webkit-transition: all .4s ease;display: none;background-color: #fff;}
+        .popup .p-select-time .c-title{margin: 0.12rem 0;color: #333;font-size: .3rem;}
+        .popup .p-select-time .c-txt{width: 4.4rem;margin: 0 auto;text-align: left;line-height:1.5;}
+        .popup .p-select-time .c-btns{position: relative;overflow:auto;}
+        .popup .p-select-time .c-btns:before{content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+        .popup .p-select-time .c-btns>a{display: block;float: left;width: 50%;text-align: center;height: 0.72rem;line-height:0.72rem;position: relative;font-size: 0.27rem;}
+        .popup .p-select-time .c-btns>a:after{content: " ";position: absolute;right: 0;top: 0;height: 100%;width: 1px;border-right: 1px solid #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(0.5);transform: scaleX(0.5);}
+        .popup .p-select-time .c-btns>a:last-child:after{display: none;}
+        .popup .p-select-time .c-btns .c-cancel{}
+        .popup .p-select-time .c-btns .c-confirm{color: #6fc1f5;}
+        .popup.open-3 {display: block;}
+        .popup.open-3 .p-select-time{display: block;}
+
+        .time-swiper{height: 108px;background-color: #f0f1f5;margin-top:0.3rem;color: #333;}
+        .time-swiper:before {content: " ";position: absolute;left: 0;top: 36px;width: 100%;height: 1px;border-top: 1px solid #6fc0f5;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+        .time-swiper:after {content: " ";position: absolute;left: 0;bottom: 36px;width: 100%;height: 1px;border-bottom: 1px solid #6fc0f5;-webkit-transform-origin: 0 100%;transform-origin: 0 100%;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+
+        .time-swiper .swiper-slide{height: 36px;line-height: 36px;}
     </style>
 </head>
 <body>
@@ -62,7 +84,7 @@
             </div>
             <div class="form-row right-row">
                 <span class="l-txt">选择租用时常</span>
-                <a class="l-right" href="javascript:;">1小时</a>
+                <a class="l-right select-time" href="javascript:;" data-time='1'>1小时</a>
             </div>
             <div class="form-row">
                 <span class="l-txt">手机号码</span>
@@ -79,12 +101,72 @@
     <section class="sec-bottom">
         <div class="submit-pannel">
             <div class="s-amount"><span>总额：</span><span class="s-symbol">￥</span><span class="s-num">1.5</span></div>
-            <a class="s-btn" href="javascript:;">确定支付</a>
+            <a class="s-btn" href="开柜成功.html">确定支付</a>
         </div>
     </section>
+    <div class="popup">
+        <!--选择时长-->
+        <div class="p-select-time">
+            <p class="c-title">选择时长</p>
+            <p class="c-txt">1小时起租，每小时续租，小型柜1元/小时，中型柜1.5元/小时，大型柜2元/小时。</p>
+            <div class="time-swiper swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"></div>
+                    <div class="swiper-slide">1小时</div>
+                    <div class="swiper-slide">2小时</div>
+                    <div class="swiper-slide">3小时</div>
+                    <div class="swiper-slide">4小时</div>
+                    <div class="swiper-slide">5小时</div>
+                    <div class="swiper-slide">6小时</div>
+                    <div class="swiper-slide">7小时</div>
+                    <div class="swiper-slide">8小时</div>
+                    <div class="swiper-slide">9小时</div>
+                    <div class="swiper-slide">10小时</div>
+                    <div class="swiper-slide">11小时</div>
+                    <div class="swiper-slide">12小时</div>
+                    <div class="swiper-slide">13小时</div>
+                    <div class="swiper-slide">14小时</div>
+                    <div class="swiper-slide">15小时</div>
+                    <div class="swiper-slide">16小时</div>
+                    <div class="swiper-slide">17小时</div>
+                    <div class="swiper-slide">18小时</div>
+                    <div class="swiper-slide">19小时</div>
+                    <div class="swiper-slide">20小时</div>
+                    <div class="swiper-slide">21小时</div>
+                    <div class="swiper-slide">22小时</div>
+                    <div class="swiper-slide">23小时</div>
+                    <div class="swiper-slide">24小时</div>
+                    <div class="swiper-slide"></div>
+                </div>
+            </div>
+            <div class="c-btns">
+                <a class="c-cancel" class="o-cancel" href="javascript:;">取消</a>
+                <a class="c-confirm" href="javascript:;">确定</a>
+            </div>
+        </div>
+    </div>
     <script src="plugin/zepto/zepto.js"></script>
     <script src="plugin/layer_mobile/layer.js"></script>
+    <script src="plugin/swiper/swiper.3.1.7.min.js"></script>
     <script>
+        //选择时长
+        var timeSwiper;
+        $('.select-time').on('click',function(){
+            $('.popup').addClass('open-3');
+            timeSwiper = new Swiper('.time-swiper', {
+                slidesPerView : 3,
+                direction : 'vertical',
+            });
+        });
+        $('.p-select-time .c-cancel').on('click',function(){
+            $('.popup').removeClass('open-3');
+        });
+        $('.p-select-time .c-confirm').on('click',function(){
+            var time = timeSwiper.activeIndex + 1;
+            $('.select-time').text(time+'小时');
+            $('.select-time').attr("data-time",time);
+            $('.popup').removeClass('open-3');
+        });
         //倒计时
         $('.code-btn').on('click',function(){
             var phone = $('#phone'),
@@ -128,6 +210,5 @@
         function closeLayer(){
             layer.close(pageii);
         }
-        
     </script>
 </html>
