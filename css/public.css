@@ -123,10 +123,18 @@ body{background-color: #f0f1f5;}
 .tips_left{text-align: left;width:236px;}
 
 @-webkit-keyframes animDialog {
- from{-webkit-transform: scale(.05);transform: scale(.05);}
- to{-webkit-transform: scale(1);transform: scale(1);}
+	from{-webkit-transform: scale(.05);transform: scale(.05);}
+	to{-webkit-transform: scale(1);transform: scale(1);}
 }
 @keyframes animDialog {
-  from{-webkit-transform: scale(.05);transform: scale(.05);}
-  to{-webkit-transform: scale(1);transform: scale(1);}
+	from{-webkit-transform: scale(.05);transform: scale(.05);}
+	to{-webkit-transform: scale(1);transform: scale(1);}
+}
+@-webkit-keyframes bottomIn {
+	from{bottom:-100%;}
+	to{bottom:0;}
+}
+@keyframes bottomIn {
+	from{bottom:-100%;}
+	to{bottom:0;}
 }

@@ -18,16 +18,16 @@
 
         .popup{position: absolute;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(0,0,0,.5);z-index: 100;font-size: 0.24rem;display: none;}
 
-        .popup .p-open{position:absolute;bottom: -100%;left: 10%;width: 80%;text-align: center;margin: 0 auto;transition: all .4s ease;-webkit-transition: all .4s ease;display: none;}
+        .popup .p-open{position:absolute;bottom: -2.4rem;left: 10%;width: 80%;text-align: center;margin: 0 auto;display: none;-webkit-animation: bottomIn .4s ease-out;animation: bottomIn .4s ease-out;-webkit-backface-visibility: hidden;backface-visibility: hidden;-webkit-perspective: 1000;perspective: 1000;-webkit-transform-style: preserve-3d;}
         .popup .p-open .o-option{}
-        .popup .p-open .o-option>li{background-color: #fff;padding: 0.16rem;border-bottom: 1px solid #ddd;}
+        .popup .p-open .o-option>li{background-color: #fff;padding: 0.16rem;margin-bottom:0.01rem; }
         .popup .p-open .o-option>li:first-child{border-top-left-radius:5px;border-top-right-radius: 5px;}
-        .popup .p-open .o-option>li:last-child{border-bottom-left-radius:5px;border-bottom-right-radius: 5px;border:none;}
+        .popup .p-open .o-option>li:last-child{border-bottom-left-radius:5px;border-bottom-right-radius: 5px;}
         .popup .p-open .o-cancel{display: block;padding: 0.16rem;background-color: #fff;margin: 0.2rem 0;border-radius: 5px;}
         .popup.open-1 {display: block;}
         .popup.open-1 .p-open{bottom:0;display: block;}
 
-        .popup .p-open-confirm{width: 4.4rem;border-radius: 3px;padding-top: 0.34rem;color: #666;font-size: .22rem;position:absolute;top: 3.3rem;left: 50%;margin-left:-2.2rem;text-align: center;transition: all .4s ease;-webkit-transition: all .4s ease;display: none;background-color: #fff;}
+        .popup .p-open-confirm{width: 4.4rem;border-radius: 3px;padding-top: 0.34rem;color: #666;font-size: .22rem;position:absolute;top: 3.3rem;left: 50%;margin-left:-2.2rem;text-align: center;display: none;background-color: #fff;-webkit-animation: animDialog .4s ease-out;animation: animDialog .4s ease-out;-webkit-backface-visibility: hidden;backface-visibility: hidden;-webkit-perspective: 1000;perspective: 1000;-webkit-transform-style: preserve-3d;}
         .popup .p-open-confirm .c-title{margin: 0.12rem 0;color: #333;font-size: .3rem;}
         .popup .p-open-confirm .c-txt{width: 3.4rem;margin: 0 auto;text-align: left;line-height:1.5;}
         .popup .p-open-confirm .c-btns{position: relative;overflow:auto;margin-top:0.34rem; }

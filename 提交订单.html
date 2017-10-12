@@ -160,12 +160,14 @@
         });
         $('.p-select-time .c-cancel').on('click',function(){
             $('.popup').removeClass('open-3');
+            timeSwiper.destroy();
         });
         $('.p-select-time .c-confirm').on('click',function(){
             var time = timeSwiper.activeIndex + 1;
             $('.select-time').text(time+'小时');
             $('.select-time').attr("data-time",time);
             $('.popup').removeClass('open-3');
+            timeSwiper.destroy();
         });
         //倒计时
         $('.code-btn').on('click',function(){
