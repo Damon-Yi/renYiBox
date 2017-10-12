@@ -46,7 +46,7 @@ body{background-color: #f0f1f5;}
 .sec-cont{font-size: 0.18rem;}
 .mui-pull{color: #999 !important;}
 .mui-pull-caption{font-size: 14px !important;font-weight: normal !important;}
-.mui-scroll-wrapper{padding-bottom: 0.82rem;}
+
 /*底部*/
 .sec-bottom{position: fixed;bottom: 0;left: 0;width: 100%;z-index: 10;}
 /*导航*/
