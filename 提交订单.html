@@ -82,7 +82,7 @@
                 <div class="o-box"><span class="o-num">3</span><span>号</span></div>
                 <p class="o-addr">深圳海岸城购物中心A入口</p>
             </div>
-            <div class="form-row right-row">
+            <div class="form-row right-row select-time-row">
                 <span class="l-txt">选择租用时常</span>
                 <a class="l-right select-time" href="javascript:;" data-time='1'>1小时</a>
             </div>
@@ -151,7 +151,7 @@
     <script>
         //选择时长
         var timeSwiper;
-        $('.select-time').on('click',function(){
+        $('.select-time-row').on('click',function(){
             $('.popup').addClass('open-3');
             timeSwiper = new Swiper('.time-swiper', {
                 slidesPerView : 3,

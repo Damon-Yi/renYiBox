@@ -48,7 +48,7 @@
 
         .overTime{padding: 0.18rem;margin-top: .18rem;background-color: #fff;}
         .overTime .o-tips{color: #999;font-size: .2rem;}
-        .overTime .o-price{color: #030303;font-size: .54rem;text-align: center;margin-top: .18rem;}
+        .overTime .o-price{color: #030303;font-size: .54rem;text-align: center;margin-top: .18rem;padding: 0.18rem 0;}
 
         .popup{position: absolute;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(0,0,0,.5);z-index: 100;font-size: 0.24rem;display: none;}
 
@@ -86,7 +86,7 @@
                 <div class="o-box"><span class="o-num">3</span><span>号</span></div>
                 <p class="o-addr">深圳海岸城购物中心A入口</p>
             </div>
-            <div class="form-row right-row">
+            <div class="form-row right-row select-time-row">
                 <span class="l-txt">选择租用时常</span>
                 <a class="l-right select-time" href="javascript:;" data-time='1'>1小时</a>
             </div>
@@ -147,9 +147,8 @@
     <script>
         //选择时长
         var timeSwiper;
-        $('.select-time').on('click',function(){
+        $('.select-time-row').on('click',function(){
             $('.popup').addClass('open-3');
-            $('')
             timeSwiper = new Swiper('.time-swiper', {
                 slidesPerView : 3,
                 direction : 'vertical',
