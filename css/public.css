@@ -43,7 +43,7 @@ body{background-color: #f0f1f5;}
 /*头部*/
 .sec-top{}
 /*内容*/
-.sec-cont{font-size: 0.18rem;}
+.sec-cont{font-size: 0.2rem;}
 .mui-pull{color: #999 !important;}
 .mui-pull-caption{font-size: 14px !important;font-weight: normal !important;}
 
@@ -53,8 +53,8 @@ body{background-color: #f0f1f5;}
 .nav-bar{display: flex;display: -webkit-flex;background-color: #fff;}
 .nav-bar:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
 .nav-bar li{flex: 1;-webkit-flex: 1;text-align: center;padding: 0.12rem 0;}
-.nav-bar li .nav-a{color: #999;font-size: 0.16rem;line-height: 1;}
-.nav-bar li .nav-a .nav-img{display:block;margin:0 auto 0.12rem;width: 0.3rem;height: 0.3rem;background-repeat: no-repeat;background-size: contain;background-position: center;}
+.nav-bar li .nav-a{color: #999;font-size: 0.2rem;line-height: 1;}
+.nav-bar li .nav-a .nav-img{display:block;margin:0 auto 0.12rem;width: 0.36rem;height: 0.36rem;background-repeat: no-repeat;background-size: contain;background-position: center;}
 .nav-bar li .nav-a .nav-img-0{background-image: url(../images/icon0.png);}
 .nav-bar li .nav-a .nav-img-1{background-image: url(../images/icon1.png);}
 .nav-bar li .nav-a .nav-img-2{background-image: url(../images/icon2.png);}
@@ -89,7 +89,7 @@ body{background-color: #f0f1f5;}
 .order-item{background-color: #fff;padding:0.18rem 0.2rem;line-height: 1;position: relative;}
 .order-item .o-op{}
 .order-item .o-btn-wrap{float: right;}
-.order-item .o-btn-wrap .o-btn{display: inline-block;vertical-align: middle;padding:0.1rem 0.12rem;background-color: #70c1f6;color: #fff;margin: 0 0.04rem;border-radius: 3px;border: 1px solid #70c1f6;}
+.order-item .o-btn-wrap .o-btn{display: inline-block;vertical-align: middle;padding:0.12rem 0.14rem;background-color: #70c1f6;color: #fff;margin: 0 0.04rem;border-radius: 3px;border: 1px solid #70c1f6;}
 .order-item .o-btn-wrap .o-btn.o-btn-blank{color: #70c1f6;background-color: #fff;}
 .order-item .o-title{font-size: 0.26rem;color: #333;}
 .order-item .o-img{width: 1.02rem;height: 1.02rem;}
