@@ -106,7 +106,7 @@ body{background-color: #f0f1f5;}
 .order-item .o-addr:last-child{margin-bottom: 0;}
 .order-item .o-addr>img{width: 0.2rem;display: block;}
 .order-item .o-addr>span{margin-left:0.06rem;flex: 1;-webkit-flex: 1;line-height: 1.2;}
-.order-item .o-status{display: block;width: 0.9rem;height: 0.9rem;position: absolute;bottom: 0.9rem;right: 0.18rem;background-repeat:no-repeat;background-position: 0 0;background-size: contain;}
+.order-item .o-status{display: block;width: 0.9rem;height: 0.9rem;position: absolute;bottom: 0.6rem;right: 0.18rem;background-repeat:no-repeat;background-position: 0 0;background-size: contain;}
 .order-item .o-status.use{background-image:url(../images/status-use.png); }
 .order-item .o-status.timeOut{background-image:url(../images/status-overtime.png); }
 .order-item .o-status.end{background-image:url(../images/status-end.png); }
@@ -138,3 +138,7 @@ body{background-color: #f0f1f5;}
 	from{bottom:-100%;}
 	to{bottom:0;}
 }
+
+.no-data{text-align: center;margin: .3rem auto;}
+.no-data .no-img{display: block;width: 1.5rem;height: 1.5rem;margin: .2rem auto;}
+.no-data .no-txt{color: #999;font-size: .26rem;}
