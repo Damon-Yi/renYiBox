@@ -30,7 +30,7 @@ function tips(msg, className, time) {
 }
 
 /* 获取验证码 */
-function getCodefun(obj, time, sendCodeFun) {
+/*function getCodefun(obj, time, sendCodeFun) {
 	var me = {};
 	me.obj = obj;
 	me.wait = time;
@@ -53,6 +53,42 @@ function getCodefun(obj, time, sendCodeFun) {
 		sendCodeFun();
 	}
 	return me;
+}*/
+var getCodefun = function(btn,time,fn){
+    var me = {};
+    me.btn = btn;
+    me.wait= time;
+    me.callBack = fn;
+    me.show = function(obj) {
+        $(me.btn).attr("disabled","disabled");
+        me.wait--;
+        $(me.btn).text(me.wait+"秒");
+        if(me.wait == -1){
+            $(me.btn).removeAttr("disabled");
+            $(me.btn).text("获取");
+            return ;
+        }else if(me.wait == 0){
+            $(me.btn).removeAttr("disabled");
+            $(me.btn).text("重新获取");
+            me.wait = time;
+            return ;
+        }else if(me.wait>0){
+            setTimeout(function(){
+                me.show(me.btn);
+            }, 1000);
+        }
+    };
+    me.init = function(){
+        if($(me.btn).attr("disabled")!="disabled"){
+            me.show();
+        	me.callBack(me);
+        }
+    };
+    me.reset = function(){
+        me.wait = 0;
+    };
+    me.init();
+    return me;
 }
 /* 操作Class */
 function hasClass(obj, cls) {

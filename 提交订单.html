@@ -112,7 +112,7 @@
             <div class="time-swiper swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide"></div>
-                    <div class="swiper-slide">1小时</div>
+                    <div class="swiper-slide" data-val="1">1小时</div>
                     <div class="swiper-slide">2小时</div>
                     <div class="swiper-slide">3小时</div>
                     <div class="swiper-slide">4小时</div>
@@ -163,7 +163,8 @@
             timeSwiper.destroy();
         });
         $('.p-select-time .c-confirm').on('click',function(){
-            var time = timeSwiper.activeIndex + 1;
+            var index = timeSwiper.activeIndex + 1;
+            console.log($(timeSwiper.slides[index]).attr('data-val'))
             $('.select-time').text(time+'小时');
             $('.select-time').attr("data-time",time);
             $('.popup').removeClass('open-3');
@@ -178,8 +179,14 @@
                     msg = '手机号码格式不正确';
                     tips(msg,'tips_center',1500);
                 }else{
-                    getCodefun(this,10,function(){
-                        console.log(1);
+                    getCodefun(this,10,function(e){
+                        console.log(e);
+
+                        setTimeout(function(){
+                            tips('发送失败','tips_center',1500);
+                            e.reset();
+                        }, 2000);
+
                     });
                 }
             }else{
