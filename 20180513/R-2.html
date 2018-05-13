@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>任意柜-共享储物柜</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="lib/weui.min.css">
+    <link rel="stylesheet" href="css/jquery-weui.css">
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <script src="js/public.js"></script>
+    <style>
+
+      .next-btn{width: 93%;height: .8rem;line-height: .8rem;text-align: center;color: #fff;background-color: #70c1f6;margin: .8rem auto .2rem;border-radius: .8rem;}
+      .next-btn:active{background-color: #6fc1f5;}
+
+      .user-wrap{height: 2.05rem;background-color: #70c1f6;padding-top: .65rem;}
+      .user-wrap>img{display: block;margin:0 auto;width: 1.4rem;height: 1.4rem;border-radius: 100%;}
+
+      .s-cell>span,.s-cell>input,.s-cell>a{display: inline-block;vertical-align: middle;}
+      .s-cell>span{width: 1.6rem;color:#666;font-size: .24rem;}
+      .s-cell>input{width: 1.6rem;color:#999;font-size: .24rem;height: .4rem;width: 2.5rem;}
+      .code-btn{color: #70c1f6;font-size: .2rem;padding: .1rem .14rem .08rem;border-radius: .34rem;border: 1px solid #70c1f6;min-width: 1rem;text-align: center;}
+    </style>
+  </head>
+  <body ontouchstart>
+    <div class="sec-top">
+      <div class="header">
+          <a class="back-btn" href="javascript:history.go(-1);"></a>
+          <div class="h-title"><span>绑定用户</span></div>
+      </div>
+    </div>
+    <section class="sec-cont">
+      <div class="user-wrap"><img src="./images/icon-1.png" alt=""></div>
+      <div class="s-cells">
+        <div class="s-cell">
+          <span>姓名</span><input id="name" type="text" placeholder="请输入姓名">
+        </div>
+        <div class="s-cell">
+          <span>手机号码</span><input id="phone" type="tel" placeholder="请输入手机号码" maxlength="11" patt='/^1(3|4|5|7|8)[0-9]\d{8}$/'>
+        </div>
+        <div class="s-cell">
+          <span>验证码</span><input id="codeVal" type="text" placeholder="请输入验证码" maxlength="6"><a id="code" class="code-btn" href="javascript:;">获取验证码</a>
+        </div>
+      </div>
+      <a class="next-btn b-confirm" href="javascript:;">确认绑定</a>
+    </section>
+
+    <script src="lib/jquery-2.1.4.js"></script>
+    <script src="js/swiper.js"></script>
+    <script src="lib/fastclick.js"></script>
+    <script>
+      $(function() {
+        FastClick.attach(document.body);
+      });
+    </script>
+    <script src="js/jquery-weui.js"></script>
+    <script>
+      //提交
+      $('.b-confirm').on('click',function(){
+        var phone = $('#phone'),
+            patten = eval(phone.attr('patt')),
+            name = $('#name'),
+            code = $('#codeVal');
+        if(!name.val()){
+          msg = '请输入姓名';
+          tips(msg,'tips_center',1500);
+          return;
+        }
+        if(!phone.val()){
+            msg = '请输入手机号码';
+            tips(msg,'tips_center',1500);
+            return;
+        }
+        if(!patten.test(phone.val())){
+            msg = '手机号码格式不正确';
+            tips(msg,'tips_center',1500);
+            return;
+        }
+        if(!code.val()){
+            msg = '请输入验证码';
+            tips(msg,'tips_center',1500);
+            return;
+        }
+        console.log(11);
+      });
+
+      //倒计时
+      $('.code-btn').on('click',function(){
+        var phone = $('#phone'),
+            patten = eval(phone.attr('patt'));
+        if(phone.val()){
+            if(!patten.test(phone.val())){
+                msg = '手机号码格式不正确';
+                tips(msg,'tips_center',1500);
+            }else{
+                getCodefun(this,10,function(e){
+                    console.log(e);
+                    setTimeout(function(){
+                        tips('发送失败','tips_center',1500);
+                        e.reset();
+                    }, 2000);
+                });
+            }
+        }else{
+            msg = '请输入手机号码';
+            tips(msg,'tips_center',1500);
+        }
+      });
+    </script>
+  </body>
+</html>

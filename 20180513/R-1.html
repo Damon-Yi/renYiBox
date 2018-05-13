@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>任意柜-共享储物柜</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="lib/weui.min.css">
+    <link rel="stylesheet" href="css/jquery-weui.css">
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <script src="js/public.js"></script>
+    <style>
+      .swiper-container {width: 100%;} 
+      .swiper-container img {display: block;width: 100%;height: 3.5rem;}
+
+      .p-title-wrap{}
+      .p-title-wrap>img,.p-title-wrap>span{display: inline-block;vertical-align: middle;}
+      .p-title-wrap .p-icon{width: .36rem;margin-right: .08rem;}
+      .p-title-wrap .p-title{color: #333;font-size: .24rem;}
+      .p-title-wrap .p-right{color: #6fc1f5;font-size: .2rem;float: right;margin-top: .04rem;}
+
+      .s-info-p{color: #575757;font-size: .2rem;margin-bottom: .06rem;}
+      .s-info-p:last-child{margin-bottom: 0;}
+      .s-info-p>img,.s-info-p>span{display: inline-block;vertical-align: middle;}
+      .s-info-p>img{width: .22rem;margin-right: .1rem;}
+
+      .o-info-wrap{margin: .2rem;height: 2rem;}
+      .o-info-wrap .o-info{width:47.8%;float: left;margin-right: 4.4%;background-color: #fff;border-radius: .1rem;}
+      .o-info-wrap .o-info:last-child{margin-right: 0;}
+      .o-info-wrap .o-p1{color: #333;font-size: .24rem;margin-top: .24rem;}
+      .o-info-wrap .o-p2{color: #fff;font-size: .17rem;background-color: #6fc1f5;display: inline-block;width: 1.4rem;text-align: center;height: .32rem;line-height: .32rem;position: relative;left: -.1rem;top: .1rem;}
+      .o-info-wrap .o-p2:after{content: '';display: block;position: absolute;right: 0;top: 0;border-width: .16rem;border-style: solid;border-color: transparent #fff transparent transparent;}
+      .o-info-wrap .o-p3{color: #575757;font-size: .17rem;margin:.14rem 0;text-align: center;}
+      .o-info-wrap .o-p4{color: #575757;font-size: .17rem;}
+      .o-info-wrap .o-p4>span{color: #333;font-weight: bold;margin: 0 .04rem;}
+      .o-info-wrap .o-wrap{overflow: auto;}
+      .o-info-wrap .o-wrap .o-left{width: 55%;float: left;text-align: center;}
+      .o-info-wrap .o-wrap .o-icon{width: .68rem;height:1rem;display: inline-block;vertical-align: middle;margin-right: .24rem;}
+
+      .next-btn{width: 93%;height: .8rem;line-height: .8rem;text-align: center;color: #fff;background-color: #70c1f6;margin: .8rem auto .2rem;border-radius: .8rem;}
+      .next-btn:active{background-color: #6fc1f5;}
+    </style>
+  </head>
+  <body ontouchstart>
+    <div class="sec-top">
+      <div class="header">
+          <a class="back-btn" href="javascript:history.go(-1);"></a>
+          <div class="h-title"><span>海岸城幸福便利存包处</span></div>
+          <a class="user-btn" href="javascript:;"></a>
+      </div>
+    </div>
+    <section class="sec-cont">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="./images/R-1.jpg" /></div>
+          <div class="swiper-slide"><img src="./images/R-1.jpg" /></div>
+          <div class="swiper-slide"><img src="./images/R-1.jpg" /></div>
+        </div>
+      </div>
+      <div class="s-cells">
+        <div class="s-cell">
+          <div class="p-title-wrap"><img class="p-icon" src="./images/shop.png" alt=""> <span class="p-title">海岸城幸福便利存包处</span><span class="p-right">153m</span></div>
+        </div>
+      </div>
+      <div class="s-cells">
+        <div class="s-cell">
+          <p class="s-info-p"><img src="./images/position.png" alt=""><span>广东省深圳市南山区文心六路海岸城旁</span></p>
+          <p class="s-info-p"><img src="./images/time.png" alt=""><span>周一至周日    8:00 - 21:30</span></p>
+        </div>
+      </div>
+      <div class="o-info-wrap">
+          <div class="o-info">
+            <p class="o-p2">¥10元/件/天 </p>
+            <div class="o-wrap">
+              <div class="o-left">
+                <p class="o-p1">小行李</p>
+                <p class="o-p4">还可存<span>3</span>件</p>
+              </div>
+              <img class="o-icon" src="images/bag.png" alt="">
+            </div>
+            <p class="o-p3">背包、手提包、手提行李等</p>
+          </div>
+          <div class="o-info">
+            <p class="o-p2">¥15元/件/天 </p>
+            <div class="o-wrap">
+              <div class="o-left">
+                <p class="o-p1">大型行李</p>
+                <p class="o-p4">还可存<span>3</span>件</p>
+              </div>
+              <img class="o-icon" src="images/box.png" alt="">
+            </div>
+            <p class="o-p3">行李箱、婴儿车、大型背包等</p>
+          </div>
+      </div>
+      <a class="next-btn" href="javascript:;">我要寄存</a>
+    </section>
+
+    <script src="lib/jquery-2.1.4.js"></script>
+    <script src="js/swiper.js"></script>
+    <script src="lib/fastclick.js"></script>
+    <script>
+      $(function() {
+        FastClick.attach(document.body);
+      });
+    </script>
+    <script src="js/jquery-weui.js"></script>
+    <script>
+      $(document)
+      .on('click', '.rule .check-box', function() {
+        $(this).toggleClass('active');
+      })
+      .on('click', '.s-confirm', function() {
+        var startTime = $("#startTime"),
+            endTime = $("#endTime"),
+            smallNum = $("#smallNum"),
+            bigNum = $("#bigNum");
+        console.log(startTime.val())
+        console.log(endTime.val())
+        console.log(smallNum.val())
+        console.log(bigNum.val())
+      })
+
+      $(".swiper-container").swiper({
+        loop: true,
+        autoplay: 3000
+      });
+
+    </script>
+  </body>
+</html>
