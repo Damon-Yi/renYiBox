@@ -61,13 +61,13 @@
 
       .weui-popup__modal{background-color: #fff;}
 
-      .weui-picker-modal{height: 200px;}
+      .weui-picker-modal{height: 260px;}
       .toolbar{font-size: 17px;}
-      .toolbar .picker-button{height: 44px;line-height: 44px;padding:0 10px;}
+      .toolbar .picker-button{height: 44px;line-height: 44px;padding:0 10px;color: #6fc1f5;}
       .toolbar .title{font-size: 17px;line-height: 44px;}
       .toolbar .toolbar-inner{height: 44px;}
       .weui-picker-modal .picker-items{font-size: 20px;}
-      .weui-picker-modal .picker-modal-inner{height: 150px;}
+      .weui-picker-modal .picker-modal-inner{height: 216px;}
       
       .picker-calendar-week-days{height: 18px;}
       .picker-calendar-month-picker a.icon-only, .picker-calendar-year-picker a.icon-only{height: 44px;line-height: 44px;}
@@ -112,7 +112,7 @@
                   <img class="o-icon" src="images/bag.png" alt="">
                   <div class="o-count">
                       <a class="o-count-btn o-count-decrease"></a>
-                      <input id="smallNum" class="o-count-number" type="number" value="0" />
+                      <input id="smallNum" class="o-count-number" type="tel" value="0" data-price="10"/>
                       <a class="o-count-btn o-count-increase"></a>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                     <img class="o-icon" src="images/box.png" alt="">
                     <div class="o-count">
                         <a class="o-count-btn o-count-decrease"></a>
-                        <input id="bigNum" class="o-count-number" type="number" value="0" />
+                        <input id="bigNum" class="o-count-number" type="tel" value="0" data-price="15"/>
                         <a class="o-count-btn o-count-increase"></a>
                       </div>
                   </div>
@@ -138,7 +138,7 @@
     </section>
     <section class="sec-bottom">
       <div class="s-b-wrap">
-        <div class="s-b-left"><span>请到店支付</span><span class="s-money"><span class="s-symbol">￥</span><span class="s-int">25</span><span class="s-float">.00元</span></span></div>
+        <div class="s-b-left"><span>请到店支付</span><span class="s-money"><span class="s-symbol">￥</span><span class="s-int">0</span><span class="s-float">.00元</span></span></div>
         <div class="s-b-right s-confirm"><span>确认订单</span></div>
       </div>
     </section>
@@ -161,6 +161,8 @@
 
       $(function() {
         FastClick.attach(document.body);
+
+        $('.sec-cont').height($(window).height() - $('.sec-top').height() - $('.sec-bottom').height()-30); // fix闪屏
       });
 
       $('.rule .check-box').on('click', function() {
@@ -172,10 +174,25 @@
             endTime = $("#endTime"),
             smallNum = $("#smallNum"),
             bigNum = $("#bigNum");
-        console.log(startTime.val())
-        console.log(endTime.val())
-        console.log(smallNum.val())
-        console.log(bigNum.val())
+        if(startTime.val() == ''){
+          msg = '请选择存入时间';
+          tips(msg,'tips_center',1500);
+          return;
+        }
+        if(endTime.val() == ''){
+            msg = '请选择取出时间';
+            tips(msg,'tips_center',1500);
+            return;
+        }
+        if(!checkDates(startTime.val(),endTime.val(),6)){
+          return;
+        }
+        if(smallNum.val() == '0'&&bigNum.val() == '0'){
+            msg = '请选择行李数量';
+            tips(msg,'tips_center',1500);
+            return;
+        }
+        console.log('tijiao');
       });
 
       //存取时间 选择
@@ -200,23 +217,32 @@
             console.log(values, displayValues);
         }
       });*/
-      var dates = [];
-      for(var i=0;i<7;i++){
-        dates.push(new Date(new Date().setDate(new Date().getDate()+i)).format("yyyy-MM-dd"))
+
+      var startDates = [],
+          endDates = [],
+          step = 6;
+      for(var i=0;i<step+1;i++){
+        startDates.push(new Date(new Date().setDate(new Date().getDate()+i)).format("yyyy-MM-dd"))
+      }
+      for(var i=0;i<step*2+1;i++){
+        endDates.push(new Date(new Date().setDate(new Date().getDate()+i)).format("yyyy-MM-dd"))
       }
       $("#startTime").picker({
         title: "存入时间",
         cols: [
           {
             textAlign: 'center',
-            values: dates
+            values: startDates
           }
         ],
         onChange: function(p, v, dv) {
           console.log(p, v, dv);
         },
-        onClose: function(p, v, d) {
-          console.log("close");
+        onClose: function(p) {
+          var endTime = $("#endTime");
+          if(endTime.val()){
+            checkDates(p.value[0], endTime.val(), 6);
+          }
         }
       });
       $("#endTime").picker({
@@ -224,18 +250,19 @@
         cols: [
           {
             textAlign: 'center',
-            values: dates
+            values: endDates
           }
         ],
         onChange: function(p, v, dv) {
           console.log(p, v, dv);
         },
-        onClose: function(p, v, d) {
-          console.log("close");
+        onClose: function(p) {
+          var startTime = $("#startTime");
+          if(startTime.val()){
+            checkDates(startTime.val(), p.value[0], 6);
+          }
         }
       });
-
-      
 
       // 件数 选择
       var MAX = 99, MIN = 0;
@@ -243,14 +270,44 @@
         var $input = $(e.currentTarget).parent().find('.o-count-number');
         var number = parseInt($input.val() || "0") - 1
         if (number < MIN) number = MIN;
-        $input.val(number)
-      })
+        $input.val(number);
+        setTotalPrice();
+      });
       $('.o-count-increase').click(function (e) {
         var $input = $(e.currentTarget).parent().find('.o-count-number');
         var number = parseInt($input.val() || "0") + 1
         if (number > MAX) number = MAX;
-        $input.val(number)
-      })
+        $input.val(number);
+        setTotalPrice();
+      });
+      $('.o-count-number').on('input', function(){
+        setTotalPrice();
+      });
+      function setTotalPrice(){ 
+        var smallNum = $('#smallNum'),
+            bigNum = $('#bigNum'),
+            sPrice = smallNum.attr('data-price'),
+            bPrice = bigNum.attr('data-price'),
+            total = 0;
+        if(smallNum.val()){
+          total += parseInt(smallNum.val())*parseInt(sPrice);
+        }
+        if(bigNum.val()){
+          total += parseInt(bigNum.val())*parseInt(bPrice);
+        }
+        $('.s-money .s-int').text(total)
+      }
+
+      function checkDates(startDate,endDate,step){ // 检查存取时间周期
+        var startTime = new Date(startDate).getTime(),
+            endTime = new Date(endDate).getTime();
+        if(endTime - startTime > step*24*60*60*1000){
+          tips('存入到取出超过一周，请重新选择','tips_center',1500);
+          return false;
+        }else{
+          return true;
+        }
+      }
     </script>
   </body>
 </html>
