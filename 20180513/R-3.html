@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="stylesheet" href="lib/weui.min.css">
-    <link rel="stylesheet" href="css/jquery-weui.css">
+    <link rel="stylesheet" href="css/jquery-weui.min.css">
     <link href="css/public.css" rel="stylesheet" type="text/css">
     <script src="js/public.js"></script>
     <style>
@@ -18,7 +18,7 @@
       .p-type{color: #6fc1f5;font-size: .16rem;padding: .04rem .1rem .02rem;border-radius: .28rem;margin-left: .1rem;border: 1px solid #6fc1f5;line-height: .18rem;}
 
       .o-time-wrap{}
-      .o-time-wrap>span{display: inline-block;vertical-align:middle;}
+      .o-time-wrap>span,.o-time-wrap>input{display: inline-block;vertical-align:middle;}
       .o-time-wrap .o-time{font-size: .28rem;margin-left:.36rem; }
       .o-time-wrap .o-time-input{font-size: .28rem;margin-left:.36rem;color: #666;}
 
@@ -37,15 +37,6 @@
       .s-money .s-int{font-size: .28rem;}
       .s-money .s-float{}
 
-      .weui-picker-modal{height: 260px;}
-      
-      .toolbar{font-size: 17px;}
-      .toolbar .picker-button{height: 44px;line-height: 44px;padding:0 10px;}
-      .toolbar .title{font-size: 17px;line-height: 44px;}
-      .toolbar .toolbar-inner{height: 44px;}
-      .weui-picker-modal .picker-items{font-size: 20px;}
-      .weui-picker-modal .picker-modal-inner{height: 216px;}
-      
       .o-count{display: inline-block;}
       .o-count>a,.o-count>input{display: inline-block;vertical-align: middle;}
       .o-count .o-count-btn{width: .29rem;height: .29rem;background-repeat: no-repeat;background-position: 0 0;background-size: contain;}
@@ -69,6 +60,21 @@
       .rule-wrap .back-btn{position: absolute;top: 0;left: 0; display: block;width: 0.68rem;height: 0.68rem;background: url(../images/back.png) no-repeat center center;background-size: 0.3rem;}
 
       .weui-popup__modal{background-color: #fff;}
+
+      .weui-picker-modal{height: 260px;}
+      .toolbar{font-size: 17px;}
+      .toolbar .picker-button{height: 44px;line-height: 44px;padding:0 10px;}
+      .toolbar .title{font-size: 17px;line-height: 44px;}
+      .toolbar .toolbar-inner{height: 44px;}
+      .weui-picker-modal .picker-items{font-size: 20px;}
+      .weui-picker-modal .picker-modal-inner{height: 216px;}
+      
+      .picker-calendar-week-days{height: 18px;}
+      .picker-calendar-month-picker a.icon-only, .picker-calendar-year-picker a.icon-only{height: 44px;line-height: 44px;}
+      i.icon.icon-next, i.icon.icon-prev{width: 15px;height: 15px;}
+      .picker-calendar-week-days+.picker-calendar-months{height: 238px;}
+      .picker-calendar-month-picker .current-month-value, .picker-calendar-month-picker .current-year-value, .picker-calendar-year-picker .current-month-value, .picker-calendar-year-picker .current-year-value{height: 44px;}
+      .picker-calendar-month-picker, .picker-calendar-year-picker{line-height: 44px;}
     </style>
   </head>
   <body ontouchstart>
@@ -87,18 +93,18 @@
       </div>
       <div class="s-cells">
         <div class="s-cell s-cell-arraw">
-          <div class="o-time-wrap"><span>存入时间</span><span class="o-time">2018-05-13 14:22</span></div>
+          <div class="o-time-wrap"><span>存入时间</span><input class="o-time-input" type="text" id="startTime" placeholder="请选择存入时间"></div>
         </div>
         <div class="s-cell s-cell-arraw">
-          <div class="o-time-wrap"><span>取出时间</span><span class="o-time">2018-05-13 14:22</span></div>
+          <div class="o-time-wrap"><span>取出时间</span><input class="o-time-input" type="text" id="endTime" placeholder="请选择取出时间"></div>
         </div>
       </div>
       <div class="s-cells">
         <div class="s-cell s-cell-arraw">
-          <div class="o-time-wrap"><span>存入时间</span><input class="o-time-input" type="text" id="startTime"></div>
+          <div class="o-time-wrap"><span>存入时间</span><input class="o-time-input" type="date" id="startTime1" placeholder="请选择存入时间"></div>
         </div>
         <div class="s-cell s-cell-arraw">
-          <div class="o-time-wrap"><span>取出时间</span><input class="o-time-input" type="text" id="endTime"></div>
+          <div class="o-time-wrap"><span>取出时间</span><input class="o-time-input" type="date" id="endTime2" placeholder="请选择取出时间"></div>
         </div>
       </div>
       <div class="s-cells">
@@ -161,7 +167,7 @@
         FastClick.attach(document.body);
       });
     </script>
-    <script src="js/jquery-weui.js"></script>
+    <script src="js/jquery-weui.min.js"></script>
     <script>
       $(document)
       .on('click', '.rule .check-box', function() {
@@ -179,7 +185,7 @@
       })
 
 
-      $("#startTime").datetimePicker({
+      /*$("#startTime").datetimePicker({
         title: '存入时间',
         min: "1990-12-12",
         max: "2022-12-12 12:12",
@@ -194,6 +200,19 @@
         onChange: function (picker, values, displayValues) {
           console.log(values);
         }
+      });*/
+
+      $("#startTime").calendar({
+          dateFormat: 'yyyy-mm-dd',
+          onChange: function (p, values, displayValues) {
+              console.log(values, displayValues);
+          }
+      });
+      $("#endTime").calendar({
+          dateFormat: 'yyyy-mm-dd',
+          onChange: function (p, values, displayValues) {
+              console.log(values, displayValues);
+          }
       });
 
       var MAX = 99, MIN = 1;

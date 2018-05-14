@@ -4077,6 +4077,7 @@ Device/OS Detection
           p.displayValue = newDisplayValue;
           if (p.params.onChange) {
               p.params.onChange(p, p.value, p.displayValue);
+              console.log(0);
           }
           if (p.input && p.input.length > 0) {
               $(p.input).val(p.params.formatValue ? p.params.formatValue(p, p.value, p.displayValue) : p.value.join(' '));
@@ -5064,6 +5065,7 @@ Device/OS Detection
       p.updateValue = function () {
           p.wrapper.find('.picker-calendar-day-selected').removeClass('picker-calendar-day-selected');
           var i, inputValue;
+          console.log(p)
           for (i = 0; i < p.value.length; i++) {
               var valueDate = new Date(p.value[i]);
               p.wrapper.find('.picker-calendar-day[data-date="' + valueDate.getFullYear() + '-' + valueDate.getMonth() + '-' + valueDate.getDate() + '"]').addClass('picker-calendar-day-selected');
