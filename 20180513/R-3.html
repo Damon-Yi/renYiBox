@@ -15,7 +15,7 @@
       .p-title-wrap{}
       .p-title-wrap>span{display: inline-block;vertical-align:middle;}
       .p-title{color: #353535;font-size: .26rem;}
-      .p-type{color: #6fc1f5;font-size: .16rem;padding: .04rem .1rem .02rem;border-radius: .28rem;margin-left: .1rem;border: 1px solid #6fc1f5;line-height: .18rem;}
+      .p-type{color: #6fc1f5;font-size: .16rem;padding: .04rem .1rem .02rem;border-radius: .28rem;margin-left: .1rem;border: 1px solid #6fc1f5;}
 
       .o-time-wrap{}
       .o-time-wrap>span,.o-time-wrap>input{display: inline-block;vertical-align:middle;}
@@ -39,7 +39,7 @@
 
       .o-count{display: inline-block;}
       .o-count>a,.o-count>input{display: inline-block;vertical-align: middle;}
-      .o-count .o-count-btn{width: .29rem;height: .29rem;background-repeat: no-repeat;background-position: 0 0;background-size: contain;}
+      .o-count .o-count-btn{width: .4rem;height: .4rem;background-repeat: no-repeat;background-position: center center;background-size: .29rem .29rem;}
       .o-count .o-count-decrease{background-image: url(images/minus-btn.png);}
       .o-count .o-count-increase{background-image: url(images/plus-btn.png);}
       .o-count .o-count-number{background-color: transparent;font-size: .3rem;border: 0;width: .6rem;text-align: center;color: #353535;font-weight: bold;}
@@ -49,7 +49,7 @@
       .o-info:after{content: " ";position: absolute;top: 0;right: 0;height: 100%;border-right: 1px solid #e2e2e2;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(.5);transform: scaleX(.5);z-index: 2;}
       .o-info:last-child:after{display: none;}
       .o-info .o-p1{color: #333;font-size: .24rem;}
-      .o-info .o-p2{color: #fff;font-size: .17rem;background-color: #6fc1f5;padding: .04rem .12rem;border-radius: .28rem;display: inline-block;margin: .08rem 0;line-height: 1;}
+      .o-info .o-p2{color: #fff;font-size: .17rem;background-color: #6fc1f5;padding: 0 .12rem;border-radius: .28rem;display: inline-block;margin: .04rem 0;}
       .o-info .o-p3{color: #575757;font-size: .17rem;margin-bottom:.1rem; }
       .o-info .o-icon{width: .68rem;height:1rem;display: inline-block;vertical-align: middle;margin-right: .24rem;}
 
@@ -99,14 +99,14 @@
           <div class="o-time-wrap"><span>取出时间</span><input class="o-time-input" type="text" id="endTime" placeholder="请选择取出时间"></div>
         </div>
       </div>
-      <div class="s-cells">
+      <!-- <div class="s-cells">
         <div class="s-cell s-cell-arraw">
           <div class="o-time-wrap"><span>存入时间</span><input class="o-time-input" type="date" id="startTime1" placeholder="请选择存入时间"></div>
         </div>
         <div class="s-cell s-cell-arraw">
           <div class="o-time-wrap"><span>取出时间</span><input class="o-time-input" type="date" id="endTime2" placeholder="请选择取出时间"></div>
         </div>
-      </div>
+      </div> -->
       <div class="s-cells">
         <div class="s-cell">
           <div class="o-info-wrap">
@@ -124,9 +124,9 @@
                 </div>
               </div>
               <div class="o-info">
-                  <p class="o-p1">小行李</p>
-                  <p class="o-p2">¥10元/件/天 </p>
-                  <p class="o-p3">背包、手提包、手提行李等</p>
+                  <p class="o-p1">大型行李</p>
+                  <p class="o-p2">¥15元/件/天 </p>
+                  <p class="o-p3">行李箱、婴儿车、大型背包等</p>
                   <div>
                     <img class="o-icon" src="images/box.png" alt="">
                     <div class="o-count">
@@ -182,40 +182,32 @@
         console.log(endTime.val())
         console.log(smallNum.val())
         console.log(bigNum.val())
-      })
-
-
-      /*$("#startTime").datetimePicker({
-        title: '存入时间',
-        min: "1990-12-12",
-        max: "2022-12-12 12:12",
-        onChange: function (picker, values, displayValues) {
-          console.log(values);
-        }
       });
-      $("#endTime").datetimePicker({
-        title: '取出时间',
-        min: "1990-12-12",
-        max: "2022-12-12 12:12",
-        onChange: function (picker, values, displayValues) {
-          console.log(values);
-        }
-      });*/
+
+      //存取时间 选择
+      var currDate = new Date(),
+          minDate = currDate.getFullYear() + '-' + (currDate.getMonth()+1) + '-' + currDate.getDate(),
+          maxDate = currDate.getFullYear() + '-' + (currDate.getMonth()+1) + '-' + (currDate.getDate()+7);
 
       $("#startTime").calendar({
-          dateFormat: 'yyyy-mm-dd',
-          onChange: function (p, values, displayValues) {
-              console.log(values, displayValues);
-          }
+        minDate: minDate,
+        maxDate: maxDate,
+        dateFormat: 'yyyy-mm-dd',
+        onChange: function (p, values, displayValues) {
+            console.log(values, displayValues);
+        }
       });
       $("#endTime").calendar({
-          dateFormat: 'yyyy-mm-dd',
-          onChange: function (p, values, displayValues) {
-              console.log(values, displayValues);
-          }
+        minDate: minDate,
+        maxDate: maxDate,
+        dateFormat: 'yyyy-mm-dd',
+        onChange: function (p, values, displayValues) {
+            console.log(values, displayValues);
+        }
       });
 
-      var MAX = 99, MIN = 1;
+      // 件数 选择
+      var MAX = 99, MIN = 0;
       $('.o-count-decrease').click(function (e) {
         var $input = $(e.currentTarget).parent().find('.o-count-number');
         var number = parseInt($input.val() || "0") - 1
