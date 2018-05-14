@@ -19,8 +19,14 @@
 
       .o-time-wrap{}
       .o-time-wrap>span,.o-time-wrap>input{display: inline-block;vertical-align:middle;}
-      .o-time-wrap .o-time{font-size: .28rem;margin-left:.36rem; }
-      .o-time-wrap .o-time-input{font-size: .28rem;margin-left:.36rem;color: #666;}
+      .o-time-wrap .o-time{font-size: .24rem;margin-left:.36rem; }
+      .o-time-wrap .o-time-input{font-size: .24rem;position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: .8rem;
+    padding-left: 1.5rem;
+    background: transparent;}
 
       .rule{color: #666;font-size: 0.2rem;text-align: center;margin: 0.22rem auto;}
       .rule span,.rule a,.rule i{display: inline-block;vertical-align: middle;}
@@ -39,10 +45,10 @@
 
       .o-count{display: inline-block;}
       .o-count>a,.o-count>input{display: inline-block;vertical-align: middle;}
-      .o-count .o-count-btn{width: .4rem;height: .4rem;background-repeat: no-repeat;background-position: center center;background-size: .29rem .29rem;}
+      .o-count .o-count-btn{width: .5rem;height: .5rem;background-repeat: no-repeat;background-position: center center;background-size: .29rem .29rem;}
       .o-count .o-count-decrease{background-image: url(images/minus-btn.png);}
       .o-count .o-count-increase{background-image: url(images/plus-btn.png);}
-      .o-count .o-count-number{background-color: transparent;font-size: .3rem;border: 0;width: .6rem;text-align: center;color: #353535;font-weight: bold;}
+      .o-count .o-count-number{background-color: transparent;font-size: .3rem;border: 0;width: .5rem;text-align: center;color: #353535;font-weight: bold;}
 
       .o-info-wrap{overflow: auto;}
       .o-info{width: 45%;float: left;padding-left: 5%;position: relative;}
@@ -92,21 +98,15 @@
         </div>
       </div>
       <div class="s-cells">
-        <div class="s-cell s-cell-arraw">
-          <div class="o-time-wrap"><span>存入时间</span><input class="o-time-input" type="text" id="startTime" placeholder="请选择存入时间"></div>
-        </div>
+        <!-- <label for="startTime"> -->
+          <div class="s-cell s-cell-arraw">
+            <div class="o-time-wrap"><span>存入时间</span><input class="o-time-input" type="text" id="startTime" placeholder="请选择存入时间"></div>
+          </div>
+        <!-- </label> -->
         <div class="s-cell s-cell-arraw">
           <div class="o-time-wrap"><span>取出时间</span><input class="o-time-input" type="text" id="endTime" placeholder="请选择取出时间"></div>
         </div>
       </div>
-      <!-- <div class="s-cells">
-        <div class="s-cell s-cell-arraw">
-          <div class="o-time-wrap"><span>存入时间</span><input class="o-time-input" type="date" id="startTime1" placeholder="请选择存入时间"></div>
-        </div>
-        <div class="s-cell s-cell-arraw">
-          <div class="o-time-wrap"><span>取出时间</span><input class="o-time-input" type="date" id="endTime2" placeholder="请选择取出时间"></div>
-        </div>
-      </div> -->
       <div class="s-cells">
         <div class="s-cell">
           <div class="o-info-wrap">
@@ -161,19 +161,19 @@
       </div>
     </div>
     <script src="lib/jquery-2.1.4.js"></script>
+    <script src="js/jquery-weui.min.js"></script>
     <script src="lib/fastclick.js"></script>
     <script>
+
       $(function() {
         FastClick.attach(document.body);
       });
-    </script>
-    <script src="js/jquery-weui.min.js"></script>
-    <script>
-      $(document)
-      .on('click', '.rule .check-box', function() {
+
+      $('.rule .check-box').on('click', function() {
         $(this).toggleClass('active');
       })
-      .on('click', '.s-confirm', function() {
+
+      $('.s-confirm').on('click', function() {
         var startTime = $("#startTime"),
             endTime = $("#endTime"),
             smallNum = $("#smallNum"),
@@ -186,8 +186,8 @@
 
       //存取时间 选择
       var currDate = new Date(),
-          minDate = currDate.getFullYear() + '-' + (currDate.getMonth()+1) + '-' + currDate.getDate(),
-          maxDate = currDate.getFullYear() + '-' + (currDate.getMonth()+1) + '-' + (currDate.getDate()+7);
+          minDate = currDate.format("yyyy-MM-dd"),
+          maxDate = new Date(currDate.setDate(currDate.getDate()+6)).format("yyyy-MM-dd");
 
       $("#startTime").calendar({
         minDate: minDate,
@@ -195,8 +195,11 @@
         dateFormat: 'yyyy-mm-dd',
         onChange: function (p, values, displayValues) {
             console.log(values, displayValues);
+        },
+        onOpen: function(p){
         }
       });
+
       $("#endTime").calendar({
         minDate: minDate,
         maxDate: maxDate,

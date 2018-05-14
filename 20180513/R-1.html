@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="lib/weui.min.css">
     <link rel="stylesheet" href="css/jquery-weui.css">
     <link href="css/public.css" rel="stylesheet" type="text/css">
     <script src="js/public.js"></script>
@@ -108,11 +107,10 @@
     </script>
     <script src="js/jquery-weui.js"></script>
     <script>
-      $(document)
-      .on('click', '.rule .check-box', function() {
+      $('.rule .check-box').on('click', , function() {
         $(this).toggleClass('active');
-      })
-      .on('click', '.s-confirm', function() {
+      });
+      $('.s-confirm').on('click', function() {
         var startTime = $("#startTime"),
             endTime = $("#endTime"),
             smallNum = $("#smallNum"),
