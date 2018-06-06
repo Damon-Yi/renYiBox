@@ -86,9 +86,11 @@
             },
             resetMap:function(){                //重置地图位置
                 var _self = this;
-
-                _self.map.setCenter(new _MAP.LatLng(_self.center[0], _self.center[1]));
-                _self.map.zoomTo(_self.zoom);
+                var curCenter = _self.map.getCenter();
+                if(curCenter.lat != _self.center[0] && curCenter.lng != _self.center[1]){ // 中心改变才重置
+                    _self.map.setCenter(new _MAP.LatLng(_self.center[0], _self.center[1]));
+                    _self.map.zoomTo(_self.zoom);
+                }
             },
             getPoints: function(){              // 获取图标数组
                 var _self = this,
