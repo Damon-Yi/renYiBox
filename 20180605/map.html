@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>腾讯地图-地图参数使用示例</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+    <style type="text/css">
+        html,body {height: 100%;margin: 0px;padding: 0px;}
+        #container {width: 100%;height: 100%}
+        #b-pannel{width: 300px;height: 100px;background:rgba(0,0,0,.7);border-radius: 6px;color: #fff;margin-bottom: 20px;z-index: 100 !important;}
+    </style>
+</head>
+<body>
+    <!-- 地图 -->
+    <div id="container"></div>
+    <!-- 底部面板 -->
+    <div id="b-pannel"></div>
+    <script type="text/javascript">
+        var _MAP = qq.maps;
+
+        pageUtils = {
+            center:[39.91, 116.38],
+            shops:[],           // 
+            markers: [],
+            currMarker: null,   // 当前选中图标
+            init: function(){
+                var _self = this;
+
+                var Map = _MAP.Map,
+                Marker = _MAP.Marker,
+                LatLng = _MAP.LatLng,
+                Event = _MAP.event,
+                MarkerAnimation = _MAP.MarkerAnimation,
+                center = new LatLng(_self.center[0], _self.center[1]),
+                options = {
+                    center: center,
+                    zoom: 13,
+                    noClear: true,
+                    backgroundColor: "#eeeef1",
+                    mapTypeId: _MAP.MapTypeId.ROADMAP,
+                    mapTypeControl: false,  // 地图类型控件，
+                    panControl: false,      // 地图平移控件
+                    zoomControl: false,
+                    scaleControl: true,     // 地图比例尺控件
+                    scaleControlOptions: {
+                        position: _MAP.ControlPosition.BOTTOM_RIGHT
+                    },
+                    scrollwheel:true
+                }
+
+                var map = new Map(document.getElementById("container"),options);    // 初始化地图
+
+                _self.addMarkers(map, _self.getPoints(map));    // 添加图标
+
+                Event.addListener(map, 'center_changed', function() { // 中心改变
+                    
+                    _self.updatePannel(map, null); // 底部面板更新数据
+
+                    _self.addMarkers(map, _self.getPoints(map));    // 更新图标
+                });
+                
+                _self.bPannel = document.getElementById('b-pannel');  // 底部面板
+                map.controls[_MAP.ControlPosition.BOTTOM_CENTER].push(_self.bPannel);
+            },
+            getPoints: function(map){         // 获取图标数组
+                var _self = this,
+                    center = map.getCenter(),
+                    lat = center.lat,
+                    lng = center.lng,
+                    rat = 50,
+                    size = 30;
+                    
+                _self.shops = [];
+
+                for(var i=0;i<size;i++){
+                    var point = []
+                    if(i<size/2){
+                        point = [lat+Math.random()/rat, lng+Math.random()/rat];
+                    }else{
+                        point = [lat-Math.random()/rat, lng-Math.random()/rat];
+                    }
+                    _self.shops.push(point)
+                }
+                return _self.shops;
+            },
+            addMarkers: function(map, arr){         // 添加图标
+                var _self = this;
+                _self.removeMarkers();
+
+                for(var i=0;i<arr.length;i++){
+                    var pos = arr[i];
+                    _self.addMarker(map,new _MAP.LatLng(pos[0], pos[1]),i);
+                }
+            },
+            addMarker: function(map,position,data){ // 添加图标
+                var _self = this;
+
+                var marker = new qq.maps.Marker({
+                    position: position,
+                    map: map,
+                });
+                _self.markers.push(marker);
+
+                _MAP.event.addListener(marker, 'click', function(e) {
+                    //console.log(e,marker,data)
+                    marker.setIcon("http://lbs.qq.com/doc_v2/img/nilt.png");
+
+                    if(_self.currMarker && _self.currMarker!=marker){ // 更换图标
+                        _self.currMarker.setIcon("http://open.map.qq.com/apifiles/2/4/91/theme/default/imgs/marker.png");
+                    }
+
+                    _self.currMarker = marker;
+
+                   _self.updatePannel(map, data); // 底部面板更新数据
+                });
+            },
+            removeMarkers: function(){            // 移除图标
+                var _self = this;
+                _self.markers.forEach( v => {
+                    v.setMap(null);
+                })
+                _self.markers = [];
+            },
+            updatePannel: function(map, data){    // 更新底部面板 
+                var _self = this;
+                _self.bPannel.innerHTML = "地图中心为：" + map.getCenter() + '<br/>当前index：' + data;
+                console.log(_self.markers[data], _self.shops[data])
+            }
+        }
+
+        window.onload = function(){
+            pageUtils.init();
+        };
+    </script>
+</body>
+
+</html>
