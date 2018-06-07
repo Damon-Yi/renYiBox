@@ -90,7 +90,7 @@
                     scrollwheel:true
                 }
                 // 初始化地图
-                _self.map = new Map(document.getElementById("container"),options);    
+                _self.map = new Map(document.getElementById("container"),options);   
                 // 添加图标
                 _self.addMarkers(_self.getPoints());   
                 // 中心改变事件
@@ -102,6 +102,10 @@
                 Event.addListener(_self.map, 'click', function() {  
                     _self.bPannel.css({'display':'none'});  // 隐藏底部面板
                 });
+                // 地图边界改变
+                Event.addListener(_self.map, 'bounds_changed', function() {  
+                    console.log(_self.map.getBounds().getNorthEast())
+                }); 
             },
             initControl: function(){ // 初始化自定义控件
                 var _self = this;
