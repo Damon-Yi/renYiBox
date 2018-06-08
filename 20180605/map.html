@@ -4,8 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <link href="css/public.css" rel="stylesheet" type="text/css">
-    <script src="js/public.js"></script>
+    <link href="./css/public.css" rel="stylesheet" type="text/css">
+    <script src="./js/public.js"></script>
     <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=SEWBZ-VIQLF-63GJK-NOSXG-YU6ZO-ZNFY6&libraries=drawing,geometry,autocomplete,convertor"></script>
     <script src="./lib/jquery-2.1.4.js"></script>
     <script src="./lib/fastclick.js"></script>
@@ -17,8 +17,10 @@
         #center-icon>img{display:block;width: 100%;height: 100%;}
         #b-center{position:fixed; bottom:.34rem;left:.08rem;width: .76rem;height: .76rem;border-radius: 50%;z-index: 100 !important;background:url(./images/reset.png) no-repeat 0 0 / contain;}
         #qa{position:fixed; bottom:.34rem;right:.08rem;width: .76rem;height: .76rem;border-radius: 50%;z-index: 100 !important;background:url(./images/qa.png) no-repeat 0 0 / contain;}
-        #scan-btn{position:fixed; bottom:.34rem;left:50%;margin-left:-68px;width: 2.32rem;height: .76rem;z-index: 100 !important;background:url(./images/bt-bg.png) no-repeat 0 0 / contain;}
-        #b-pannel{display:none;position:fixed; bottom:10px;left:2%;width: 96%;height: 150px;background-color:#fff;border-radius: 6px;z-index: 101 !important;font-size: 12px;word-break: break-all;}
+        #scan-btn{position:fixed; bottom:.34rem;left:50%;margin-left:-68px;width: 2.32rem;height: .76rem;line-height: .76rem;z-index: 100 !important;background:url(./images/bt-bg.png) no-repeat 0 0 / contain;text-align: center;font-size: 0;color: #fff;}
+        #scan-btn>img, #scan-btn>span{display: inline-block;vertical-align: middle;font-size: .28rem;}
+        #scan-btn>img{width: .34rem;height: .34rem;margin-right:.2rem; }
+        #b-pannel{display:none;position:fixed; bottom:10px;left:2%;width: 96%;padding:.23rem .3rem;background-color:#fff;border-radius: 6px;z-index: 101 !important;font-size: 12px;word-break: break-all;box-sizing: border-box;-webkit-box-sizing: border-box;}
     </style>
 </head>
 <body>
@@ -32,12 +34,14 @@
     <div id="container"></div>
     <!-- 中心图标 -->
     <div id="center-icon"><img src="./images/self.png" alt=""></div>
-    <!-- 底部面板 -->
+    <!-- 店铺详情面板 -->
     <div id="b-pannel"></div>
     <!-- 重置 -->
     <div id="b-center"></div>
     <!-- 扫码按钮 -->
-    <div id="scan-btn"></div>
+    <div id="scan-btn">
+        <img src="./images/scan.png" alt=""><span>存/取</span>
+    </div>
     <!-- 问题 -->
     <div id="qa"></div>
     <script type="text/javascript">
@@ -73,7 +77,7 @@
                 });
                 // 列表按钮点击
                 $('.header .list-btn').on('click',function(){
-                    console.log('list click');
+                    location.href = './list.html'
                 });
                 // 搜索按钮点击
                 $('.search-btn').on('click',function(){
@@ -94,6 +98,10 @@
                 // 问题点击
                 $('#qa').on('click', function(e){       
                     console.log('wenti');
+                });
+                // 店铺详情面板
+                $('#b-pannel').on('click', function(e){       
+                    console.log('店铺详情');
                 });
             },
             initMap: function(){ // 初始化地图
@@ -132,15 +140,15 @@
                     _self.getPoints(function(){
                         _self.addMarkers();  
                     })
-                    _self.bPannel.css({'display':'none'});  // 隐藏底部面板
+                    _self.bPannel.css({'display':'none'});  // 隐藏店铺详情面板
                 });
                 // 地图点击事件
                 Event.addListener(_self.map, 'click', function() {  
-                    _self.bPannel.css({'display':'none'});  // 隐藏底部面板
+                    _self.bPannel.css({'display':'none'});  // 隐藏店铺详情面板
                 });
                 // 地图边界改变
                 Event.addListener(_self.map, 'bounds_changed', function() {  
-                    console.log(_self.map.getBounds().getNorthEast())
+                    //console.log(_self.map.getBounds().getNorthEast())
                 }); 
             },
             initControl: function(){ // 初始化自定义控件
@@ -158,7 +166,7 @@
                 _self.map.controls[_MAP.ControlPosition.BOTTOM_RIGHT].push(qaControl);*/
 
                 _self.bPannel = $('#b-pannel');
-                /*_self.bPannel = document.getElementById('b-pannel');  // 底部面板
+                /*_self.bPannel = document.getElementById('b-pannel');  // 店铺详情面板
                 _self.map.controls[_MAP.ControlPosition.BOTTOM_CENTER].push(_self.bPannel);*/
             },
             resetMap:function(){ // 重置地图位置
@@ -199,7 +207,6 @@
                     }
                     _self.shops.push(point)
                 }
-                console.log(_self.shops)
                 callback();
             },
             addMarkers: function(){ // 添加图标
@@ -228,18 +235,23 @@
                     _self.markers.push(marker);
 
                     _MAP.event.addListener(marker, 'click', function(e) {
-                        console.log(e,marker,data)
-                        marker.setIcon(_self.getIcon(type, 'on', 85, 92)); // 选中图标
-                        marker.setZIndex(1);
+                        //console.log(e,marker,data)
+                        if(_self.currMarker.obj){
+                            if(_self.currMarker.obj != marker){
+                                marker.setIcon(_self.getIcon(type, 'on', 85, 92)); // 选中图标
+                                marker.setZIndex(1);
 
-                        if(_self.currMarker.obj && _self.currMarker.obj!=marker){ // 更换图标
-                            _self.currMarker.obj.setIcon(_self.getIcon(_self.currMarker.type, '', 85, 92)); // 未选中图标
-                            _self.currMarker.obj.setZIndex(0);
+                                _self.currMarker.obj.setIcon(_self.getIcon(_self.currMarker.type, '', 85, 92)); // 未选中图标
+                                _self.currMarker.obj.setZIndex(0);
+                                _self.currMarker = {obj: marker, type: type};
+                                _self.updatePannel(data);    // 店铺详情面板更新数据
+                            }
+                        }else{
+                            marker.setIcon(_self.getIcon(type, 'on', 85, 92)); // 选中图标
+                            marker.setZIndex(1);
+                            _self.currMarker = {obj: marker, type:type};
+                            _self.updatePannel(data);    // 店铺详情面板更新数据
                         }
-
-                        _self.currMarker = {obj: marker, type:type};
-
-                       _self.updatePannel(data);    // 底部面板更新数据
                     });
                 }
             },
@@ -250,9 +262,9 @@
                 })
                 _self.markers = [];
             },
-            updatePannel: function(data){ // 更新底部面板 
+            updatePannel: function(data){ // 更新店铺详情面板 
                 var _self = this;
-                _self.bPannel.html("地图中心为：" + _self.map.getCenter() + '<br/>当前index：' + JSON.stringify(data));
+                _self.bPannel.html("地图中心为：" + _self.map.getCenter() + '<br/>当前店铺详情：' + JSON.stringify(data));
                 _self.bPannel.css({'display':'block'});
                 //console.log(_self.markers[data], _self.shops[data])
             },
