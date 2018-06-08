@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/jquery-weui.css">
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <script src="js/public.js"></script>
+    <style>
+      .header{background-color: #f0f1f5;}
+    </style>
+  </head>
+  <body ontouchstart>
+    <div class="sec-top">
+      <div class="header">
+          <div class="user-btn1"></div>
+          <div class="search-wrapper"><input class="search-input" type="text" placeholder="输入搜索"><i class="search-btn"></i></div>
+          <div class="list-btn"></div>
+      </div>
+    </div>
+
+    <script src="lib/jquery-2.1.4.js"></script>
+    <script src="js/swiper.js"></script>
+    <script src="lib/fastclick.js"></script>
+    <script>
+      $(function() {
+        FastClick.attach(document.body);
+      });
+    </script>
+    <script src="js/jquery-weui.js"></script>
+    <script>
+      pageUtils = {
+        init: function(){
+          this.bandEvents();
+        },
+        bandEvents: function(){
+          // 用户按钮点击
+          $('.header .user-btn1').on('click',function(){
+            console.log('user click');
+          });
+          // 列表按钮点击
+          $('.header .list-btn').on('click',function(){
+            console.log('list click');
+          });
+          // 搜索按钮点击
+          $('.search-btn').on('click',function(){
+            console.log('search click');
+            var searchTxt = $('.search-input').val();
+            if(searchTxt){
+              console.log(searchTxt);
+            }
+          });
+        }
+      }
+      pageUtils.init();
+    </script>
+  </body>
+</html>

@@ -77,11 +77,18 @@ body{background-color: #f0f1f5;}
 .search-bar.focus-in{}
 .search-bar.focus-in .search-label{display: none;}
 .search-bar.focus-in .search-cancel{display: block;}
+
+.search-wrapper{position:relative;flex: 1;-webkit-flex: 1;height: .64rem;}
+.search-wrapper .search-input{font-size: .24rem;width: 100%;padding: .06rem .7rem;height: .64rem;text-align: center;box-sizing: border-box;-webkit-box-sizing: border-box;background-color: #fff;border-radius: .32rem;}
+.search-wrapper .search-btn{position: absolute;right:0;top:0;width: .7rem;height: .64rem;background:url(../images/magnifier.png) no-repeat center center;background-size:0.33rem 0.32rem;}
 /*头部，返回、标题、个人中心*/
-.header{display: flex;-webkit-display:flex;align-items: center;font-size: 0.26rem;color: #333;background-color:#fff;}
+.header{display: flex;-webkit-display:flex;align-items: center;font-size: 0.26rem;color: #333;background-color:#fff;position: relative;z-index:2;}
 .header .back-btn{display:block;width: 0.68rem;height:0.68rem;background:url(../images/back.png) no-repeat center center;background-size:0.3rem;}
 .header .h-title{flex: 1;-webkit-flex: 1;text-align: center;}
 .header .user-btn{display:block;width: 0.68rem;height:0.68rem;background:url(../images/user.png) no-repeat center center;background-size:0.3rem 0.34rem;}
+
+.header .user-btn1{display:block;width: .7rem;height:0.94rem;background:url(../images/user1.png) no-repeat center center;background-size:0.39rem 0.39rem;}
+.header .list-btn{display:block;width: .7rem;height:0.94rem;background:url(../images/list.png) no-repeat center center;background-size:0.37rem 0.27rem;}
 /*下一步*/
 .next-btn{width: 100%;height: 0.74rem;background-color: #6fc1f5;text-align: center;display: block;line-height: 0.74rem;color: #fff;font-size: 0.26rem;}
 /*订单记录 -- 历史订单、取物*/

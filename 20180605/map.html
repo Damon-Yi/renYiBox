@@ -5,25 +5,33 @@
     <title>map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link href="css/public.css" rel="stylesheet" type="text/css">
+    <script src="js/public.js"></script>
     <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=SEWBZ-VIQLF-63GJK-NOSXG-YU6ZO-ZNFY6&libraries=drawing,geometry,autocomplete,convertor"></script>
     <script src="./lib/jquery-2.1.4.js"></script>
     <script src="./lib/fastclick.js"></script>
     <style type="text/css">
-        html,body {height: 100%;margin: 0px;padding: 0px;}
-        #container {width: 100%;height: 100%}
-        #center-icon{width: 21px;height: 37px;margin-top: -18px;}
+        html,body {height: 100%;}
+        .header{background-color: #f0f1f5;}
+        #container {width: 100%;height: 100%;top: -0.64rem;}
+        #center-icon{width: .36rem;height: .63rem;margin-top: -18px;}
         #center-icon>img{display:block;width: 100%;height: 100%;}
-        #b-pannel{display:none;position:fixed; bottom:10px;left:2%;width: 96%;height: 150px;background-color:#fff;border-radius: 6px;z-index: 101 !important;}
-        #b-center{position:fixed; bottom:20px;left:5px;width: 45px;height: 45px;border-radius: 50%;z-index: 100 !important;background:url(./img/reset.png) no-repeat 0 0 / contain;}
-        #qa{position:fixed; bottom:20px;right:5px;width: 45px;height: 45px;border-radius: 50%;z-index: 100 !important;background:url(./img/qa.png) no-repeat 0 0 / contain;}
-        #scan-btn{position:fixed; bottom:20px;left:50%;margin-left:-68px;width: 136px;height: 45px;z-index: 100 !important;background:url(./img/bt-bg.png) no-repeat 0 0 / contain;}
+        #b-center{position:fixed; bottom:.34rem;left:.08rem;width: .76rem;height: .76rem;border-radius: 50%;z-index: 100 !important;background:url(./images/reset.png) no-repeat 0 0 / contain;}
+        #qa{position:fixed; bottom:.34rem;right:.08rem;width: .76rem;height: .76rem;border-radius: 50%;z-index: 100 !important;background:url(./images/qa.png) no-repeat 0 0 / contain;}
+        #scan-btn{position:fixed; bottom:.34rem;left:50%;margin-left:-68px;width: 2.32rem;height: .76rem;z-index: 100 !important;background:url(./images/bt-bg.png) no-repeat 0 0 / contain;}
+        #b-pannel{display:none;position:fixed; bottom:10px;left:2%;width: 96%;height: 150px;background-color:#fff;border-radius: 6px;z-index: 101 !important;font-size: 12px;word-break: break-all;}
     </style>
 </head>
 <body>
+    <!-- 头部 -->
+    <div class="header">
+        <div class="user-btn1"></div>
+        <div class="search-wrapper"><input class="search-input" type="text" placeholder="输入搜索"><i class="search-btn"></i></div>
+        <div class="list-btn"></div>
+    </div>
     <!-- 地图 -->
     <div id="container"></div>
     <!-- 中心图标 -->
-    <div id="center-icon"><img src="./img/self.png" alt=""></div>
+    <div id="center-icon"><img src="./images/self.png" alt=""></div>
     <!-- 底部面板 -->
     <div id="b-pannel"></div>
     <!-- 重置 -->
@@ -41,7 +49,15 @@
             zoom: 13,
             shops:[],   // 
             markers: [],
-            currMarker: null,  // 当前选中图标
+            currMarker: { // 当前选中图标
+                obj: null,
+                type: null
+            },
+            typeObj: {  // 对应图标命名
+                box: 'box',
+                shop: 'shop',
+                self: 'self'
+            },
             init: function(){
                 var _self = this;
                 
@@ -51,16 +67,32 @@
             },
             bindEvents: function(){
                 var _self = this;
-
-                $('#b-center').on('click', function(e){ // 返回中心
+                // 用户按钮点击
+                $('.header .user-btn1').on('click',function(){
+                    console.log('user click');
+                });
+                // 列表按钮点击
+                $('.header .list-btn').on('click',function(){
+                    console.log('list click');
+                });
+                // 搜索按钮点击
+                $('.search-btn').on('click',function(){
+                    console.log('search click');
+                    var searchTxt = $('.search-input').val();
+                    if(searchTxt){
+                    console.log(searchTxt);
+                    }
+                });
+                // 返回中心
+                $('#b-center').on('click', function(e){ 
                     _self.resetMap();
                 });
-
-                $('#scan-btn').on('click', function(e){ // 扫码点击
+                // 扫码点击
+                $('#scan-btn').on('click', function(e){ 
                     console.log('saoma');
                 });
-
-                $('#qa').on('click', function(e){       // 问题点击
+                // 问题点击
+                $('#qa').on('click', function(e){       
                     console.log('wenti');
                 });
             },
@@ -77,7 +109,7 @@
                     center: center,
                     zoom: _self.zoom,
                     noClear: true,
-                    backgroundColor: "#eeeef1",
+                    backgroundColor: "#ddd",
                     mapTypeId: _MAP.MapTypeId.ROADMAP,
                     mapTypeControl: false,  // 地图类型控件，
                     panControl: false,      // 地图平移控件
@@ -91,10 +123,15 @@
                 // 初始化地图
                 _self.map = new Map(document.getElementById("container"),options);   
                 // 添加图标
-                _self.addMarkers(_self.getPoints());   
+                _self.getPoints(function(){
+                    _self.addMarkers();  
+                })
                 // 中心改变事件
                 Event.addListener(_self.map, 'center_changed', function() { 
-                    _self.addMarkers(_self.getPoints());    // 更新图标
+                    // 添加图标
+                    _self.getPoints(function(){
+                        _self.addMarkers();  
+                    })
                     _self.bPannel.css({'display':'none'});  // 隐藏底部面板
                 });
                 // 地图点击事件
@@ -109,7 +146,7 @@
             initControl: function(){ // 初始化自定义控件
                 var _self = this;
 
-                //_self.addMarker('self', new _MAP.LatLng(_self.center[0], _self.center[1]), '');       // 中心位置图标
+                //_self.addMarker(_self.typeObj.self, new _MAP.LatLng(_self.center[0], _self.center[1]), '');       // 中心位置图标
                 var centerIcon = document.getElementById('center-icon');    
                     /*resetControl = document.getElementById('b-center'),     // 重置位置图标
                     scanCodeControl = document.getElementById('scan-btn'),  // 扫码位置
@@ -132,7 +169,7 @@
                     _self.map.zoomTo(_self.zoom);
                 }
             },
-            getPoints: function(){ // 获取图标数组
+            getPoints: function(callback){ // 获取图标数组
                 var _self = this,
                     center = _self.map.getCenter(),
                     lat = center.lat,
@@ -143,23 +180,36 @@
                 _self.shops = [];
 
                 for(var i=0;i<size;i++){
-                    var point = []
+                    var point = {
+                        lat: 0,
+                        lng: 0,
+                        type: _self.typeObj.box, // 商家、储物柜
+                        name: 'name',
+                        time: 'time',
+                        add: 'add'
+                    }
                     if(i<size/2){
-                        point = [lat+Math.random()/rat, lng+Math.random()/rat];
+                        point.lat = lat + Math.random()/rat;
+                        point.lng = lng + Math.random()/rat;
+                        point.type = _self.typeObj.box;
                     }else{
-                        point = [lat-Math.random()/rat, lng-Math.random()/rat];
+                        point.lat = lat - Math.random()/rat;
+                        point.lng = lng - Math.random()/rat;
+                        point.type = _self.typeObj.shop;
                     }
                     _self.shops.push(point)
                 }
-                return _self.shops;
+                console.log(_self.shops)
+                callback();
             },
-            addMarkers: function(arr){ // 添加图标
-                var _self = this;
+            addMarkers: function(){ // 添加图标
+                var _self = this,
+                    arr = _self.shops;
                 _self.removeMarkers();
 
                 for(var i=0;i<arr.length;i++){
                     var pos = arr[i];
-                    _self.addMarker('box', new _MAP.LatLng(pos[0], pos[1]),i);
+                    _self.addMarker(pos.type, new _MAP.LatLng(pos.lat, pos.lng), pos);
                 }
             },
             addMarker: function(type, position,data){ // 添加图标
@@ -170,24 +220,24 @@
                     map: _self.map,
                 });
 
-                if(type === 'self'){
+                if(type === _self.typeObj.self){
                     marker.setIcon(_self.getIcon(type, '', 42, 74)); // 未选中图标
-                }else if(type === 'box'){
+                }else{
                     marker.setIcon(_self.getIcon(type, '', 85, 92)); // 未选中图标
 
                     _self.markers.push(marker);
 
                     _MAP.event.addListener(marker, 'click', function(e) {
-                        //console.log(e,marker,data)
+                        console.log(e,marker,data)
                         marker.setIcon(_self.getIcon(type, 'on', 85, 92)); // 选中图标
                         marker.setZIndex(1);
 
-                        if(_self.currMarker && _self.currMarker!=marker){ // 更换图标
-                            _self.currMarker.setIcon(_self.getIcon('box', '', 85, 92)); // 未选中图标
-                            _self.currMarker.setZIndex(0);
+                        if(_self.currMarker.obj && _self.currMarker.obj!=marker){ // 更换图标
+                            _self.currMarker.obj.setIcon(_self.getIcon(_self.currMarker.type, '', 85, 92)); // 未选中图标
+                            _self.currMarker.obj.setZIndex(0);
                         }
 
-                        _self.currMarker = marker;
+                        _self.currMarker = {obj: marker, type:type};
 
                        _self.updatePannel(data);    // 底部面板更新数据
                     });
@@ -202,12 +252,12 @@
             },
             updatePannel: function(data){ // 更新底部面板 
                 var _self = this;
-                _self.bPannel.html("地图中心为：" + _self.map.getCenter() + '<br/>当前index：' + data);
+                _self.bPannel.html("地图中心为：" + _self.map.getCenter() + '<br/>当前index：' + JSON.stringify(data));
                 _self.bPannel.css({'display':'block'});
                 //console.log(_self.markers[data], _self.shops[data])
             },
             getIcon: function(type, style, width, height){ // type--'box','shop','self'; style--'on',''
-                var url = './img/'+ type + (style=='on'?'-on':'') +'.png',
+                var url = './images/'+ type + (style=='on'?'-on':'') +'.png',
                     size = new _MAP.Size(width/2, height/2),
                     origin = _MAP.Point(0, 0),
                     anchor = _MAP.Point(0, 0),
