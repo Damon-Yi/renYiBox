@@ -118,6 +118,7 @@
                 $('#b-pannel').on('click', function(e){   
                     var id = $(this).attr('data-id');    
                     console.log('店铺详情' + id);
+                    location.href = './shopDetails.html?id=' + id;
                 });
             },
             initMap: function(){ // 初始化地图

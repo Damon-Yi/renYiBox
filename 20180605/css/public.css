@@ -91,7 +91,7 @@ body{background-color: #f0f1f5;}
 .header .list-btn{display:block;width: .7rem;height:0.94rem;background:url(../images/list.png) no-repeat center center;background-size:0.37rem 0.27rem;}
 .header .map-btn{display:block;width: .7rem;height:0.94rem;background:url(../images/map.png) no-repeat center center;background-size:0.32rem 0.32rem;}
 /*下一步*/
-.next-btn{height: .8rem;line-height: .8rem;text-align: center;color: #fff;background-color: #70c1f6;margin: .17rem .12rem;border-radius: .8rem;}
+.next-btn{height: .8rem;line-height: .8rem;text-align: center;color: #fff;background-color: #70c1f6;margin: .17rem .12rem;border-radius: .8rem;font-size: .25rem;}
 .next-btn:active{background-color: #6fc1f5;}
 
 /*订单记录 -- 历史订单、取物*/
