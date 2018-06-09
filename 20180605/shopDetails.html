@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>任意柜-共享储物柜</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/jquery-weui.css">
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <script src="js/public.js"></script>
+    <style>
+      .sec-cont{padding-bottom:1.14rem;}
+      .swiper-container {width: 100%;} 
+      .swiper-container img {display: block;width: 100%;height: 3.5rem;}
+
+      .p-title-wrap{}
+      .p-title-wrap>img,.p-title-wrap>span{display: inline-block;vertical-align: middle;}
+      .p-title-wrap .p-icon{width: .36rem;margin-right: .08rem;}
+      .p-title-wrap .p-title{color: #333;font-size: .24rem;margin-right: .12rem;}
+      .p-title-wrap .p-right{color: #6fc1f5;font-size: .2rem;float: right;margin-top: .04rem;}
+
+      .s-info-p{color: #575757;font-size: .2rem;margin-bottom: .06rem;}
+      .s-info-p:last-child{margin-bottom: 0;}
+      .s-info-p>img,.s-info-p>span{display: inline-block;vertical-align: middle;}
+      .s-info-p>img{width: .22rem;margin-right: .1rem;}
+
+      .swiper-pagination-bullet-active{background-color: #70c1f6;}
+
+      .price-list{font-size: .22rem;color: #333;margin: 0 .27rem;}
+      .price-list>li{position: relative;padding: .23rem .27rem;}
+      .price-list>li:after{content: " ";position: absolute;left: .17rem;right:.17rem;bottom: 0;height: 1px;border-bottom: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 100%;transform-origin: 0 100%;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+      .price-list>li  .p-right{float: right;}
+      .price-list>li  .p-right>i{font-size: .18rem;font-style: normal;}
+
+      .o-info-wrap{margin: .2rem;height: 2rem;}
+      .o-info-wrap .o-info{background-color: #fff;border-radius: .1rem;padding-bottom: .18rem;}
+      .o-info-wrap .o-p1{color: #333;font-size: .24rem;}
+      .o-info-wrap .o-p2{color: #fff;font-size: .17rem;background-color: #6fc1f5;display: inline-block;width: 1.4rem;text-align: center;height: .32rem;line-height: .32rem;position: relative;left: -.1rem;top: .1rem;}
+      .o-info-wrap .o-p2:after{content: '';display: block;position: absolute;right: 0;top: 0;border-width: .16rem;border-style: solid;border-color: transparent #fff transparent transparent;}
+      .o-info-wrap .o-p3{color: #575757;font-size: .17rem;margin-bottom: .22rem;}
+      .o-info-wrap .o-p4{color: #575757;font-size: .17rem;}
+      .o-info-wrap .o-p4>span{color: #333;font-weight: bold;margin: 0 .04rem;}
+      .o-info-wrap .o-wrap{margin-top: .1rem;}
+      .o-info-wrap .o-wrap .o-right{display: inline-block;vertical-align: middle;padding-top: .1rem;}
+      .o-info-wrap .o-wrap .o-icon{display: inline-block;vertical-align: middle;width: .68rem;height:1rem;margin:.2rem .6rem 0 .52rem;}
+
+      .popup-tips{display:none;position: fixed;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(0,0,0,.5);z-index: 100;font-size: 0.24rem;}
+      .popup-tips.show{display: block;}
+      .popup-tips .p-body{position: absolute;bottom:0;width: 100%;background-color: #fff;}
+      .popup-tips .p-title{padding:.34rem .34rem .1rem;font-size: .3rem;color: #333;}
+      .p-main-txt{margin: 1.4rem auto .64rem;text-align: center;font-size: .24rem;color: #999;}
+    </style>
+  </head>
+  <body ontouchstart>
+    <div class="sec-top">
+      <div class="header">
+          <a class="back-btn" href="javascript:history.go(-1);"></a>
+          <div class="h-title"><span>海岸城幸福便利存包处</span></div>
+          <a class="user-btn" href="javascript:;"></a>
+      </div>
+    </div>
+    <div class="sec-cont">
+      <div class="swiper-container">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="./images/R-1.jpg" /></div>
+          <div class="swiper-slide"><img src="./images/R-1.jpg" /></div>
+          <div class="swiper-slide"><img src="./images/R-1.jpg" /></div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <div class="s-cells">
+        <div class="s-cell">
+          <div class="p-title-wrap"><img class="p-icon" src="./images/shop2.png" alt=""><span class="p-title">海岸城幸福便利存包处</span><i class="mark-free"></i><span class="p-right">153m</span></div>
+        </div>
+      </div>
+      <div class="s-cells">
+        <div class="s-cell">
+          <p class="s-info-p"><img src="./images/position.png" alt=""><span>广东省深圳市南山区文心六路海岸城旁</span></p>
+          <p class="s-info-p"><img src="./images/time.png" alt=""><span>周一至周日    8:00 - 21:30</span></p>
+        </div>
+      </div>
+      <div class="s-cells">
+        <ul class="price-list">
+          <li><span class="p-left">小行李：3件</span><span class="p-right"><i>￥</i>5.00/件/天</span></li>
+          <li><span class="p-left">大行李：1件</span><span class="p-right"><i>￥</i>10.00/件/天</span></li>
+          <li><span class="p-left">其他行李：0件</span><span class="p-right"><i>￥</i>15.00/件/天</span></li>
+        </ul>
+      </div>
+      <div class="o-info-wrap">
+          <div class="o-info">
+            <p class="o-p2">¥10元/件/天 </p>
+            <div class="o-wrap">
+              <img class="o-icon" src="images/bag.png" alt="">
+              <div class="o-right">
+                <p class="o-p1">小行李</p>
+                <p class="o-p3">背包、手提包、手提行李等</p>
+                <p class="o-p4">此处存储上限<span>30</span>件</p>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="sec-bottom">
+        <div class="next-btn submit-btn">我要寄存</div>
+    </div>
+    <div class="popup-tips">
+      <div class="p-body">
+        <div class="p-title">啦啦啦便利店</div>
+        <div class="p-cont">
+          <div class="s-cells">
+            <div class="s-cell">
+              <p class="s-info-p"><img src="./images/position.png" alt=""><span>广东省深圳市南山区文心六路海岸城旁</span></p>
+              <p class="s-info-p"><img src="./images/time.png" alt=""><span>周一至周日    8:00 - 21:30</span></p>
+            </div>
+          </div>
+          <p class="p-main-txt">该寄存点为免费储物点，请直接前往寄存</p>
+        </div>
+        <div class="p-btn">
+          <div class="next-btn konw-btn">我知道了</div>
+        </div>
+      </div>
+    </div>
+    <script src="lib/jquery-2.1.4.js"></script>
+    <script src="js/swiper.js"></script>
+    <script src="lib/fastclick.js"></script>
+    <script>
+      $(function() {
+        FastClick.attach(document.body);
+      });
+    </script>
+    <script src="js/jquery-weui.js"></script>
+    <script>
+      pageUtils = {
+        init: function(){
+          this.bandEvents();
+          this.initSwiper();
+        },
+        bandEvents: function(){
+          var _self = this;
+
+          // 寄存按钮点击
+          $('.submit-btn').on('click',function(){
+            $('.popup-tips').addClass('show');
+          });
+          
+          // 知道了按钮点击
+          $('.konw-btn').on('click',function(){
+            $('.popup-tips').removeClass('show');
+          });
+        },
+        initSwiper(){
+          $(".swiper-container").swiper({
+            loop: true,
+            autoplay: 3000
+          });
+        }
+      }
+      pageUtils.init();
+    </script>
+  </body>
+</html>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>map</title>
+    <title>任意柜-共享储物柜</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link href="./css/public.css" rel="stylesheet" type="text/css">
     <script src="./js/public.js"></script>
@@ -13,21 +13,32 @@
         html,body {height: 100%;}
         .header{background-color: #f0f1f5;}
         #container {width: 100%;height: 100%;top: -0.64rem;}
+
         #center-icon{width: .36rem;height: .63rem;margin-top: -18px;}
         #center-icon>img{display:block;width: 100%;height: 100%;}
-        #b-center{position:fixed; bottom:.34rem;left:.08rem;width: .76rem;height: .76rem;border-radius: 50%;z-index: 100 !important;background:url(./images/reset.png) no-repeat 0 0 / contain;}
-        #qa{position:fixed; bottom:.34rem;right:.08rem;width: .76rem;height: .76rem;border-radius: 50%;z-index: 100 !important;background:url(./images/qa.png) no-repeat 0 0 / contain;}
-        #scan-btn{position:fixed; bottom:.34rem;left:50%;margin-left:-68px;width: 2.32rem;height: .76rem;line-height: .76rem;z-index: 100 !important;background:url(./images/bt-bg.png) no-repeat 0 0 / contain;text-align: center;font-size: 0;color: #fff;}
+        #b-center{position:fixed; bottom:.3rem;left:.1rem;width: .76rem;height: .76rem;border-radius: 50%;z-index: 100 !important;background:url(./images/reset.png) no-repeat 0 0 / contain;}
+        #qa{position:fixed; bottom:.3rem;right:.1rem;width: .76rem;height: .76rem;border-radius: 50%;z-index: 100 !important;background:url(./images/qa.png) no-repeat 0 0 / contain;}
+        #scan-btn{position:fixed; bottom:.3rem;left:50%;margin-left:-68px;width: 2.32rem;height: .76rem;line-height: .76rem;z-index: 100 !important;background:url(./images/bt-bg.png) no-repeat 0 0 / contain;text-align: center;font-size: 0;color: #fff;}
         #scan-btn>img, #scan-btn>span{display: inline-block;vertical-align: middle;font-size: .28rem;}
         #scan-btn>img{width: .34rem;height: .34rem;margin-right:.2rem; }
-        #b-pannel{display:none;position:fixed; bottom:10px;left:2%;width: 96%;padding:.23rem .3rem;background-color:#fff;border-radius: 6px;z-index: 101 !important;font-size: 12px;word-break: break-all;box-sizing: border-box;-webkit-box-sizing: border-box;}
+
+        #b-pannel{display:none;position:fixed; bottom:10px;left:2%;width: 96%;padding:.23rem .3rem;background-color:#fff;border-radius: 6px;z-index: 101 !important;word-break: break-all;box-sizing: border-box;-webkit-box-sizing: border-box;font-size: .18rem;color: #999;}
+        #b-pannel .shop-name{width:84%;line-height:.37rem;font-size: .3rem;color: #2c2c2c;margin-bottom: .14rem;}
+        #b-pannel .shop-time-wrapper{width:90%;line-height: .26rem;margin-bottom: .04rem;align-items: center;}
+        #b-pannel .shop-time{padding: 0 .08rem;}
+        #b-pannel .time-icon{width: .22rem;height: .22rem;background:url(./images/time.png) no-repeat 0 0 / contain;}
+        #b-pannel .shop-add-wrapper{width:90%;line-height: .26rem;align-items:flex-start;}
+        #b-pannel .shop-add{padding: 0 .08rem;}
+        #b-pannel .add-icon{width: .21rem;height: .24rem;background:url(./images/position.png) no-repeat 0 0 / contain;}
+        #b-pannel .shop-type{position: absolute;top:.18rem;right:.38rem;}
+        .right-arr{position: absolute;right:.23rem;top:50%;margin-top:-.13rem;width: .18rem;height: .26rem;background:url(./images/arrow.png) no-repeat 0 0 / contain;}
     </style>
 </head>
 <body>
     <!-- 头部 -->
     <div class="header">
         <div class="user-btn1"></div>
-        <div class="search-wrapper"><input class="search-input" type="text" placeholder="输入搜索"><i class="search-btn"></i></div>
+        <div class="search-wrapper"><input class="search-input" type="text" placeholder="输入门店位置进行搜索"><i class="search-btn"></i></div>
         <div class="list-btn"></div>
     </div>
     <!-- 地图 -->
@@ -35,13 +46,17 @@
     <!-- 中心图标 -->
     <div id="center-icon"><img src="./images/self.png" alt=""></div>
     <!-- 店铺详情面板 -->
-    <div id="b-pannel"></div>
+    <div id="b-pannel">
+        <p class="shop-name"></p>
+        <p class="flex-row shop-time-wrapper"><i class="time-icon"></i><span class="flex-1 shop-time"></span></p>
+        <p class="flex-row shop-add-wrapper"><i class="add-icon"></i><span class="flex-1 shop-add"></span></p>
+        <div class="shop-type"><i class="mark-type-box"></i></div>
+        <i class="right-arr"></i>
+    </div>
     <!-- 重置 -->
     <div id="b-center"></div>
     <!-- 扫码按钮 -->
-    <div id="scan-btn">
-        <img src="./images/scan.png" alt=""><span>存/取</span>
-    </div>
+    <div id="scan-btn"></div>
     <!-- 问题 -->
     <div id="qa"></div>
     <script type="text/javascript">
@@ -100,8 +115,9 @@
                     console.log('wenti');
                 });
                 // 店铺详情面板
-                $('#b-pannel').on('click', function(e){       
-                    console.log('店铺详情');
+                $('#b-pannel').on('click', function(e){   
+                    var id = $(this).attr('data-id');    
+                    console.log('店铺详情' + id);
                 });
             },
             initMap: function(){ // 初始化地图
@@ -189,12 +205,13 @@
 
                 for(var i=0;i<size;i++){
                     var point = {
+                        id: i,
                         lat: 0,
                         lng: 0,
                         type: _self.typeObj.box, // 商家、储物柜
-                        name: 'name',
-                        time: 'time',
-                        add: 'add'
+                        name: '东方科技大厦东方科技大厦东方科技大厦',
+                        time: '周一至周日    8:00 - 21:30',
+                        add: '深圳市南山区科苑路16号深圳市南山区科苑路16号 苑路16号苑路16号'
                     }
                     if(i<size/2){
                         point.lat = lat + Math.random()/rat;
@@ -264,7 +281,11 @@
             },
             updatePannel: function(data){ // 更新店铺详情面板 
                 var _self = this;
-                _self.bPannel.html("地图中心为：" + _self.map.getCenter() + '<br/>当前店铺详情：' + JSON.stringify(data));
+                //_self.bPannel.html("地图中心为：" + _self.map.getCenter() + '<br/>当前店铺详情：' + JSON.stringify(data));
+                _self.bPannel.attr('data-id', data.id);
+                _self.bPannel.find('.shop-name').text(data.name + data.id);
+                _self.bPannel.find('.shop-time').text(data.time);
+                _self.bPannel.find('.shop-add').text(data.add);
                 _self.bPannel.css({'display':'block'});
                 //console.log(_self.markers[data], _self.shops[data])
             },

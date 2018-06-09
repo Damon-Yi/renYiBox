@@ -1,48 +1,100 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title></title>
+    <title>任意柜-共享储物柜</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="css/jquery-weui.css">
     <link href="css/public.css" rel="stylesheet" type="text/css">
-    <script src="js/public.js"></script>
+    <link rel="stylesheet" href="./lib/weui.min.css">
+    <link rel="stylesheet" href="./css/jquery-weui.css">
+    <script src="./js/public.js"></script>
     <style>
-      .header{background-color: #f0f1f5;}
+      body{background-color: #fff;}
+      .header{background-color: #f0f1f5;position: fixed;width: 100%;top: 0;left: 0;}
+
+      .shop-list{word-break: break-all;padding-top: .94rem;color:#999;}
+      .shop-list>li{position: relative;padding: .17rem;align-items: center;overflow: hidden;}
+      .shop-list>li:after{content: " ";position: absolute;left: .17rem;right:.17rem;bottom: 0;height: 1px;border-bottom: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 100%;transform-origin: 0 100%;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+      .shop-list>li:last-child:after {display: none;}
+      .shop-list .item-left{width: 1.7rem;}
+      .shop-list .item-middle{}
+      .shop-list .item-right{width: .85rem;text-align: center;}
+      .shop-list .shop-img{width: 1.53rem;display: block;}
+      .shop-list .shop-name{height:.58rem;font-size: .24rem;color: #2c2c2c;line-height: .29rem;margin-bottom: .1rem;overflow: hidden;padding-top: .04rem;}
+      .shop-list .shop-detail{margin-bottom: .04rem;}
+      .shop-list .shop-price-wrapper{display:inline-block;vertical-align:middle;margin-right: .2rem;font-size: .18rem;}
+      .shop-list .shop-price{font-style: normal;font-size: .26rem;margin-right: .04rem;}
+      .shop-list .shop-type{display:inline-block;vertical-align:middle;line-height:1;padding:.04rem .08rem .02rem;border-radius:.22rem;background-color: #dbf0f9;color:#387cd1;}
+      .shop-list .shop-type.box{background-color: #dbf0f9;color:#387cd1;}
+      .shop-list .shop-type.shop{background-color: #e5f9ea;color:#19a25d;}
+      .shop-list .mark-near-wrap{position: absolute;right: -0.02rem;top: .1rem;}
+      .color-red{color:#ea3e3e;}
+
+      .shop-add-wrapper{line-height: .24rem;align-items:flex-start;font-size:.18rem;color: #999;}
+      .shop-add{padding: 0 .04rem;}
+      .add-icon{width: .2rem;height: .24rem;background:url(./images/position.png) no-repeat 0 0 / contain;}
     </style>
   </head>
   <body ontouchstart>
     <div class="sec-top">
       <div class="header">
           <div class="user-btn1"></div>
-          <div class="search-wrapper"><input class="search-input" type="text" placeholder="输入搜索"><i class="search-btn"></i></div>
-          <div class="list-btn"></div>
+          <div class="search-wrapper"><input class="search-input" type="text" placeholder="输入门店位置进行搜索"><i class="search-btn"></i></div>
+          <div class="map-btn"></div>
       </div>
     </div>
-
-    <script src="lib/jquery-2.1.4.js"></script>
-    <script src="js/swiper.js"></script>
-    <script src="lib/fastclick.js"></script>
+    <div class="sec-cont">
+      <ul class="shop-list">
+        <li class="flex-row near" onClick="pageUtils.goToDetail(0)">
+          <div class="item-left"><img class="shop-img" src="./images/shop1.png" alt=""></div>
+          <div class="item-middle flex-1">
+            <div class="shop-name">东方科技大厦东方科技大厦东方科技大厦东方科技大厦</div>
+            <div class="shop-detail"><div class="shop-price-wrapper"><span class="color-red">￥<i class="shop-price">0.00</i></span>起</div><i class="mark-type-box"></i></div>
+            <p class="flex-row shop-add-wrapper"><i class="add-icon"></i><span class="flex-1 shop-add">深圳市南山区科苑路16号深圳市南 山区科苑路16号深圳</span></p>
+          </div>
+          <div class="item-right"><span class="shop-distance">2.5km</span></div>
+          <div class="mark-near-wrap"><i class="mark-near"></i></div>
+        </li>
+      </ul>
+    </div>
+    <div class="weui-loadmore">
+      <i class="weui-loading"></i>
+      <span class="weui-loadmore__tips">正在加载</span>
+    </div>
+    <script src="./lib/jquery-2.1.4.js"></script>
+    <script src="./js/swiper.js"></script>
+    <script src="./lib/fastclick.js"></script>
     <script>
       $(function() {
         FastClick.attach(document.body);
       });
     </script>
-    <script src="js/jquery-weui.js"></script>
+    <script src="./js/jquery-weui.min.js"></script>
     <script>
       pageUtils = {
+        loading: false,
+        typeObj: {  // 商铺类型
+            box: 'box',
+            shop: 'shop',
+        },
         init: function(){
           this.bandEvents();
+          this.initPullLoad();
+          this.getShops(10,function(){
+            console.log('load end')
+          });
         },
         bandEvents: function(){
+          var _self = this;
+
           // 用户按钮点击
           $('.header .user-btn1').on('click',function(){
             console.log('user click');
           });
-          // 列表按钮点击
-          $('.header .list-btn').on('click',function(){
-            console.log('list click');
+          // 地图按钮点击
+          $('.header .map-btn').on('click',function(){
+            location.href = './map.html'
           });
           // 搜索按钮点击
           $('.search-btn').on('click',function(){
@@ -52,6 +104,60 @@
               console.log(searchTxt);
             }
           });
+        },
+        initPullLoad(){ // 上拉加载
+          var _self = this;
+          _self.loading = false;
+          $(document.body).infinite().on("infinite", function() { 
+            if(_self.loading) return;
+            _self.loading = true;
+            _self.getShops(1,function(){
+              _self.loading = false;
+            });
+          });
+        },
+        getShops(num, callback){ // 获取店铺数据 分页
+          var _self = this;
+
+          setTimeout(function() {
+            (function(){
+              var data = {
+                id: 0,
+                type: 'box',
+                name: '东方科技大厦东方科技大',
+                img: './images/shop1.png',
+                price: 0.01,
+                add: '深圳市南山区科苑路16号深圳市南 山区科苑路16号深圳',
+                distance: 0.5,
+              }
+              for(var i=0;i<num;i++){
+                data.id = i;
+                data.type = (i%2==0)?'box':'shop';
+                data.price = i;
+                data.distance = i;
+                data.name += i;
+
+                _self.renderShop(data);
+              }
+              callback();
+            })();
+          }, 1500);
+        },
+        renderShop(data){ // 渲染店铺
+          var $li = `<li class="flex-row" onClick="pageUtils.goToDetail(${data.id})">
+              <div class="item-left"><img class="shop-img" src="${data.img}" alt=""></div>
+              <div class="item-middle flex-1">
+                <div class="shop-name">${data.name}</div>
+                <div class="shop-detail"><div class="shop-price-wrapper"><span class="color-red">￥<i class="shop-price">${data.price}</i></span>起</div><i class="mark-type-${data.type}"></i></div>
+                <p class="flex-row shop-add-wrapper"><i class="add-icon"></i><span class="flex-1 shop-add">${data.add}</span></p>
+              </div>
+              <div class="item-right"><span class="shop-distance">${data.distance}km</span></div>
+            </li>`;
+          $(".shop-list").append($li);
+        },
+        goToDetail(id){
+          console.log(id);
+          location.href = './shopDetails.html'
         }
       }
       pageUtils.init();

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>任意柜-共享储物柜</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <script src="js/public.js"></script>
+    <style>
+
+      .next-btn{width: 93%;height: .8rem;line-height: .8rem;text-align: center;color: #fff;background-color: #70c1f6;margin: .8rem auto .2rem;border-radius: .8rem;}
+      .next-btn:active{background-color: #6fc1f5;}
+
+      .order-info{}
+      .order-info .o-row{overflow: auto;}
+      .order-info .o-left{float: left;}
+      .order-info .o-right{float: right;}
+      .order-info .o-right>span{display: inline-block;vertical-align: middle;}
+      .order-info .o-type{color: #6fc1f5;font-size: .16rem;padding: .04rem .1rem .02rem;border-radius: .28rem;margin-left: .1rem;border: 1px solid #6fc1f5;line-height: .18rem;}
+      .order-info .o-money{}
+      .order-info .o-money{color: #ea3e3e;margin:0 .3rem 0 .12rem;font-size: .2rem;}
+      .order-info .o-money .s-symbol{}
+      .order-info .o-money .s-int{font-size: .28rem;}
+      .order-info .o-money .s-float{}
+
+      .order-info .o-p1{color:#6fc1f5;font-size: .26rem;}
+      .order-info .o-p2{color:#999;font-size: .16rem;}
+      .order-info .o-p3{color:#333;font-size: .24rem;margin-top: .1rem;}
+      .order-info .o-p4{color:#575757;font-size: .2rem;margin-bottom: .14rem;}
+      .order-info .o-p5{color:#575757;font-size: .2rem;margin-bottom: .08rem;}
+      .order-info .o-p5>span{display: inline-block;vertical-align: middle;}
+      .order-info .o-p7{color:#575757;font-size: .2rem;margin: .12rem 0;}
+      .order-info .o-cicle{width: .32rem;height: .32rem;line-height: .34rem;text-align: center;color: #fff;background-color: #6ec0ef;border-radius: 100%;margin: 0 .34rem 0 .14rem;}
+      .o-nav{color:#575757;font-size: .2rem;padding: .18rem;background-color: #fff;overflow: auto;text-align: center;position: relative;}
+      .o-nav:before{content: " ";position: absolute;left: 0;right: 0;height: 1px;z-index: 2;top: 0;border-top: 1px solid #e2e2e2;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(.5);transform: scaleY(.5);}
+      .o-nav>div{width: 50%;float: left;position: relative;}
+      .o-nav>div:after{content: " ";position: absolute;top: 0;right: 0;height: 100%;z-index: 2;top: 0;border-right: 1px solid #e2e2e2;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(.5);transform: scaleX(.5);}
+      .o-nav>div:last-child:after{display: none;}
+      .o-nav span,.o-nav img{display: inline-block;vertical-align: middle;}
+      .o-nav .o-icon{width: .26rem;margin-right: .14rem;}
+
+      .mark{color: #575757;font-size: .24rem;padding: .3rem;}
+      .mark .m-p1{}
+      .mark .m-p2{font-size: .2rem;}
+    </style>
+  </head>
+  <body ontouchstart>
+    <div class="sec-top">
+      <div class="header">
+          <a class="back-btn" href="javascript:history.go(-1);"></a>
+          <div class="h-title"><span>海岸城幸福便利存包处</span></div>
+          <a class="user-btn" href="javascript:;"></a>
+      </div>
+    </div>
+    <section class="sec-cont">
+      <div class="s-cells">
+        <div class="s-cell">
+          <div class="order-info">
+            <div class="o-row">
+              <div class="o-left">
+                <p class="o-p1">预定成功</p>
+                <p class="o-p2">订单号: <span>123456789</span></p>
+              </div>
+              <div class="o-right">
+                <span class="o-type">到店付</span>
+                <span class="o-money"><span class="s-symbol">￥</span><span class="s-int">25</span><span class="s-float">.00元</span></span>
+              </div>
+            </div>
+            <p class="o-p3">海岸城幸福便利存包处</p>
+            <p class="o-p4">广东省深圳市南山区文心六路海岸城旁</p>
+            <p class="o-p5"><span class="o-cicle">存</span><span>2018-05-09</span></p>
+            <p class="o-p5"><span class="o-cicle">取</span><span>2018-05-09</span></p>
+            <p class="o-p7">共2件行李（小行李X1；大行李X1）</p>
+          </div>
+        </div>
+      </div>
+      <div class="o-nav">
+        <div><img class="o-icon" src="./images/phone.png" alt=""><span>联系店主</span></div>
+        <div><img class="o-icon" src="./images/user.png" alt=""><span>个人中心</span></div>
+      </div>
+      <div class="mark">
+        <p class="m-p1">温馨提示：</p>
+        <p class="m-p2">1.  寄放时间未满一日，以一日计算收费 日</p>
+        <p class="m-p2">2.  天数计算以每日凌晨零时为界，超过即多加一</p>
+        <p class="m-p2">3.  寄放/取回时间以商家具体</p>
+      </div>      
+      <a class="next-btn" href="javascript:;">我的订单</a>
+    </section>
+
+    <script src="lib/jquery-2.1.4.js"></script>
+    <script src="js/swiper.js"></script>
+    <script src="lib/fastclick.js"></script>
+    <script>
+      $(function() {
+        FastClick.attach(document.body);
+      });
+    </script>
+    <script>
+      $('.rule .check-box').on('click', function() {
+        $(this).toggleClass('active');
+      })
+      $('.s-confirm').on('click', function() {
+        var startTime = $("#startTime"),
+            endTime = $("#endTime"),
+            smallNum = $("#smallNum"),
+            bigNum = $("#bigNum");
+        console.log(startTime.val())
+        console.log(endTime.val())
+        console.log(smallNum.val())
+        console.log(bigNum.val())
+      })
+    </script>
+  </body>
+</html>
