@@ -54,7 +54,7 @@
   <body ontouchstart>
     <div class="sec-top">
       <div class="header">
-          <a class="back-btn" href="javascript:history.go(-1);"></a>
+          <a class="back-btn1" href="javascript:history.go(-1);"></a>
           <div class="h-title"><span>海岸城幸福便利存包处</span></div>
           <a class="user-btn" href="javascript:;"></a>
       </div>
@@ -101,7 +101,7 @@
       </div>
     </div>
     <div class="sec-bottom">
-        <div class="next-btn submit-btn">我要寄存</div>
+      <div class="next-btn submit-btn">我要寄存</div>
     </div>
     <div class="popup-tips">
       <div class="p-body">
@@ -146,6 +146,7 @@
           // 知道了按钮点击
           $('.konw-btn').on('click',function(){
             $('.popup-tips').removeClass('show');
+            location.href = './orderSubmit.html'
           });
         },
         initSwiper(){

@@ -14,8 +14,7 @@
 
       .p-title-wrap{}
       .p-title-wrap>span{display: inline-block;vertical-align:middle;}
-      .p-title{color: #353535;font-size: .26rem;}
-      .p-type{color: #6fc1f5;font-size: .16rem;padding: .04rem .1rem .02rem;border-radius: .28rem;margin-left: .1rem;border: 1px solid #6fc1f5;}
+      .p-title{color: #353535;font-size: .26rem;margin-right:.1rem; }
 
       .o-time-wrap{}
       .o-time-wrap>span,.o-time-wrap>input{display: inline-block;vertical-align:middle;}
@@ -30,8 +29,8 @@
       .rule .r-txt{color: #6fc1f5;text-decoration: underline;}
 
       .s-b-wrap{background-color: #fff;height: .86rem;line-height: .86rem;overflow: hidden;}
-      .s-b-wrap .s-b-left{width: 62%;float: left;text-align: right;color: #70c1f6;font-size: .2rem;}
-      .s-b-wrap .s-b-right{width: 38%;background-color: #70c1f6;float: left;text-align: center;color: #fff;font-size: .28rem;}
+      .s-b-wrap .s-b-left{display:inline-block;color: #70c1f6;font-size: .2rem;margin-left: .4rem;}
+      .s-b-wrap .s-b-right{float: right;margin-right: .17rem;}
       .s-money{color: #ea3e3e;margin:0 .3rem 0 .12rem;font-size: .2rem;}
       .s-money .s-symbol{}
       .s-money .s-int{font-size: .28rem;}
@@ -57,7 +56,7 @@
       .rule-wrap .r-title{text-align: center;line-height: .3rem;font-size: .36rem;}
       .rule-wrap .r-txt{text-indent: 20px;text-align: justify;margin: .2rem 0;font-size: .24rem;}
       .rule-wrap .close-popup{text-align: center;}
-      .rule-wrap .back-btn{position: absolute;top: 0;left: 0; display: block;width: 0.68rem;height: 0.68rem;background: url(../images/back.png) no-repeat center center;background-size: 0.3rem;}
+      .rule-wrap .back-btn{position: absolute;top: 0;left: 0; display: block;width: 0.68rem;height: 0.68rem;background: url(./images/back1.png) no-repeat center center;background-size: .16rem .3rem;}
 
       .weui-popup__modal{background-color: #fff;}
 
@@ -75,12 +74,15 @@
       .picker-calendar-week-days+.picker-calendar-months{height: 238px;}
       .picker-calendar-month-picker .current-month-value, .picker-calendar-month-picker .current-year-value, .picker-calendar-year-picker .current-month-value, .picker-calendar-year-picker .current-year-value{height: 44px;}
       .picker-calendar-month-picker, .picker-calendar-year-picker{line-height: 44px;}
+
+      .mark-yuyue{margin-right: .08rem;}
+      .weui-btn_plain-primary{color:#6fc1f5;border-color:#6fc1f5;}
     </style>
   </head>
   <body ontouchstart>
     <div class="sec-top">
       <div class="header">
-          <a class="back-btn" href="javascript:history.go(-1);"></a>
+          <a class="back-btn1" href="javascript:history.go(-1);"></a>
           <div class="h-title"><span>填写订单</span></div>
           <a class="user-btn" href="javascript:;"></a>
       </div>
@@ -88,7 +90,7 @@
     <section class="sec-cont">
       <div class="s-cells">
         <div class="s-cell">
-          <div class="p-title-wrap"><span class="p-title">海岸城幸福便利存包处</span><span class="p-type">到店付</span></div>
+          <div class="p-title-wrap"><span class="p-title">海岸城幸福便利存包处</span><i class="mark-shop-pay"></i></div>
         </div>
       </div>
       <div class="s-cells">
@@ -138,8 +140,8 @@
     </section>
     <section class="sec-bottom">
       <div class="s-b-wrap">
-        <div class="s-b-left"><span>请到店支付</span><span class="s-money"><span class="s-symbol">￥</span><span class="s-int">0</span><span class="s-float">.00元</span></span></div>
-        <div class="s-b-right s-confirm"><span>确认订单</span></div>
+        <div class="s-b-left"><span>共计</span><span class="s-money"><span class="s-symbol">￥</span><span class="s-int">0</span><span class="s-float">.00元</span></span></div>
+        <div class="s-b-right"><i class="mark-yuyue"></i><i class="mark-pay"></i></div>
       </div>
     </section>
 
@@ -164,150 +166,167 @@
 
         $('.sec-cont').height($(window).height() - $('.sec-top').height() - $('.sec-bottom').height()-30); // fix闪屏
       });
-
-      $('.rule .check-box').on('click', function() {
-        $(this).toggleClass('active');
-      })
-
-      $('.s-confirm').on('click', function() {
-        var startTime = $("#startTime"),
-            endTime = $("#endTime"),
-            smallNum = $("#smallNum"),
-            bigNum = $("#bigNum");
-        if(startTime.val() == ''){
-          msg = '请选择存入时间';
-          tips(msg,'tips_center',1500);
-          return;
-        }
-        if(endTime.val() == ''){
-            msg = '请选择取出时间';
-            tips(msg,'tips_center',1500);
-            return;
-        }
-        if(!checkDates(startTime.val(),endTime.val(),6)){
-          return;
-        }
-        if(smallNum.val() == '0'&&bigNum.val() == '0'){
-            msg = '请选择行李数量';
-            tips(msg,'tips_center',1500);
-            return;
-        }
-        console.log('tijiao');
-      });
-
-      //存取时间 选择
-      /*var currDate = new Date(),
-          minDate = currDate.format("yyyy-MM-dd"),
-          maxDate = new Date(currDate.setDate(currDate.getDate()+6)).format("yyyy-MM-dd");
-      $("#startTime").calendar({
-        minDate: minDate,
-        maxDate: maxDate,
-        dateFormat: 'yyyy-mm-dd',
-        onChange: function (p, values, displayValues) {
-            console.log(values, displayValues);
+      
+      pageUtils = {
+        init: function(){
+          this.bandEvents();
+          this.initDatePicker();
+          this.ininCounter();
         },
-        onOpen: function(p){
-        }
-      });
-      $("#endTime").calendar({
-        minDate: minDate,
-        maxDate: maxDate,
-        dateFormat: 'yyyy-mm-dd',
-        onChange: function (p, values, displayValues) {
-            console.log(values, displayValues);
-        }
-      });*/
+        bandEvents: function(){
+          var _self = this;
+          
+          // 协议勾选
+          $('.rule .check-box').on('click', function() {
+            $(this).toggleClass('active');
+          })
+          
+          // 预约
+          $('.s-b-wrap .mark-yuyue').on('click', function() {
+            _self.submit(1);
+          });
+          // 支付
+          $('.s-b-wrap .mark-pay').on('click', function() {
+            _self.submit(2);
+          });
 
-      var startDates = [],
+        },
+        submit: function(type){ // 1 预约，2 支付
+          var _self = this;
+          console.log(type)
+          var startTime = $("#startTime"),
+                endTime = $("#endTime"),
+                smallNum = $("#smallNum"),
+                bigNum = $("#bigNum"),
+                rule = $('.rule .check-box');
+
+            if(startTime.val() == ''){
+              msg = '请选择存入时间';
+              tips(msg,'tips_center',1500);
+              return;
+            }
+            if(endTime.val() == ''){
+                msg = '请选择取出时间';
+                tips(msg,'tips_center',1500);
+                return;
+            }
+            if(!_self.checkDates(startTime.val(),endTime.val(),6)){
+              return;
+            }
+            if(smallNum.val() == '0'&&bigNum.val() == '0'){
+                msg = '请选择行李数量';
+                tips(msg,'tips_center',1500);
+                return;
+            }
+            if(!rule.hasClass('active')){
+                msg = '请勾选协议';
+                tips(msg,'tips_center',1500);
+                return;
+            }
+            console.log('tijiao');
+            if(type == 1){
+              location.href = './orderDetails.html?type=' + type;
+            }else if(type == 2){
+              location.href = './payed.html';
+            }
+        },
+        initDatePicker: function(){
+          var _self = this;
+
+          var startDates = [],
           endDates = [],
           step = 6;
-      for(var i=0;i<step+1;i++){
-        startDates.push(new Date(new Date().setDate(new Date().getDate()+i)).format("yyyy-MM-dd"))
-      }
-      for(var i=0;i<step*2+1;i++){
-        endDates.push(new Date(new Date().setDate(new Date().getDate()+i)).format("yyyy-MM-dd"))
-      }
-      $("#startTime").picker({
-        title: "存入时间",
-        cols: [
-          {
-            textAlign: 'center',
-            values: startDates
+          for(var i=0;i<step+1;i++){
+            startDates.push(new Date(new Date().setDate(new Date().getDate()+i)).format("yyyy-MM-dd"))
           }
-        ],
-        onChange: function(p, v, dv) {
-          console.log(p, v, dv);
+          for(var i=0;i<step*2+1;i++){
+            endDates.push(new Date(new Date().setDate(new Date().getDate()+i)).format("yyyy-MM-dd"))
+          }
+          $("#startTime").picker({
+            title: "存入时间",
+            cols: [
+              {
+                textAlign: 'center',
+                values: startDates
+              }
+            ],
+            onChange: function(p, v, dv) {
+              //console.log(p, v, dv);
+            },
+            onClose: function(p) {
+              var endTime = $("#endTime");
+              if(endTime.val()){
+                _self.checkDates(p.value[0], endTime.val(), 6);
+              }
+            }
+          });
+          $("#endTime").picker({
+            title: "取出时间",
+            cols: [
+              {
+                textAlign: 'center',
+                values: endDates
+              }
+            ],
+            onChange: function(p, v, dv) {
+              //console.log(p, v, dv);
+            },
+            onClose: function(p) {
+              var startTime = $("#startTime");
+              if(startTime.val()){
+                _self.checkDates(startTime.val(), p.value[0], 6);
+              }
+            }
+          });
         },
-        onClose: function(p) {
-          var endTime = $("#endTime");
-          if(endTime.val()){
-            checkDates(p.value[0], endTime.val(), 6);
-          }
-        }
-      });
-      $("#endTime").picker({
-        title: "取出时间",
-        cols: [
-          {
-            textAlign: 'center',
-            values: endDates
-          }
-        ],
-        onChange: function(p, v, dv) {
-          console.log(p, v, dv);
+        ininCounter: function(){ // 件数 选择
+          var _self = this;
+          
+          var MAX = 99, MIN = 0;
+          $('.o-count-decrease').click(function (e) {
+            var $input = $(e.currentTarget).parent().find('.o-count-number');
+            var number = parseInt($input.val() || "0") - 1
+            if (number < MIN) number = MIN;
+            $input.val(number);
+            _self.setTotalPrice();
+          });
+          $('.o-count-increase').click(function (e) {
+            var $input = $(e.currentTarget).parent().find('.o-count-number');
+            var number = parseInt($input.val() || "0") + 1
+            if (number > MAX) number = MAX;
+            $input.val(number);
+            _self.setTotalPrice();
+          });
+          $('.o-count-number').on('input', function(){
+            _self.setTotalPrice();
+          });
         },
-        onClose: function(p) {
-          var startTime = $("#startTime");
-          if(startTime.val()){
-            checkDates(startTime.val(), p.value[0], 6);
+        setTotalPrice: function(){ 
+          var smallNum = $('#smallNum'),
+              bigNum = $('#bigNum'),
+              sPrice = smallNum.attr('data-price'),
+              bPrice = bigNum.attr('data-price'),
+              total = 0;
+          if(smallNum.val()){
+            total += parseInt(smallNum.val())*parseInt(sPrice);
+          }
+          if(bigNum.val()){
+            total += parseInt(bigNum.val())*parseInt(bPrice);
+          }
+          $('.s-money .s-int').text(total)
+        },
+        checkDates: function(startDate,endDate,step){ // 检查存取时间周期
+          var startTime = new Date(startDate).getTime(),
+              endTime = new Date(endDate).getTime();
+          if(endTime - startTime > step*24*60*60*1000){
+            tips('存入到取出超过一周，请重新选择','tips_center',1500);
+            return false;
+          }else{
+            return true;
           }
         }
-      });
-
-      // 件数 选择
-      var MAX = 99, MIN = 0;
-      $('.o-count-decrease').click(function (e) {
-        var $input = $(e.currentTarget).parent().find('.o-count-number');
-        var number = parseInt($input.val() || "0") - 1
-        if (number < MIN) number = MIN;
-        $input.val(number);
-        setTotalPrice();
-      });
-      $('.o-count-increase').click(function (e) {
-        var $input = $(e.currentTarget).parent().find('.o-count-number');
-        var number = parseInt($input.val() || "0") + 1
-        if (number > MAX) number = MAX;
-        $input.val(number);
-        setTotalPrice();
-      });
-      $('.o-count-number').on('input', function(){
-        setTotalPrice();
-      });
-      function setTotalPrice(){ 
-        var smallNum = $('#smallNum'),
-            bigNum = $('#bigNum'),
-            sPrice = smallNum.attr('data-price'),
-            bPrice = bigNum.attr('data-price'),
-            total = 0;
-        if(smallNum.val()){
-          total += parseInt(smallNum.val())*parseInt(sPrice);
-        }
-        if(bigNum.val()){
-          total += parseInt(bigNum.val())*parseInt(bPrice);
-        }
-        $('.s-money .s-int').text(total)
       }
-
-      function checkDates(startDate,endDate,step){ // 检查存取时间周期
-        var startTime = new Date(startDate).getTime(),
-            endTime = new Date(endDate).getTime();
-        if(endTime - startTime > step*24*60*60*1000){
-          tips('存入到取出超过一周，请重新选择','tips_center',1500);
-          return false;
-        }else{
-          return true;
-        }
-      }
+      pageUtils.init();
     </script>
   </body>
 </html>

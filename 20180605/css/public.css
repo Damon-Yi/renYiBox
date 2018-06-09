@@ -84,9 +84,9 @@ body{background-color: #f0f1f5;}
 /*头部，返回、标题、个人中心*/
 .header{display: flex;-webkit-display:flex;align-items: center;font-size: 0.26rem;color: #333;background-color:#fff;position: relative;z-index:2;}
 .header .back-btn{display:block;width: 0.68rem;height:0.68rem;background:url(../images/back.png) no-repeat center center;background-size:0.3rem;}
+.header .back-btn1{display:block;width: 0.68rem;height:0.68rem;background:url(../images/back1.png) no-repeat center center;background-size:.16rem .3rem;}
 .header .h-title{flex: 1;-webkit-flex: 1;text-align: center;}
-.header .user-btn{display:block;width: 0.68rem;height:0.68rem;background:url(../images/user1.png) no-repeat center center;background-size:0.32rem 0.32rem;}
-
+.header .user-btn{display:block;width: 0.68rem;height:0.68rem;background:url(../images/user1.png) no-repeat center center;background-size:0.39rem 0.39rem;}
 .header .user-btn1{display:block;width: .7rem;height:0.94rem;background:url(../images/user1.png) no-repeat center center;background-size:0.39rem 0.39rem;}
 .header .list-btn{display:block;width: .7rem;height:0.94rem;background:url(../images/list.png) no-repeat center center;background-size:0.37rem 0.27rem;}
 .header .map-btn{display:block;width: .7rem;height:0.94rem;background:url(../images/map.png) no-repeat center center;background-size:0.32rem 0.32rem;}
@@ -169,3 +169,6 @@ body{background-color: #f0f1f5;}
 .mark-near{display: inline-block;vertical-align: middle;width: .58rem;height: .27rem;background:url(./../images/near.png) no-repeat 0 0 / contain;}
 .mark-type-box{display: inline-block;vertical-align: middle;width: .62rem;height: .22rem;background:url(./../images/type-box.png) no-repeat 0 0 / contain;}
 .mark-type-shop{display: inline-block;vertical-align: middle;width: .54rem;height: .22rem;background:url(./../images/type-shop.png) no-repeat 0 0 / contain;}
+.mark-yuyue{display: inline-block;vertical-align: middle;width: 1.4rem;height: .57rem;background:url(./../images/yuyue.png) no-repeat 0 0 / contain;}
+.mark-pay{display: inline-block;vertical-align: middle;width: 1.4rem;height: .57rem;background:url(./../images/pay.png) no-repeat 0 0 / contain;}
+.mark-shop-pay{display: inline-block;vertical-align: middle;width: .78rem;height: .32rem;background:url(./../images/shop-pay.png) no-repeat 0 0 / contain;}

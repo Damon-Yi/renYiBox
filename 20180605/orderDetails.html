@@ -13,41 +13,57 @@
 
       .order-info{}
       .order-info .o-row{overflow: auto;}
-      .order-info .o-left{float: left;}
-      .order-info .o-right{float: right;}
-      .order-info .o-right>span{display: inline-block;vertical-align: middle;}
-      .order-info .o-type{color: #6fc1f5;font-size: .16rem;padding: .04rem .1rem .02rem;border-radius: .28rem;margin-left: .1rem;border: 1px solid #6fc1f5;line-height: .18rem;}
-      .order-info .o-money{}
+      .order-info .o-type{display: inline-block;vertical-align: middle;width: .6rem;height: .22rem;background:url(./images/shop-pay-sm.png) no-repeat 0 0 / contain;margin-left: .15rem;}
+      .order-info .o-money{position: absolute;top: .74rem;right: .26rem;}
       .order-info .o-money{color: #ea3e3e;margin:0 .3rem 0 .12rem;font-size: .2rem;}
-      .order-info .o-money .s-symbol{}
-      .order-info .o-money .s-int{font-size: .28rem;}
-      .order-info .o-money .s-float{}
+      .order-info .o-money .s-int{font-size: .3rem;}
 
       .order-info .o-p1{color:#6fc1f5;font-size: .26rem;}
       .order-info .o-p2{color:#999;font-size: .16rem;}
-      .order-info .o-p3{color:#333;font-size: .24rem;margin-top: .1rem;}
-      .order-info .o-p4{color:#575757;font-size: .2rem;margin-bottom: .14rem;}
+      .order-info .o-p3{color:#333;font-size: .24rem;margin-top: .2rem;}
+      .order-info .o-p4{color:#575757;font-size: .2rem;margin-bottom: .27rem;}
       .order-info .o-p5{color:#575757;font-size: .2rem;margin-bottom: .08rem;}
       .order-info .o-p5>span{display: inline-block;vertical-align: middle;}
-      .order-info .o-p7{color:#575757;font-size: .2rem;margin: .12rem 0;}
-      .order-info .o-cicle{width: .32rem;height: .32rem;line-height: .34rem;text-align: center;color: #fff;background-color: #6ec0ef;border-radius: 100%;margin: 0 .34rem 0 .14rem;}
+      .order-info .o-p7{color:#575757;font-size: .2rem;margin-top: .23rem;}
+      .order-info .o-cicle{width: .32rem;height: .32rem;background-repeat: no-repeat;background-position: 0 0;background-size:contain; margin: 0 .34rem 0 .14rem;}
+      .order-info .o-cicle.get{background-image: url(./images/get.png);}
+      .order-info .o-cicle.set{background-image: url(./images/set.png);}
+
       .o-nav{color:#575757;font-size: .2rem;padding: .18rem;background-color: #fff;overflow: auto;text-align: center;position: relative;}
       .o-nav:before{content: " ";position: absolute;left: 0;right: 0;height: 1px;z-index: 2;top: 0;border-top: 1px solid #e2e2e2;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(.5);transform: scaleY(.5);}
       .o-nav>div{width: 50%;float: left;position: relative;}
-      .o-nav>div:after{content: " ";position: absolute;top: 0;right: 0;height: 100%;z-index: 2;top: 0;border-right: 1px solid #e2e2e2;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(.5);transform: scaleX(.5);}
-      .o-nav>div:last-child:after{display: none;}
+      .o-nav>div:first-child:after{content: " ";position: absolute;top: 0;right: 0;height: 100%;z-index: 2;top: 0;border-right: 1px solid #e2e2e2;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(.5);transform: scaleX(.5);}
       .o-nav span,.o-nav img{display: inline-block;vertical-align: middle;}
-      .o-nav .o-icon{width: .26rem;margin-right: .14rem;}
+      .o-nav .o-icon{width: .24rem;margin-right: .14rem;}
+      .phone .o-icon{width: .33rem;}
+      .order-cancel{display: none;}
+      .order-cancel .o-icon{width: .24rem;}
+      .order .o-icon{width: .24rem;}
 
-      .mark{color: #575757;font-size: .24rem;padding: .3rem;}
-      .mark .m-p1{}
-      .mark .m-p2{font-size: .2rem;}
+      .mark{display: none;color: #999;font-size: .24rem;padding: .3rem;background-color: #fff;margin-top: .17rem;}
+      .mark .m-p1{color: #575757;margin-bottom: .04rem;}
+      .mark .m-p2{font-size: .2rem;line-height: .28rem;}
+
+      .mark-status-wrap{position: absolute;right: .15rem;bottom:.18rem;}
+      .mark-status{display: inline-block;vertical-align: middle;width: .9rem;height: .9rem;background-repeat:no-repeat;background-position:0 0;background-size:contain;}
+      .sec-bottom{display: none;}
+      .status-unpay{}
+      .status-unpay .mark-status{background-image:url(./images/status-unpay.png);}
+      .status-unpay .order-cancel{display: block;}
+      .status-unpay .order{display: none;}
+      .status-unpay .sec-bottom{display: block;}
+      .status-unpay .mark{display: block;}
+      .status-ing{}
+      .status-ing .mark-status{background-image:url(./images/status-ing.png);}
+      .status-ing .sec-bottom{display: block;}
+      .status-end{}
+      .status-end .mark-status{background-image:url(./images/status-end.png);}
     </style>
   </head>
   <body ontouchstart>
     <div class="sec-top">
       <div class="header">
-          <a class="back-btn" href="javascript:history.go(-1);"></a>
+          <a class="back-btn1" href="javascript:history.go(-1);"></a>
           <div class="h-title"><span>海岸城幸福便利存包处</span></div>
           <a class="user-btn" href="javascript:;"></a>
       </div>
@@ -57,35 +73,34 @@
         <div class="s-cell">
           <div class="order-info">
             <div class="o-row">
-              <div class="o-left">
-                <p class="o-p1">预定成功</p>
-                <p class="o-p2">订单号: <span>123456789</span></p>
-              </div>
-              <div class="o-right">
-                <span class="o-type">到店付</span>
-                <span class="o-money"><span class="s-symbol">￥</span><span class="s-int">25</span><span class="s-float">.00元</span></span>
-              </div>
+              <p class="o-p1"><span class="stauts-txt"></span><i class="o-type"></i></p>
+              <p class="o-p2">订单号: <span>123456789</span></p>
             </div>
+            <div class="o-money"><span class="s-symbol">￥</span><span class="s-int">25</span><span class="s-float"> 元</span></div>
             <p class="o-p3">海岸城幸福便利存包处</p>
             <p class="o-p4">广东省深圳市南山区文心六路海岸城旁</p>
-            <p class="o-p5"><span class="o-cicle">存</span><span>2018-05-09</span></p>
-            <p class="o-p5"><span class="o-cicle">取</span><span>2018-05-09</span></p>
-            <p class="o-p7">共2件行李（小行李X1；大行李X1）</p>
+            <p class="o-p5"><span class="o-cicle get"></span><span>2018-05-09</span></p>
+            <p class="o-p5"><span class="o-cicle set"></span><span>2018-05-09</span></p>
+            <p class="o-p7">共2件行李（小行李x1；大行李x1）</p>
+            <div class="mark-status-wrap"><i class="mark-status"></i></div>
           </div>
         </div>
       </div>
       <div class="o-nav">
-        <div><img class="o-icon" src="./images/phone.png" alt=""><span>联系店主</span></div>
-        <div><img class="o-icon" src="./images/user.png" alt=""><span>个人中心</span></div>
+        <div class="phone"><img class="o-icon" src="./images/phone.png" alt=""><span>联系店主</span></div>
+        <div class="order-cancel"><img class="o-icon" src="./images/order-cancel.png" alt=""><span>取消订单</span></div>
+        <div class="order"><img class="o-icon" src="./images/order-cancel.png" alt=""><span>我的订单</span></div>
       </div>
       <div class="mark">
         <p class="m-p1">温馨提示：</p>
-        <p class="m-p2">1.  寄放时间未满一日，以一日计算收费 日</p>
-        <p class="m-p2">2.  天数计算以每日凌晨零时为界，超过即多加一</p>
-        <p class="m-p2">3.  寄放/取回时间以商家具体</p>
+        <p class="m-p2">1.  寄放时间未满一日，以一日计算收费</p>
+        <p class="m-p2">2.  天数计算以每日凌晨零时为界，超过即多加一日</p>
+        <p class="m-p2">3.  寄放/取回时间以商家具体营业时间为准，敬请留意</p>
       </div>      
-      <a class="next-btn" href="javascript:;">我的订单</a>
     </section>
+    <div class="sec-bottom">
+      <div class="next-btn pay-btn">去支付</div>
+    </div>
 
     <script src="lib/jquery-2.1.4.js"></script>
     <script src="js/swiper.js"></script>
@@ -96,19 +111,51 @@
       });
     </script>
     <script>
-      $('.rule .check-box').on('click', function() {
-        $(this).toggleClass('active');
-      })
-      $('.s-confirm').on('click', function() {
-        var startTime = $("#startTime"),
-            endTime = $("#endTime"),
-            smallNum = $("#smallNum"),
-            bigNum = $("#bigNum");
-        console.log(startTime.val())
-        console.log(endTime.val())
-        console.log(smallNum.val())
-        console.log(bigNum.val())
-      })
+      pageUtils = {
+        status: 0, // 0 未支付， 1 已支付， 2 已结束
+        statusArr:[
+          {
+            stautsTxt: '预定成功',
+            stautsBtnTxt: '去支付',
+            statusClass: 'status-unpay'
+          },{
+            stautsTxt: '订单进行中',
+            stautsBtnTxt: '取走物品并结束订单',
+            statusClass: 'status-ing'
+          },{
+            stautsTxt: '订单结束',
+            stautsBtnTxt: '',
+            statusClass: 'status-end'
+          }
+        ],
+        init: function(){
+          this.bandEvents();
+          this.initstatus();
+        },
+        initstatus: function(){ // 初始化订单状态
+          var _self = this;
+          
+          var statusObj = _self.statusArr[_self.status];
+
+          $('body').addClass(statusObj.statusClass);
+          $('.stauts-txt').text(statusObj.stautsTxt);
+          if(statusObj.stautsBtnTxt){ // 已结束 隐藏底部按钮
+            $('.pay-btn').text(statusObj.stautsBtnTxt);
+          }
+        },
+        bandEvents: function(){
+          var _self = this;
+
+          $('.pay-btn').on('click', function() {
+            if(_self.status == 0){
+              location.href = './payed.html'
+            }else if(_self.status == 1){
+              location.href = './orderCancel.html'
+            }
+          })
+        }
+      }
+      pageUtils.init();
     </script>
   </body>
 </html>
