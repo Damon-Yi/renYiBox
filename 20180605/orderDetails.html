@@ -9,6 +9,20 @@
     <style>
       .sec-cont{padding-bottom: 1.14rem;}
 
+      .popup{position: fixed;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(0,0,0,.5);z-index: 100;font-size: 0.24rem;display: none;}
+      .popup .p-open-confirm{width: 4.4rem;border-radius: 3px;padding-top: 0.34rem;color: #666;font-size: .22rem;position:absolute;top: 3.3rem;left: 50%;margin-left:-2.2rem;text-align: center;display: none;background-color: #fff;-webkit-animation: animDialog .3s ease-out;animation: animDialog .3s ease-out;-webkit-backface-visibility: hidden;backface-visibility: hidden;-webkit-perspective: 1000;perspective: 1000;-webkit-transform-style: preserve-3d;}
+      .popup .p-open-confirm .c-title{margin: 0.12rem 0;color: #333;font-size: .3rem;}
+      .popup .p-open-confirm .c-txt{width: 3.4rem;margin: 0 auto;text-align: left;line-height:1.5;}
+      .popup .p-open-confirm .c-btns{position: relative;overflow:auto;margin-top:0.34rem; }
+      .popup .p-open-confirm .c-btns:before{content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+      .popup .p-open-confirm .c-btns>a{display: block;float: left;width: 50%;text-align: center;height: 0.72rem;line-height:0.72rem;position: relative;font-size: 0.27rem;}
+      .popup .p-open-confirm .c-btns>a:after{content: " ";position: absolute;right: 0;top: 0;height: 100%;width: 1px;border-right: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(0.5);transform: scaleX(0.5);}
+      .popup .p-open-confirm .c-btns>a:last-child:after{display: none;}
+      .popup .p-open-confirm .c-btns .c-cancel{}
+      .popup .p-open-confirm .c-btns .c-open{color: #6fc1f5;}
+      .popup.open-2 {display: block;}
+      .popup.open-2 .p-open-confirm{display: block;}
+
       .order-info{}
       .order-info .o-row{overflow: auto;}
       .order-info .o-type{display: inline-block;vertical-align: middle;width: .6rem;height: .22rem;background:url(./images/shop-pay-sm.png) no-repeat 0 0 / contain;margin-left: .15rem;}
@@ -42,7 +56,7 @@
       .mark .m-p1{color: #575757;margin-bottom: .04rem;}
       .mark .m-p2{font-size: .2rem;line-height: .28rem;}
 
-      .bind-list{padding: .18rem 0;}
+      .bind-list{padding: .18rem 0;display: none;}
       .bind-list>li{position: relative;padding: .12rem .42rem;font-size: .2rem;color: #575757;}
       .bind-list>li span,.bind-list>li i{display: inline-block;vertical-align: middle;}
       .bind-list>li i{margin-right: .1rem;}
@@ -56,11 +70,14 @@
       .status-unpay .order{display: none;}
       .status-unpay .sec-bottom{display: block;}
       .status-unpay .mark{display: block;}
+      .status-payed{}
+      .status-payed .sec-bottom{display: block;}
+      .status-payed .mark{display: block;}
       .status-ing{}
       .status-ing .mark-status{background-image:url(./images/status-ing.png);}
       .status-ing .sec-bottom{display: block;}
+      .status-ing .bind-list{display: block;}
       .status-end{}
-      .status-end .mark-status{background-image:url(./images/status-end.png);}
 
     </style>
   </head>
@@ -112,7 +129,18 @@
     <div class="sec-bottom">
       <div class="next-btn pay-btn">去支付</div>
     </div>
-
+    
+    <div class="popup">
+      <!-- 温馨提示 -->
+      <div class="p-open-confirm">
+          <p class="c-title">温馨提示</p>
+          <p class="c-txt">完成储物需扫码绑定储物卡扣，请扫码进行绑定</p>
+          <div class="c-btns">
+              <a class="c-cancel" class="o-cancel" href="javascript:;">暂不绑定</a>
+              <a class="c-open" href="javascript:;">立即绑定</a>
+          </div>
+      </div>
+    </div>    
     <script src="./lib/jquery-2.1.4.js"></script>
     <script src="./js/swiper.js"></script>
     <script src="./lib/fastclick.js"></script>
@@ -123,12 +151,16 @@
     </script>
     <script>
       pageUtils = {
-        status: 0, // 0 未支付， 1 已支付， 2 已结束
+        status: 1, // 0 未支付， 1 已支付-未绑定， 2 已支付-已绑定（进行中）， 3 已结束
         statusArr:[
           {
             stautsTxt: '预定成功',
             stautsBtnTxt: '去支付',
             statusClass: 'status-unpay'
+          },{
+            stautsTxt: '支付成功',
+            stautsBtnTxt: '绑定储物卡扣',
+            statusClass: 'status-payed'
           },{
             stautsTxt: '订单进行中',
             stautsBtnTxt: '取走物品并结束订单',
@@ -153,6 +185,10 @@
           if(statusObj.stautsBtnTxt){ // 已结束 隐藏底部按钮
             $('.pay-btn').text(statusObj.stautsBtnTxt);
           }
+
+          if(_self.status == 1){
+            $('.popup').addClass('open-2');
+          }
         },
         bandEvents: function(){
           var _self = this;
@@ -163,7 +199,16 @@
             }else if(_self.status == 1){
               location.href = './orderCancel.html'
             }
-          })
+          });
+
+          // 温馨提示
+          $('.p-open-confirm .c-cancel').on('click',function(){
+              $('.popup').removeClass('open-2');
+          });
+          $('.p-open-confirm .c-open').on('click',function(){
+              $('.popup').removeClass('open-2');
+              window.location.href = './bind.html';
+          });
         }
       }
       pageUtils.init();
