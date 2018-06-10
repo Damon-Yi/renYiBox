@@ -172,3 +172,5 @@ body{background-color: #f0f1f5;}
 .mark-yuyue{display: inline-block;vertical-align: middle;width: 1.4rem;height: .57rem;background:url(./../images/yuyue.png) no-repeat 0 0 / contain;}
 .mark-pay{display: inline-block;vertical-align: middle;width: 1.4rem;height: .57rem;background:url(./../images/pay.png) no-repeat 0 0 / contain;}
 .mark-shop-pay{display: inline-block;vertical-align: middle;width: .78rem;height: .32rem;background:url(./../images/shop-pay.png) no-repeat 0 0 / contain;}
+
+.index{font-style:normal;font-size: 12px;text-align: center;width: 14px;height: 14px;line-height: 14px;color: #76c3f6;border:1px solid #76c3f6;border-radius: 50%;}
