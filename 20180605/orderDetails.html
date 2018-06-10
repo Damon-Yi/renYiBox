@@ -4,12 +4,10 @@
     <title>任意柜-共享储物柜</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link href="./css/public.css" rel="stylesheet" type="text/css">
+    <link href="./css/public.css?v=1" rel="stylesheet" type="text/css">
     <script src="./js/public.js"></script>
     <style>
-
-      .next-btn{width: 93%;height: .8rem;line-height: .8rem;text-align: center;color: #fff;background-color: #70c1f6;margin: .8rem auto .2rem;border-radius: .8rem;}
-      .next-btn:active{background-color: #6fc1f5;}
+      .sec-cont{padding-bottom: 1.14rem;}
 
       .order-info{}
       .order-info .o-row{overflow: auto;}
@@ -44,6 +42,11 @@
       .mark .m-p1{color: #575757;margin-bottom: .04rem;}
       .mark .m-p2{font-size: .2rem;line-height: .28rem;}
 
+      .bind-list{padding: .18rem 0;}
+      .bind-list>li{position: relative;padding: .12rem .42rem;font-size: .2rem;color: #575757;}
+      .bind-list>li span,.bind-list>li i{display: inline-block;vertical-align: middle;}
+      .bind-list>li i{margin-right: .1rem;}
+
       .mark-status-wrap{position: absolute;right: .15rem;bottom:.18rem;}
       .mark-status{display: inline-block;vertical-align: middle;width: .9rem;height: .9rem;background-repeat:no-repeat;background-position:0 0;background-size:contain;}
       .sec-bottom{display: none;}
@@ -58,6 +61,7 @@
       .status-ing .sec-bottom{display: block;}
       .status-end{}
       .status-end .mark-status{background-image:url(./images/status-end.png);}
+
     </style>
   </head>
   <body ontouchstart>
@@ -96,7 +100,14 @@
         <p class="m-p2">1.  寄放时间未满一日，以一日计算收费</p>
         <p class="m-p2">2.  天数计算以每日凌晨零时为界，超过即多加一日</p>
         <p class="m-p2">3.  寄放/取回时间以商家具体营业时间为准，敬请留意</p>
-      </div>      
+      </div>   
+      <div class="s-cells">
+        <ul class="bind-list">
+          <li><i class="index">1</i><span>卡口编码：</span><span>12345678</span></li>
+          <li><i class="index">2</i><span>卡口编码：</span><span>12345678</span></li>
+          <li><i class="index">3</i><span>卡口编码：</span><span>12345678</span></li>
+        </ul>
+      </div>   
     </div>
     <div class="sec-bottom">
       <div class="next-btn pay-btn">去支付</div>
