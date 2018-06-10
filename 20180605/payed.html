@@ -4,26 +4,38 @@
     <title>任意柜-共享储物柜</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link href="css/public.css" rel="stylesheet" type="text/css">
-    <script src="js/public.js"></script>
+    <link href="./css/public.css" rel="stylesheet" type="text/css">
+    <script src="./js/public.js"></script>
     <style>
-
+      .pay-detials{text-align: center;}
+      .pay-status{font-size: .4rem;color: #333;margin: 1.6rem auto .2rem;}
+      .pay-status>img,.pay-status>span{display:inline-block;vertical-align:middle;}
+      .pay-status .pay-suc-icon{width: .5rem;height: .5rem;margin-right: .13rem;}
+      .pay-tips{font-size: .25rem;color: #333;}
+      .bind-btn{width: 3.14rem;height: 3.14rem;margin:.98rem auto .71rem;}
+      .bind-btn>img{display:block;width: 100%;height: 100%;}
+      .to-order-link{font-size:.2rem;color:#999;text-decoration: underline;}
     </style>
   </head>
   <body ontouchstart>
     <div class="sec-top">
       <div class="header">
           <a class="back-btn1" href="javascript:history.go(-1);"></a>
-          <div class="h-title"><span>海岸城幸福便利存包处</span></div>
+          <div class="h-title"><span>支付成功</span></div>
           <a class="user-btn" href="javascript:;"></a>
       </div>
     </div>
     <section class="sec-cont">
-          
+      <div class="pay-detials">
+        <div class="pay-status"><img class="pay-suc-icon" src="./images/pay-suc.png" alt=""><span>支付成功</span></div>
+        <p class="pay-tips">请向商户索取储物卡扣<br/>并绑定二维码</p>
+        <div class="bind-btn"><img src="./images/scan.png" alt=""></div>
+        <a class="to-order-link" href="#">暂不绑定，返回订单列表</a>
+      </div>
     </section>
-    <script src="lib/jquery-2.1.4.js"></script>
-    <script src="js/swiper.js"></script>
-    <script src="lib/fastclick.js"></script>
+    <script src="./lib/jquery-2.1.4.js"></script>
+    <script src="./js/swiper.js"></script>
+    <script src="./lib/fastclick.js"></script>
     <script>
       $(function() {
         FastClick.attach(document.body);
@@ -37,7 +49,10 @@
         
         bandEvents: function(){
           var _self = this;
-
+          
+          $('.bind-btn').on('click', function(){
+            location.href = './bind.html'
+          });
         }
       }
       pageUtils.init();

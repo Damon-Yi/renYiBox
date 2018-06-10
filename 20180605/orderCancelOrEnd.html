@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>任意柜-共享储物柜</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="./css/public.css" rel="stylesheet" type="text/css">
+    <script src="./js/public.js"></script>
+    <style>
+      .order-status-wrapper{text-align: center;}
+      .order-status-wrapper .order-status{font-size: .4rem;color: #333;margin: 1.6rem auto .2rem;}
+      .order-status-wrapper .order-status>img,.order-status-wrapper .order-status>span{display:inline-block;vertical-align:middle;}
+      .order-status-wrapper .order-icon{width: .68rem;height: .68rem;margin-right: .13rem;}
+      .order-status-wrapper .order-tips{font-size: .26rem;color: #575757;margin-bottom: .76rem;}
+      .order-status-wrapper .order-btn{width:2.1rem;height:.85rem;line-height:.85rem;font-size: .26rem;color:#fff;background-color: #76c3f6;margin: 0 auto;border-radius: .85rem;}
+    </style>
+  </head>
+  <body ontouchstart>
+    <div class="sec-top">
+      <div class="header">
+          <a class="back-btn1" href="javascript:history.go(-1);"></a>
+          <div class="h-title"><span class="h-title-txt"></span></div>
+          <a class="user-btn" href="javascript:;"></a>
+      </div>
+    </div>
+    <section class="sec-cont">
+      <div class="order-status-wrapper">
+        <div class="order-status"><img class="order-icon" src="" alt=""><span class="order-txt"></span></div>
+        <p class="order-tips"></p>
+        <div class="order-btn"></div>
+      </div>
+    </section>
+    <script src="./lib/jquery-2.1.4.js"></script>
+    <script src="./js/swiper.js"></script>
+    <script src="./lib/fastclick.js"></script>
+    <script>
+      $(function() {
+        FastClick.attach(document.body);
+      });
+    </script>
+    <script>
+      pageUtils = {
+        status: 1, // 0 取消预约， 1 订单结束
+        statusObj: [
+          {
+            title: '结束预约',
+            icon: './images/order-cancel1.png',
+            orderTxt: '预约已取消',
+            orderTips: '您的预约已取消，欢迎您再次使用！',
+            btnTxt: '查看订单'
+          },
+          {
+            title: '结束订单',
+            icon: './images/order-cancel1.png',
+            orderTxt: '预约已结束',
+            orderTips: '请检查好您的财物，祝您生活愉快！',
+            btnTxt: '查看订单'
+          }
+        ],
+        init: function(){
+          this.bandEvents();
+          this.initStatus();
+        },
+        initStatus: function(){
+          var _self = this;
+          var status = _self.statusObj[_self.status];
+          
+          var html = `<div class="order-status"><img class="order-icon" src="${status.icon}" alt=""><span class="order-txt">${status.orderTxt}</span></div>
+                    <p class="order-tips">${status.orderTips}</p>
+                    <div class="order-btn">${status.btnTxt}</div>`;
+          $('.order-status-wrapper').html(html);
+          $('.h-title-txt').text(status.title);
+        },
+        bandEvents: function(){
+          var _self = this;
+          
+          $('.order-status-wrapper').on('click', '.order-btn', function(){
+            console.log(_self.status);
+          });
+        }
+      }
+      pageUtils.init();
+    </script>
+  </body>
+</html>
