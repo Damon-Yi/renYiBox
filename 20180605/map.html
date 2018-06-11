@@ -172,6 +172,7 @@
                 // 地图点击事件
                 Event.addListener(_self.map, 'click', function() {  
                     _self.bPannel.css({'display':'none'});  // 隐藏店铺详情面板
+                    _self.currMarker.obj.setIcon(_self.getIcon(_self.currMarker.type, '', 85, 92)); // 未选中图标
                 });
                 // 地图边界改变
                 Event.addListener(_self.map, 'bounds_changed', function() {  
@@ -262,7 +263,7 @@
 
                     _self.markers.push(marker);
 
-                    _MAP.event.addListener(marker, 'click', function(e) {
+                    _MAP.event.addListener(marker, 'click', function(e) { // 图标点击事件
                         //console.log(e,marker,data)
                         if(_self.currMarker.obj){
                             if(_self.currMarker.obj != marker){
@@ -276,6 +277,7 @@
                             }else{
                                 if(_self.bPannel.css('display') == 'none'){
                                     _self.bPannel.css({'display':'block'});
+                                    _self.currMarker.obj.setIcon(_self.getIcon(_self.currMarker.type, 'on', 85, 92)); // 选中图标
                                 }
                             }
                         }else{
@@ -284,6 +286,18 @@
                             _self.currMarker = {obj: marker, type:type};
                             _self.updatePannel(data);    // 店铺详情面板更新数据
                         }
+
+                        /* marker.setIcon(_self.getIcon(type, 'on', 85, 92)); // 选中图标
+                        marker.setZIndex(1);
+
+                        if(_self.currMarker.obj && _self.currMarker.obj!=marker){ // 更换图标
+                            _self.currMarker.obj.setIcon(_self.getIcon(_self.currMarker.type, '', 85, 92)); // 未选中图标
+                            _self.currMarker.obj.setZIndex(0);
+                        }
+
+                        _self.currMarker = {obj: marker, type:type};
+
+                       _self.updatePannel(data);    // 底部面板更新数据 */
                     });
                 }
             },
