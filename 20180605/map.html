@@ -273,6 +273,10 @@
                                 _self.currMarker.obj.setZIndex(0);
                                 _self.currMarker = {obj: marker, type: type};
                                 _self.updatePannel(data);    // 店铺详情面板更新数据
+                            }else{
+                                if(_self.bPannel.css('display') == 'none'){
+                                    _self.bPannel.css({'display':'block'});
+                                }
                             }
                         }else{
                             marker.setIcon(_self.getIcon(type, 'on', 85, 92)); // 选中图标
