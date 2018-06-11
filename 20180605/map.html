@@ -64,7 +64,7 @@
 
         pageUtils = {
             map: null,
-            center: [39.98174,116.30631],
+            center: [],
             zoom: 13,
             shops:[],   // 
             markers: [],
@@ -80,9 +80,19 @@
             init: function(){
                 var _self = this;
                 
-                _self.initMap();
-                _self.initControl();
+                _self.getLocation(function(){
+                    _self.initMap();
+                    _self.initControl();
+                });
                 _self.bindEvents();
+            },
+            getLocation: function(callback){
+                var _self = this;
+                // wx.getLocation 微信接口回调里 设置中心 再初始化地图
+                setTimeout(function(){
+                    _self.center = [39.98174,116.30631]
+                    callback();
+                },1);
             },
             bindEvents: function(){
                 var _self = this;
