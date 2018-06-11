@@ -88,7 +88,7 @@
             },
             getLocation: function(callback){
                 var _self = this;
-                // wx.getLocation 微信接口回调里 设置中心 再初始化地图
+                // wx.ready wx.getLocation 微信接口回调里 设置中心 再初始化地图
                 setTimeout(function(){
                     _self.center = [39.98174,116.30631]
                     callback();
