@@ -73,7 +73,7 @@
                 type: null
             },
             typeObj: {  // 对应图标命名
-                box: 'box',
+                box: 'ibox',
                 shop: 'shop',
                 self: 'self'
             },
@@ -300,7 +300,7 @@
                 _self.bPannel.css({'display':'block'});
                 //console.log(_self.markers[data], _self.shops[data])
             },
-            getIcon: function(type, style, width, height){ // type--'box','shop','self'; style--'on',''
+            getIcon: function(type, style, width, height){ // type--'ibox','shop','self'; style--'on',''
                 var url = './images/'+ type + (style=='on'?'-on':'') +'.png',
                     size = new _MAP.Size(width/2, height/2),
                     origin = _MAP.Point(0, 0),
