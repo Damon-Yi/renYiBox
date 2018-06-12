@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>任意柜-共享储物柜</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="css/public.css" rel="stylesheet" type="text/css">
+    <link href="plugin/mui/css/mui.min.css" rel="stylesheet" type="text/css">
+    <link href="plugin/swiper/swiper.3.1.7.min.css" rel="stylesheet" type="text/css">
+    <script src="js/public.js"></script>
+    <style>
+        .select-box{padding-bottom: 0.76rem;}
+        .select-box .ad-img{}
+        .select-box .ad-img .img{display: block;width: 100%;}
+        .select-box .s-addr{font-size: 0.23rem;color: #333;display: flex;display: -webkit-flex;align-items:center;background-color: #fff;margin-top:0.18rem;padding:0.26rem;}
+        .select-box .s-addr>img{width: 0.2rem;display: block;}
+        .select-box .s-addr>span{margin-left:0.06rem;flex: 1;-webkit-flex: 1;line-height: 1.2;}
+
+        .popup{position: fixed;top: 0;left: 0;right: 0;bottom: 0;background-color: rgba(0,0,0,.5);z-index: 100;font-size: 0.24rem;display: none;}
+
+        .popup .p-open{position:absolute;bottom: -2.4rem;left: 0;width: 100%;text-align: center;margin: 0 auto;display: none;-webkit-animation: bottomIn .3s ease-out;animation: bottomIn .3s ease-out;-webkit-backface-visibility: hidden;backface-visibility: hidden;-webkit-perspective: 1000;perspective: 1000;-webkit-transform-style: preserve-3d;background-color: #efeff4;}
+        .popup .p-open .p-title{position: relative;padding: 0.2rem 0;text-align: center;font-size: 0.36rem;background-color: #fff;}
+        .popup .p-open .p-mark{color:#666;font-size:0.2rem;margin-top: 0.1rem;}
+        .popup .p-open .o-option{}
+        .popup .p-open .o-option>li{background-color: #fff;padding:0.2rem 0.16rem;margin-bottom:0.01rem;position: relative;}
+        .popup .p-open .o-option>li:before{content: " ";position: absolute;left: 0;top: 0;right: 0;height: 1px;border-top: 1px solid #D9D9D9;color: #D9D9D9;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+        .popup .p-open .o-option>li:first-child{color: #1aad19;}
+        .popup .p-open .o-option>li:last-child{border-bottom-left-radius:5px;border-bottom-right-radius: 5px;color: #6fc1f5;}
+        .popup .p-open .o-cancel{display: block;padding:0.2rem 0.16rem;background-color: #fff;margin-top: 0.1rem;}
+        .popup.open-1 {display: block;}
+        .popup.open-1 .p-open{bottom:0;display: block;}
+
+        .popup .p-open-confirm{width: 4.4rem;border-radius: 3px;padding-top: 0.34rem;color: #666;font-size: .22rem;position:absolute;top: 3.3rem;left: 50%;margin-left:-2.2rem;text-align: center;display: none;background-color: #fff;-webkit-animation: animDialog .3s ease-out;animation: animDialog .3s ease-out;-webkit-backface-visibility: hidden;backface-visibility: hidden;-webkit-perspective: 1000;perspective: 1000;-webkit-transform-style: preserve-3d;}
+        .popup .p-open-confirm .c-title{margin: 0.12rem 0;color: #333;font-size: .3rem;}
+        .popup .p-open-confirm .c-txt{width: 3.4rem;margin: 0 auto;text-align: left;line-height:1.5;}
+        .popup .p-open-confirm .c-btns{position: relative;overflow:auto;margin-top:0.34rem; }
+        .popup .p-open-confirm .c-btns:before{content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+        .popup .p-open-confirm .c-btns>a{display: block;float: left;width: 50%;text-align: center;height: 0.72rem;line-height:0.72rem;position: relative;font-size: 0.27rem;}
+        .popup .p-open-confirm .c-btns>a:after{content: " ";position: absolute;right: 0;top: 0;height: 100%;width: 1px;border-right: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(0.5);transform: scaleX(0.5);}
+        .popup .p-open-confirm .c-btns>a:last-child:after{display: none;}
+        .popup .p-open-confirm .c-btns .c-cancel{}
+        .popup .p-open-confirm .c-btns .c-open{color: #6fc1f5;}
+        .popup.open-2 {display: block;}
+        .popup.open-2 .p-open-confirm{display: block;}
+
+        .order-li{margin-top:0.18rem;}
+        .order-item-1{background-color: #fff;}
+        .order-item-1 .o-detail-wrapper{padding:0.18rem 0.2rem 0;line-height: 1;position: relative;}
+        .order-item-1 .o-op{}
+        .order-item-1 .o-title{font-size: 0.26rem;color: #333;}
+        .order-item-1 .o-img{width: 1.02rem;height: 1.02rem;}
+        .order-item-1 .o-img>img{display: block;width: 100%;height: 100%;}
+        .order-item-1 .o-detail{display: flex;display: -webkit-flex;margin: 0.18rem 0;align-items: center;}
+        .order-item-1 .o-info{padding:0 0.08rem;font-size: 0.22rem;color: #666;flex: 1;-webkit-flex: 1;line-height: 1;}
+        .order-item-1 .o-info span{display: inline-block;vertical-align: middle;}
+        .order-item-1 .o-info>p{margin-bottom:0.14rem;}
+        .order-item-1 .o-info>p:last-child{margin-bottom:0;}
+        .order-item-1 .o-info .o-name{}
+        .order-item-1 .o-info .o-price{}
+        .order-item-1 .o-info .o-time{}
+        .order-item-1 .o-addr{font-size: 0.22rem;color: #999;display: flex;display: -webkit-flex;align-items:center;margin-bottom:0.1rem; }
+        .order-item-1 .o-addr:last-child{margin-bottom: 0;}
+        .order-item-1 .o-addr>img{width: 0.2rem;display: block;}
+        .order-item-1 .o-addr>span{margin-left:0.06rem;flex: 1;-webkit-flex: 1;line-height: 1.2;}
+        .order-item-1 .o-status{display: block;width: 0.9rem;height: 0.9rem;position: absolute;bottom: 0.6rem;right: 0.18rem;background-repeat:no-repeat;background-position: 0 0;background-size: contain;}
+        .order-item-1.use .o-status{background-image:url(./images/status-use.png); }
+        .order-item-1.timeOut .o-status{background-image:url(./images/status-overtime.png); }
+        .order-item-1.end .o-status{background-image:url(./images/status-end.png); }
+        .order-item-1 .o-btn-wrap{position:relative;display: flex;-webkit-display:flex;padding: .12rem 0;}
+        .order-item-1 .o-btn-wrap:before {content: " ";position: absolute;left: 0;top: 0;width: 100%;height: 1px;border-top: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleY(0.5);transform: scaleY(0.5);}
+        .order-item-1 .o-btn-wrap .o-btn{position:relative;flex: 1;-webkit-flex: 1;display:block;text-align:center;font-size:.25rem;color:#666;}
+        .order-item-1 .o-btn-wrap .o-btn:after {content: " ";position: absolute;right: 0;top: 0;width: 1px;height: 100%;border-right: 1px solid #d9dfdf;color: #d9dfdf;-webkit-transform-origin: 0 0;transform-origin: 0 0;-webkit-transform: scaleX(0.5);transform: scaleX(0.5);}
+        .order-item-1 .o-btn-wrap .o-btn:last-child:after {display:none;}
+        .order-item-1 .o-btn-wrap .o-btn.order-cancel{color: #6fc1f5;}
+    </style>
+</head>
+<body>
+    <section class="sec-top">
+
+    </section>
+    <section class="sec-cont">
+        <div class="select-box">
+            <div class="ad-img swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img class="img" src="images/top.png" alt=""></div>
+                    <div class="swiper-slide"><img class="img" src="images/top.png" alt=""></div>
+                    <div class="swiper-slide"><img class="img" src="images/top.png" alt=""></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <ul class="">
+                <li class="order-li">
+                    <a href="javascript:;" class="">
+                        <div class="order-item-1 use">
+                            <div class="o-detail-wrapper">
+                                <div class="o-op">
+                                    <p class="o-title">深圳海岸城购物中心A入口</p>
+                                </div>
+                                <div class="o-detail">
+                                    <div class="o-img"><img src="images/list0.png" alt=""></div>
+                                    <div class="o-info">
+                                        <p class="o-name"><span>柜号：</span><span>3号</span></p>
+                                        <p class="o-price"><span>金额：</span><span>2.00元</span></p>
+                                        <p class="o-time"><span>时长：</span><span>1小时14分</span></p>
+                                    </div>
+                                </div>
+                                <p class="o-addr"><img src="images/time.png" alt=""><span>2017-09-03 16:15至2017-09-03 18:15</span></p>
+                                <p class="o-addr"><img src="images/position.png" alt=""><span>深圳市南山区文心五路33号深圳市南山区文心五路33号深圳市南山区文心</span></p>
+                                <i class="o-status "></i>
+                            </div> 
+                            <div class="o-btn-wrap">
+                                <a class="o-btn order-continue" href="续租订单.html">续租</a>
+                                <a class="o-btn open-box" href="javascript:;">开启柜门</a>
+                                <a class="o-btn order-cancel" href="javascript:;">结束订单</a>
+                            </div> 
+                        </div>
+                    </a>
+                </li>
+                <li class="order-li">
+                    <a href="javascript:;" class="">
+                        <div class="order-item-1 timeOut">
+                            <div class="o-detail-wrapper">
+                                <div class="o-op">
+                                    <p class="o-title">深圳海岸城购物中心A入口</p>
+                                </div>
+                                <div class="o-detail">
+                                    <div class="o-img"><img src="images/list0.png" alt=""></div>
+                                    <div class="o-info">
+                                        <p class="o-name"><span>柜号：</span><span>3号</span></p>
+                                        <p class="o-price"><span>金额：</span><span>2.00元</span></p>
+                                        <p class="o-time"><span>时长：</span><span>1小时14分</span></p>
+                                    </div>
+                                </div>
+                                <p class="o-addr"><img src="images/time.png" alt=""><span>2017-09-03 16:15至2017-09-03 18:15</span></p>
+                                <p class="o-addr"><img src="images/position.png" alt=""><span>深圳市南山区文心五路33号深圳市南山区文心五路33号深圳市南山区文心</span></p>
+                                <i class="o-status "></i>
+                            </div> 
+                            <div class="o-btn-wrap">
+                                <a class="o-btn order-continue" href="续租订单.html">续租</a>
+                                <a class="o-btn open-box" href="javascript:;">开启柜门</a>
+                                <a class="o-btn order-cancel" href="javascript:;">结束订单</a>
+                            </div> 
+                        </div>
+                    </a>
+                </li>
+                <li class="order-li">
+                    <a href="javascript:;" class="">
+                        <div class="order-item-1 end">
+                            <div class="o-detail-wrapper">
+                                <div class="o-op">
+                                    <p class="o-title">深圳海岸城购物中心A入口</p>
+                                </div>
+                                <div class="o-detail">
+                                    <div class="o-img"><img src="images/list0.png" alt=""></div>
+                                    <div class="o-info">
+                                        <p class="o-name"><span>柜号：</span><span>3号</span></p>
+                                        <p class="o-price"><span>金额：</span><span>2.00元</span></p>
+                                        <p class="o-time"><span>时长：</span><span>1小时14分</span></p>
+                                    </div>
+                                </div>
+                                <p class="o-addr"><img src="images/time.png" alt=""><span>2017-09-03 16:15至2017-09-03 18:15</span></p>
+                                <p class="o-addr"><img src="images/position.png" alt=""><span>深圳市南山区文心五路33号深圳市南山区文心五路33号深圳市南山区文心</span></p>
+                                <i class="o-status "></i>
+                            </div> 
+                            <div class="o-btn-wrap">
+                                <a class="o-btn order-continue" href="续租订单.html">续租</a>
+                                <a class="o-btn open-box" href="javascript:;">开启柜门</a>
+                                <a class="o-btn order-cancel" href="javascript:;">结束订单</a>
+                            </div> 
+                        </div>
+                    </a>
+                </li>
+                <li class="order-li">
+                    <a href="javascript:;" class="">
+                        <div class="order-item">
+                            <div class="o-op">
+                                <p class="o-title">深圳海岸城购物中心A入口</p>
+                                <div class="o-btn-wrap"><a class="o-btn" href="续租订单.html">续费</a></div> 
+                            </div>
+                            <div class="o-detail">
+                                <div class="o-img"><img src="images/list0.png" alt=""></div>
+                                <div class="o-info">
+                                    <p class="o-name"><span>柜号：</span><span>3号</span></p>
+                                    <p class="o-price"><span>金额：</span><span>2.00元</span></p>
+                                    <p class="o-time"><span>时长：</span><span>1小时14分</span></p>
+                                </div>
+                            </div>
+                            <p class="o-addr"><img src="images/time.png" alt=""><span>2017-09-03 16:15至2017-09-03 18:15</span></p>
+                            <p class="o-addr"><img src="images/position.png" alt=""><span>深圳市南山区文心五路33号深圳市南山区文心五路33号深圳市南山区文心</span></p>
+                            <i class="o-status timeOut"></i>
+                        </div>
+                    </a>
+                </li>
+                <li class="order-li">
+                    <a href="javascript:;" class="">
+                        <div class="order-item">
+                            <div class="o-op">
+                                <p class="o-title">深圳海岸城购物中心A入口</p>
+                                <div class="o-btn-wrap"><a class="o-btn" href="续租订单.html">续费</a></div> 
+                            </div>
+                            <div class="o-detail">
+                                <div class="o-img"><img src="images/list0.png" alt=""></div>
+                                <div class="o-info">
+                                    <p class="o-name"><span>柜号：</span><span>3号</span></p>
+                                    <p class="o-price"><span>金额：</span><span>2.00元</span></p>
+                                    <p class="o-time"><span>时长：</span><span>1小时14分</span></p>
+                                </div>
+                            </div>
+                            <p class="o-addr"><img src="images/time.png" alt=""><span>2017-09-03 16:15至2017-09-03 18:15</span></p>
+                            <p class="o-addr"><img src="images/position.png" alt=""><span>深圳市南山区文心五路33号深圳市南山区文心五路33号深圳市南山区文心</span></p>
+                            <i class="o-status timeOut"></i>
+                        </div>
+                    </a>
+                </li>
+                <li class="order-li">
+                    <a href="javascript:;" class="">
+                        <div class="order-item">
+                            <div class="o-op">
+                                <p class="o-title">深圳海岸城购物中心A入口</p>
+                                <div class="o-btn-wrap"><a class="o-btn" href="续租订单.html">续费</a></div> 
+                            </div>
+                            <div class="o-detail">
+                                <div class="o-img"><img src="images/list0.png" alt=""></div>
+                                <div class="o-info">
+                                    <p class="o-name"><span>柜号：</span><span>3号</span></p>
+                                    <p class="o-price"><span>金额：</span><span>2.00元</span></p>
+                                    <p class="o-time"><span>时长：</span><span>1小时14分</span></p>
+                                </div>
+                            </div>
+                            <p class="o-addr"><img src="images/time.png" alt=""><span>2017-09-03 16:15至2017-09-03 18:15</span></p>
+                            <p class="o-addr"><img src="images/position.png" alt=""><span>深圳市南山区文心五路33号深圳市南山区文心五路33号深圳市南山区文心</span></p>
+                            <i class="o-status timeOut"></i>
+                        </div>
+                    </a>
+                </li>
+                <li class="order-li">
+                    <a href="javascript:;" class="">
+                        <div class="order-item">
+                            <div class="o-op">
+                                <p class="o-title">深圳海岸城购物中心A入口</p>
+                                <div class="o-btn-wrap"><a class="o-btn o-btn-blank" href="续租订单.html">续租</a><a class="o-btn open-box" href="javascript:;">开锁</a></div> 
+                            </div>
+                            <div class="o-detail">
+                                <div class="o-img"><img src="images/list0.png" alt=""></div>
+                                <div class="o-info">
+                                    <p class="o-name"><span>柜号：</span><span>3号</span></p>
+                                    <p class="o-price"><span>金额：</span><span>2.00元</span></p>
+                                    <p class="o-time"><span>时长：</span><span>1小时14分</span></p>
+                                </div>
+                            </div>
+                            <p class="o-addr"><img src="images/time.png" alt=""><span>2017-09-03 16:15至2017-09-03 18:15</span></p>
+                            <p class="o-addr"><img src="images/position.png" alt=""><span>深圳市南山区文心五路33号深圳市南山区文心五路33号深圳市南山区文心</span></p>
+                            <i class="o-status use"></i>
+                        </div>
+                    </a>
+                </li>
+                <li class="order-li">
+                    <a href="javascript:;" class="">
+                        <div class="order-item">
+                            <div class="o-op">
+                                <p class="o-title">深圳海岸城购物中心A入口</p>
+                                <div class="o-btn-wrap"><a class="o-btn o-btn-blank" href="续租订单.html">续租</a><a class="o-btn open-box" href="javascript:;">开锁</a></div> 
+                            </div>
+                            <div class="o-detail">
+                                <div class="o-img"><img src="images/list0.png" alt=""></div>
+                                <div class="o-info">
+                                    <p class="o-name"><span>柜号：</span><span>3号</span></p>
+                                    <p class="o-price"><span>金额：</span><span>2.00元</span></p>
+                                    <p class="o-time"><span>时长：</span><span>1小时14分</span></p>
+                                </div>
+                            </div>
+                            <p class="o-addr"><img src="images/time.png" alt=""><span>2017-09-03 16:15至2017-09-03 18:15</span></p>
+                            <p class="o-addr"><img src="images/position.png" alt=""><span>深圳市南山区文心五路33号深圳市南山区文心五路33号深圳市南山区文心</span></p>
+                            <i class="o-status use"></i>
+                        </div>
+                    </a>
+                </li>
+                <li class="order-li">
+                    <a href="javascript:;" class="">
+                        <div class="order-item">
+                            <div class="o-op">
+                                <p class="o-title">深圳海岸城购物中心A入口</p>
+                                <div class="o-btn-wrap"><a class="o-btn o-btn-blank" href="续租订单.html">续租</a><a class="o-btn open-box" href="javascript:;">开锁</a></div> 
+                            </div>
+                            <div class="o-detail">
+                                <div class="o-img"><img src="images/list0.png" alt=""></div>
+                                <div class="o-info">
+                                    <p class="o-name"><span>柜号：</span><span>3号</span></p>
+                                    <p class="o-price"><span>金额：</span><span>2.00元</span></p>
+                                    <p class="o-time"><span>时长：</span><span>1小时14分</span></p>
+                                </div>
+                            </div>
+                            <p class="o-addr"><img src="images/time.png" alt=""><span>2017-09-03 16:15至2017-09-03 18:15</span></p>
+                            <p class="o-addr"><img src="images/position.png" alt=""><span>深圳市南山区文心五路33号深圳市南山区文心五路33号深圳市南山区文心</span></p>
+                            <i class="o-status use"></i>
+                        </div>
+                    </a>
+                </li>
+                <li class="order-li">
+                    <a href="javascript:;" class="">
+                        <div class="order-item">
+                            <div class="o-op">
+                                <p class="o-title">深圳海岸城购物中心A入口</p>
+                                <div class="o-btn-wrap"><a class="o-btn o-btn-blank" href="续租订单.html">续租</a><a class="o-btn open-box" href="javascript:;">开锁</a></div> 
+                            </div>
+                            <div class="o-detail">
+                                <div class="o-img"><img src="images/list0.png" alt=""></div>
+                                <div class="o-info">
+                                    <p class="o-name"><span>柜号：</span><span>3号</span></p>
+                                    <p class="o-price"><span>金额：</span><span>2.00元</span></p>
+                                    <p class="o-time"><span>时长：</span><span>1小时14分</span></p>
+                                </div>
+                            </div>
+                            <p class="o-addr"><img src="images/time.png" alt=""><span>2017-09-03 16:15至2017-09-03 18:15</span></p>
+                            <p class="o-addr"><img src="images/position.png" alt=""><span>深圳市南山区文心五路33号深圳市南山区文心五路33号深圳市南山区文心</span></p>
+                            <i class="o-status use"></i>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <!--暂无数据-->
+            <div class="no-data">
+                <img class="no-img" src="images/no-box.png" alt="">
+                <p class="no-txt">您当前没有储物数据哦</p>
+            </div>
+        </div>
+    </section>
+    <section class="sec-bottom">
+       <ul class="nav-bar">
+            <li>
+                <a href="存物.html" class="nav-a">
+                    <i class="nav-img nav-img-0"></i>
+                    <p class="nav-txt">存物</p>
+                </a>
+            </li>
+            <li>
+                <a href="取物.html" class="nav-a on">
+                    <i class="nav-img nav-img-1"></i>
+                    <p class="nav-txt">取物</p>
+                </a>
+            </li>
+            <li>
+                <a href="我的.html" class="nav-a">
+                    <i class="nav-img nav-img-2"></i>
+                    <p class="nav-txt">我的</p>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <div class="popup">
+        <!--开锁-->
+        <div class="p-open">
+            <div class="p-title">
+                <p>确定开锁?</p>
+                <p class="p-mark" style="">请确认您本人在储物柜旁</p>
+            </div>
+            <ul class="o-option">
+                <li>临时开锁 继续使用</li>
+                <li>取走物品 结束订单</li>
+            </ul>
+            <a class="o-cancel" href="javascript:;">取消</a>
+        </div>
+        <!--开锁 确认-->
+        <div class="p-open-confirm">
+            <p class="c-title">确认开锁</p>
+            <p class="c-txt">为了您的财产安全，请确认您本人在储物柜旁，是否确认开锁？</p>
+            <div class="c-btns">
+                <a class="c-cancel" class="o-cancel" href="javascript:;">再等等</a>
+                <a class="c-open" href="javascript:;">马上开锁</a>
+            </div>
+            
+        </div>
+    </div>
+    <script src="plugin/zepto/zepto.js"></script>
+    <script src="plugin/swiper/swiper.3.1.7.min.js"></script>
+    <script>
+        var adImg = new Swiper('.ad-img', {
+            pagination : '.swiper-pagination',
+        });
+        //开锁
+        $('.open-box').on('click',function(){
+            $('.popup').addClass('open-1');
+        });
+        $('.p-open .o-cancel').on('click',function(){
+            $('.popup').removeClass('open-1');
+        });
+        $('.p-open .o-option>li').on('click',function(){
+            $('.popup').removeClass('open-1').addClass('open-2');
+        });
+        //开锁 确认
+        $('.p-open-confirm .c-cancel').on('click',function(){
+            $('.popup').removeClass('open-2');
+        });
+        $('.p-open-confirm .c-open').on('click',function(){
+            $('.popup').removeClass('open-2');
+            window.location.href = '退柜成功.html';
+        });
+    </script>
+</html>
