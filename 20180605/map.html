@@ -5,6 +5,8 @@
     <title>任意柜-共享储物柜</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <link href="./css/public.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="./lib/weui.min.css">
+    <link rel="stylesheet" href="./css/jquery-weui.min.css">
     <script src="./js/public.js"></script>
     <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=SEWBZ-VIQLF-63GJK-NOSXG-YU6ZO-ZNFY6&libraries=drawing,geometry,autocomplete,convertor"></script>
     <script src="./lib/jquery-2.1.4.js"></script>
@@ -59,6 +61,7 @@
     <div id="scan-btn"></div>
     <!-- 问题 -->
     <div id="qa"></div>
+    <script src="js/jquery-weui.min.js"></script>
     <script type="text/javascript">
         var _MAP = qq.maps;
 
@@ -123,6 +126,35 @@
                 // 问题点击
                 $('#qa').on('click', function(e){       
                     console.log('wenti');
+                    $.actions({
+                        title: "",
+                        onClose: function() {
+                            console.log("close");
+                        },
+                        actions: [
+                            {
+                            text: "发布",
+                            className: "color-primary",
+                            onClick: function() {
+                                $.alert("发布成功");
+                            }
+                            },
+                            {
+                            text: "编辑",
+                            className: "color-warning",
+                            onClick: function() {
+                                $.alert("你选择了“编辑”");
+                            }
+                            },
+                            {
+                            text: "删除",
+                            className: 'color-danger',
+                            onClick: function() {
+                                $.alert("你选择了“删除”");
+                            }
+                            }
+                        ]
+                    });
                 });
                 // 店铺详情面板
                 $('#b-pannel').on('click', function(e){   
