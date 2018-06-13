@@ -111,8 +111,14 @@
           $(document.body).infinite().on("infinite", function() { 
             if(_self.loading) return;
             _self.loading = true;
-            _self.getShops(1,function(){
-              _self.loading = false;
+            _self.getShops(1,function(flag){
+              if(flag){ // 非最末页
+                $('.weui-loadmore').css('display','block');
+                _self.loading = false;
+              }else{ // 最末页
+                $('.weui-loadmore').css('display','none');
+                _self.loading = true;
+              }
             });
           });
         },
@@ -139,7 +145,7 @@
 
                 _self.renderShop(data);
               }
-              callback();
+              callback(true); // 参数flag 是否最末页
             })();
           }, 1500);
         },
