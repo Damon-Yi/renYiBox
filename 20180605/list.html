@@ -46,7 +46,7 @@
     </div>
     <div class="sec-cont">
       <ul class="shop-list">
-        <li class="flex-row near" onClick="pageUtils.goToDetail(0)">
+        <!-- <li class="flex-row near" onClick="pageUtils.goToDetail(0)">
           <div class="item-left"><img class="shop-img" src="./images/shop1.png" alt=""></div>
           <div class="item-middle flex-1">
             <div class="shop-name">东方科技大厦东方科技大厦东方科技大厦东方科技大厦</div>
@@ -55,8 +55,13 @@
           </div>
           <div class="item-right"><span class="shop-distance">2.5km</span></div>
           <div class="mark-near-wrap"><i class="mark-near"></i></div>
-        </li>
+        </li> -->
       </ul>
+      <!--暂无数据-->
+      <div class="no-data">
+        <img class="no-img" src="images/no-box.png" alt="">
+        <p class="no-txt">附近暂无储物柜</p>
+      </div>
     </div>
     <div class="weui-loadmore">
       <i class="weui-loading"></i>
@@ -81,7 +86,7 @@
         init: function(){
           this.bandEvents();
           this.initPullLoad();
-          this.getShops(10,function(){
+          this.getShops(0,function(){
             console.log('load end')
           });
         },
@@ -145,6 +150,9 @@
               }else{ // 最末页
                 $('.weui-loadmore').css('display','none');
                 _self.loading = true;
+              }
+              if(num == 0){
+                $('.no-data').css('display','block');
               }
               callback(); // 参数flag 是否最末页
             })();
