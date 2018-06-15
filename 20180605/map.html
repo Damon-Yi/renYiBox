@@ -40,7 +40,13 @@
     <!-- 头部 -->
     <div class="header">
         <div class="user-btn1"></div>
-        <div class="search-wrapper"><input class="search-input" type="text" placeholder="输入门店位置进行搜索"><i class="search-btn"></i></div>
+        <div class="search-wrapper">
+            <!-- <input class="search-input" type="text" placeholder="输入门店位置进行搜索"> -->
+            <form action="" class="search-input-form">
+                <input type="search" autocomplete="off" name="shop-search" placeholder="输入门店位置进行搜索" class="search-input">
+            </form>
+            <i class="search-btn"></i>
+        </div>
         <div class="list-btn"></div>
     </div>
     <!-- 地图 -->
@@ -111,9 +117,22 @@
                 $('.search-btn').on('click',function(){
                     console.log('search click');
                     var searchTxt = $('.search-input').val();
-                    if(searchTxt){
+                    //if(searchTxt){
                         console.log(searchTxt);
-                    }
+                    //}
+                });
+                $('.search-input-form').on('submit', function(event){
+                    event.preventDefault();
+                    var searchTxt = $('.search-input').val();
+
+                    console.log(searchTxt);
+                    
+                    $('.search-input').blur(); // 
+                })
+                $('.search-input').on('focus', function(){
+                    $(this).attr('placeholder','');
+                }).on('blur', function(){
+                    $(this).val()=='' && $(this).attr('placeholder','输入门店位置进行搜索');
                 });
                 // 返回中心
                 $('#b-center').on('click', function(e){ 
@@ -175,6 +194,7 @@
                 options = {
                     center: center,
                     zoom: _self.zoom,
+                    mapZoomType: _MAP.MapZoomType.CENTER,
                     noClear: true,
                     backgroundColor: "#ddd",
                     mapTypeId: _MAP.MapTypeId.ROADMAP,
@@ -204,7 +224,7 @@
                 // 地图点击事件
                 Event.addListener(_self.map, 'click', function() {  
                     _self.bPannel.css({'display':'none'});  // 隐藏店铺详情面板
-                    _self.currMarker.obj.setIcon(_self.getIcon(_self.currMarker.type, '', 85, 92)); // 未选中图标
+                    _self.currMarker.obj && _self.currMarker.obj.setIcon(_self.getIcon(_self.currMarker.type, '', 85, 92)); // 未选中图标
                 });
                 // 地图边界改变
                 Event.addListener(_self.map, 'bounds_changed', function() {  
